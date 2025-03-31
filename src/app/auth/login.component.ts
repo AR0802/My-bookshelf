@@ -1,16 +1,22 @@
-import { Component, signal, WritableSignal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	signal,
+	WritableSignal,
+} from '@angular/core';
+import { NgClass } from '@angular/common';
 
 @Component({
 	selector: 'app-login',
-	imports: [CommonModule],
+	imports: [NgClass],
 	templateUrl: './login.component.html',
 	styleUrl: './login.component.scss',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent {
 	fieldTextType: WritableSignal<boolean> = signal(false);
 
-	toggleFieldTextType() {
+	toggleFieldTextType(): void {
 		this.fieldTextType.update((fieldTextType) => !fieldTextType);
 	}
 }
