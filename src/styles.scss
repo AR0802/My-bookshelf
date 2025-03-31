@@ -1,0 +1,12 @@
+@import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+@import '../node_modules/bootstrap-icons/font/bootstrap-icons.css';
+
+body {
+	height: 100%;
+	background: {
+		image: url('/background.png');
+		size: cover;
+		repeat: no-repeat;
+		attachment: fixed;
+	}
+}
