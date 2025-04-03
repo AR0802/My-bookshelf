@@ -1,0 +1,15 @@
+<section class="book-section">
+	<p class="book-section-title">{{ category() }}</p>
+	<a class="book-section-show">Show All</a>
+	<div class="books">
+		@for (book of books(); track book.id) {
+			<app-book
+				[id]="book.id"
+				[title]="book.volumeInfo.title"
+				[authors]="book.volumeInfo.authors"
+				[publishedDate]="book.volumeInfo.publishedDate"
+				[imageUrl]="book.volumeInfo.imageLinks.thumbnail"
+			></app-book>
+		}
+	</div>
+</section>

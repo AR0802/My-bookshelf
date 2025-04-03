@@ -1,0 +1,27 @@
+.book-section {
+	position: relative;
+	margin-bottom: 2rem;
+
+	.book-section-title {
+		font-size: 25px;
+		color: rgba(77, 77, 77, 1);
+	}
+
+	.book-section-show {
+		position: absolute;
+		right: 0rem;
+		top: 0.3rem;
+		font-size: 20px;
+		color: rgba(138, 138, 138, 1);
+		text-decoration: none;
+		cursor: pointer;
+	}
+
+	.book-section-show:hover {
+		text-decoration: underline;
+	}
+
+	.books {
+		display: flex;
+	}
+}
