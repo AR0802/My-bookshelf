@@ -1,12 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-
-import { NavComponent } from './nav/nav.component';
-import { TopPanelComponent } from './top-panel/top-panel.component';
-import { BooksComponent } from './books/books.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
 	selector: 'app-root',
-	imports: [NavComponent, BooksComponent, TopPanelComponent],
+	imports: [RouterOutlet],
 	templateUrl: './app.component.html',
 	styleUrl: './app.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
