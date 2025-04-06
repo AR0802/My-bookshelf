@@ -1,0 +1,21 @@
+image: node:latest
+
+stages: 
+  -setup
+  -test
+
+install:
+  stage: setup
+  script: 
+    - yarn install --frozen-lockfile
+
+unit test:
+  stage: test
+  before_script:
+    - apt-get update
+    - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    - apt install -y ./google-chrome*.deb;
+    - export CHROME_BIN=/usr/bin/google-chrome
+  script: 
+    - yarn install --frozen-lockfile
+    - yarn run test --no-watch --browsers=ChromeHeadlessCI
