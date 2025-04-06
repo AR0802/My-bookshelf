@@ -2,7 +2,6 @@ import {
 	ChangeDetectionStrategy,
 	Component,
 	inject,
-	OnInit,
 	signal,
 	WritableSignal,
 } from '@angular/core';
@@ -19,24 +18,19 @@ import { AuthService } from '../../../shared/auth.service';
 	styleUrl: './login.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class LoginComponent implements OnInit {
-	private authService = inject(AuthService);
+export default class LoginComponent {
 	private router = inject(Router);
+	private authService = inject(AuthService);
 	fieldTextType: WritableSignal<boolean> = signal(false);
-
-	ngOnInit(): void {
-		this.authService.getUsers().subscribe((users) => {
-			console.log(users);
-		});
-	}
 
 	toggleFieldTextType(): void {
 		this.fieldTextType.update((fieldTextType) => !fieldTextType);
 	}
 
-	submit(form: NgForm) {
-		if (form.invalid) return;
-
-		this.router.navigate(['/books']);
+	login(form: NgForm) {
+		const { email, password } = form.value;
+		this.authService.login(email, password).subscribe(() => {
+			this.router.navigateByUrl('/books');
+		});
 	}
 }

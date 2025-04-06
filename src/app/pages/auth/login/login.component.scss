@@ -14,6 +14,20 @@ $text-color: rgba(77, 77, 77, 1);
 		margin: 0 auto 2rem;
 	}
 
+	.welcome {
+		font-size: 20px;
+		line-height: 100%;
+		text-align: center;
+	}
+
+	.description {
+		font-size: 15px;
+		line-height: 129%;
+		color: #ababab;
+		text-align: center;
+		margin-bottom: 1.5rem;
+	}
+
 	.form-label {
 		font-weight: 600;
 		color: $text-color;
@@ -27,23 +41,23 @@ $text-color: rgba(77, 77, 77, 1);
 		border: solid red 1px;
 	}
 
+	.togglePassword {
+		float: right;
+		margin-top: -1.9rem;
+		margin-right: 1rem;
+		color: rgba(142, 162, 185, 1);
+		height: 1rem;
+		cursor: pointer;
+	}
+
 	.error {
 		color: red;
 		font-size: 14px;
+		margin-bottom: 8px;
 	}
 
-	.welcome {
-		font-size: 20px;
-		line-height: 100%;
-		text-align: center;
-	}
-
-	.description {
-		font-size: 15px;
-		line-height: 129%;
-		color: #ababab;
-		text-align: center;
-		margin-bottom: 1.5rem;
+	.visibility {
+		visibility: hidden;
 	}
 
 	.btn-orange {
@@ -66,14 +80,5 @@ $text-color: rgba(77, 77, 77, 1);
 	.register-link {
 		color: $text-color;
 		text-underline-position: under;
-	}
-
-	.togglePassword {
-		float: right;
-		margin-top: -1.9rem;
-		margin-right: 1rem;
-		color: rgba(142, 162, 185, 1);
-		height: 1rem;
-		cursor: pointer;
 	}
 }

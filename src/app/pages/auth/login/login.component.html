@@ -8,8 +8,8 @@
 	<p class="description">
 		Sign in to continue working with your Digital Library
 	</p>
-	<form #authForm="ngForm" (ngSubmit)="submit(authForm)">
-		<div class="mb-3">
+	<form #authForm="ngForm" (ngSubmit)="login(authForm)">
+		<div>
 			<label for="email" class="form-label">Email</label>
 			<input
 				type="email"
@@ -22,11 +22,13 @@
 				required
 				aria-describedby="emailHelp"
 			/>
-			<p [hidden]="email.valid || email.untouched" class="error">
+			<p
+				[ngClass]="{ error: true, visibility: email.valid || email.untouched }"
+			>
 				Invalid Email!
 			</p>
 		</div>
-		<div class="mb-3">
+		<div>
 			<label for="password" class="form-label">Password</label>
 			<input
 				[type]="fieldTextType() ? 'text' : 'password'"
@@ -46,7 +48,12 @@
 				}"
 				(click)="toggleFieldTextType()"
 			></i>
-			<p [hidden]="password.valid || password.untouched" class="error">
+			<p
+				[ngClass]="{
+					error: true,
+					visibility: password.valid || password.untouched,
+				}"
+			>
 				The password length must be at least 8 characters!
 			</p>
 		</div>

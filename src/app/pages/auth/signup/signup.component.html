@@ -6,8 +6,8 @@
 	/>
 	<p class="welcome">Registration</p>
 	<p class="description">For Both Staff & Students</p>
-	<form #authForm="ngForm" (ngSubmit)="submit(authForm)">
-		<div class="mb-3">
+	<form #authForm="ngForm" (ngSubmit)="signup(authForm)">
+		<div>
 			<label for="name" class="form-label">Name</label>
 			<input
 				type="text"
@@ -18,9 +18,11 @@
 				ngModel
 				required
 			/>
-			<p [hidden]="name.valid || name.untouched" class="error">Enter Name!</p>
+			<p [ngClass]="{ error: true, visibility: name.valid || name.untouched }">
+				Enter Name!
+			</p>
 		</div>
-		<div class="mb-3">
+		<div>
 			<label for="email" class="form-label">Email</label>
 			<input
 				type="email"
@@ -33,11 +35,13 @@
 				required
 				aria-describedby="emailHelp"
 			/>
-			<p [hidden]="email.valid || email.untouched" class="error">
+			<p
+				[ngClass]="{ error: true, visibility: email.valid || email.untouched }"
+			>
 				Invalid Email!
 			</p>
 		</div>
-		<div class="mb-3">
+		<div>
 			<label for="password" class="form-label">Password</label>
 			<input
 				[type]="fieldPasswordTextType() ? 'text' : 'password'"
@@ -57,11 +61,16 @@
 				}"
 				(click)="toggleFieldTextType(fieldPasswordTextType)"
 			></i>
-			<p [hidden]="password.valid || password.untouched" class="error">
+			<p
+				[ngClass]="{
+					error: true,
+					visibility: password.valid || password.untouched,
+				}"
+			>
 				The password length must be at least 8 characters!
 			</p>
 		</div>
-		<div class="mb-3">
+		<div>
 			<label for="confirm-password" class="form-label">Confirm Password</label>
 			<input
 				[type]="fieldConfirmPasswordTextType() ? 'text' : 'password'"
@@ -82,10 +91,12 @@
 				(click)="toggleFieldTextType(fieldConfirmPasswordTextType)"
 			></i>
 			<p
-				[hidden]="
-					password.value === confirmPassword.value || confirmPassword.untouched
-				"
-				class="error"
+				[ngClass]="{
+					error: true,
+					visibility:
+						password.value === confirmPassword.value ||
+						confirmPassword.untouched,
+				}"
 			>
 				Passwords must be the same!
 			</p>
