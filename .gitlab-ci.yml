@@ -1,13 +1,20 @@
 image: node:latest
 
-stages: 
-  -setup
-  -test
+stages:
+  - setup
+  - lint
+  - test
+  - build
 
 install:
   stage: setup
-  script: 
+  script:
     - yarn install --frozen-lockfile
+
+lint:
+  stage: lint
+  script:
+    - yarn run lint-staged
 
 unit test:
   stage: test
@@ -16,6 +23,11 @@ unit test:
     - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
     - apt install -y ./google-chrome*.deb;
     - export CHROME_BIN=/usr/bin/google-chrome
-  script: 
+  script:
     - yarn install --frozen-lockfile
     - yarn run test --no-watch --browsers=ChromeHeadlessCI
+
+build:
+  stage: build
+  script:
+    - yarn run build
