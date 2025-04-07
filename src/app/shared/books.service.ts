@@ -14,4 +14,13 @@ export class BooksService {
 			`https://www.googleapis.com/books/v1/volumes?q=${category}&key=${environment.googleBooksApi.apiKey}`
 		);
 	}
+
+	getBooksBySearch(
+		searchParam: string,
+		searchValue: string
+	): Observable<IResponse> {
+		return this.http.get<IResponse>(
+			`https://www.googleapis.com/books/v1/volumes?q= +${searchParam}:${searchValue}&key=${environment.googleBooksApi.apiKey}`
+		);
+	}
 }

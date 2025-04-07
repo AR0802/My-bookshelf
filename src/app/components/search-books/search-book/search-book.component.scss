@@ -1,0 +1,52 @@
+.card {
+	padding: 1rem;
+	margin-bottom: 1rem;
+
+	.card-img {
+		width: 4.7rem;
+		height: 6.25rem;
+	}
+
+	.card-body {
+		color: rgba(77, 77, 77, 1);
+
+		.card-description {
+			font-size: 14px;
+		}
+
+		.card-wrap {
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+		}
+	}
+
+	.card-favorite {
+		padding: 2.4rem;
+		color: rgba(138, 138, 138, 1);
+
+		.cart-heart {
+			cursor: pointer;
+		}
+
+		.cart-heart:hover {
+			color: rgba(243, 64, 64, 1);
+		}
+	}
+
+	.cart-button {
+		padding: 2rem;
+
+		.btn-outline-danger {
+			color: rgba(247, 107, 86, 1);
+			border: 1px solid rgba(247, 107, 86, 1);
+			width: 85px;
+			padding: 0.3rem;
+		}
+
+		.btn-outline-danger:hover {
+			background-color: rgba(247, 107, 86, 1);
+			color: #fff;
+		}
+	}
+}

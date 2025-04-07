@@ -17,6 +17,11 @@ export const routes: Routes = [
 					import('./pages/home/home-books/home-books.component'),
 			},
 			{
+				path: 'search',
+				loadComponent: () =>
+					import('./pages/home/home-search/home-search.component'),
+			},
+			{
 				path: ':id',
 				loadComponent: () =>
 					import('./pages/home/home-book/home-book.component'),

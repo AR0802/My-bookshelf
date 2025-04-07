@@ -16,38 +16,42 @@
 	</a>
 	<ul class="dropdown-menu dropdown-menu-end text-small shadow border-0">
 		<li><a class="dropdown-item color">Profile</a></li>
-		<li><a class="dropdown-item color">Favourite</a></li>
-		<li><a class="dropdown-item color">My Books</a></li>
+		<li>
+			<a class="dropdown-item color" routerLink="/books/search">Search</a>
+		</li>
+		<li>
+			<a class="dropdown-item color" routerLink="/books/favorites">Favourite</a>
+		</li>
 		<li><a class="dropdown-item color" (click)="logout()">Logout</a></li>
 	</ul>
 </div>
 <div class="search-container mb-3">
-	<form>
-		<div class="input-group">
-			<div class="dropdown dropdown-search border">
-				<a
-					class="d-flex align-items-center text-decoration-none dropdown-toggle p-2 pe-4 color"
-					data-bs-toggle="dropdown"
-					aria-expanded="false"
-					data-bs-offset="0,15"
-				>
-					<span class="mx-3">All</span>
-				</a>
-				<ul class="dropdown-menu text-small shadow border-0">
-					<li><a class="dropdown-item color">All</a></li>
-					<li><a class="dropdown-item color">Title</a></li>
-					<li><a class="dropdown-item color">Author</a></li>
-					<li><a class="dropdown-item color">Text</a></li>
-					<li><a class="dropdown-item color">Subjects</a></li>
-				</ul>
-			</div>
-			<i class="bi bi-search search-icon"></i>
-			<input
-				type="text"
-				class="form-control border border-start-0"
-				placeholder="Search"
-			/>
+	<div class="input-group">
+		<div class="dropdown dropdown-search border">
+			<a
+				class="d-flex align-items-center text-decoration-none dropdown-toggle p-2 pe-4 color"
+				data-bs-toggle="dropdown"
+				aria-expanded="false"
+				data-bs-offset="0,15"
+			>
+				<span class="mx-3">{{ searchParam() }}</span>
+			</a>
+			<ul class="dropdown-menu text-small shadow border-0">
+				@for (param of searchParams; track param) {
+					<li>
+						<a class="dropdown-item color" (click)="changeSearchParam(param)">{{
+							param
+						}}</a>
+					</li>
+				}
+			</ul>
 		</div>
-	</form>
+		<i class="bi bi-search search-icon"></i>
+		<input
+			type="text"
+			class="form-control border border-start-0"
+			placeholder="Search"
+			(keyup.enter)="search($event)"
+		/>
+	</div>
 </div>
-<h1 class="title">Good Morning</h1>

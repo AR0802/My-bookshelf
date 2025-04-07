@@ -11,13 +11,14 @@
 			<a
 				routerLink="/books"
 				routerLinkActive="active-link"
+				[routerLinkActiveOptions]="{ exact: true }"
 				class="nav-link link-dark px-4 align-middle link"
 			>
 				<i class="fs-5 bi bi-house-door icon"></i>
 				<span class="ms-2 d-none d-sm-inline icon-text">Home</span>
 			</a>
 			<a
-				routerLink="/search"
+				routerLink="/books/search"
 				routerLinkActive="active-link"
 				class="nav-link link-dark px-4 align-middle link"
 			>
@@ -25,7 +26,7 @@
 				<span class="ms-2 d-none d-sm-inline icon-text">Search</span>
 			</a>
 			<a
-				routerLink="/favorites"
+				routerLink="/books/favorites"
 				routerLinkActive="active-link"
 				class="nav-link link-dark px-4 align-middle link"
 			>
@@ -33,7 +34,7 @@
 				<span class="ms-2 d-none d-sm-inline icon-text">Favorites</span></a
 			>
 			<a
-				routerLink="/my-books"
+				routerLink="/books/my-books"
 				routerLinkActive="active-link"
 				class="nav-link link-dark px-4 align-middle link"
 			>
@@ -41,7 +42,7 @@
 				<span class="ms-2 d-none d-sm-inline icon-text">My Books</span></a
 			>
 			<a
-				routerLink="/upload"
+				routerLink="/books/upload"
 				routerLinkActive="active-link"
 				class="nav-link link-dark px-4 align-middle link"
 			>

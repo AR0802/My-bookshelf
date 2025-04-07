@@ -7,5 +7,6 @@ export interface IBook {
 		imageLinks: {
 			thumbnail: string;
 		};
+		categories: string[];
 	};
 }

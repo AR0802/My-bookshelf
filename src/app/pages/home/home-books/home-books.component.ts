@@ -6,6 +6,7 @@ import { BooksComponent } from '../../../components/books/books.component';
 	selector: 'app-home-books',
 	imports: [BooksComponent],
 	templateUrl: './home-books.component.html',
+	styleUrl: './home-books.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class HomeBooksComponent {

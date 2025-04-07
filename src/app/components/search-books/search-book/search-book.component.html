@@ -1,0 +1,35 @@
+<div class="card border-0">
+	<div class="row">
+		<div class="col-1">
+			<img
+				[src]="book()?.volumeInfo?.imageLinks?.thumbnail"
+				[title]="book()?.volumeInfo?.title"
+				class="card-img"
+			/>
+		</div>
+		<div class="col-4">
+			<div class="card-body">
+				<p class="card-title card-wrap">{{ book()?.volumeInfo?.title }}</p>
+				<p class="card-description card-wrap">
+					{{ book()?.volumeInfo?.authors?.[0]
+					}}{{
+						book()?.volumeInfo?.authors && book()?.volumeInfo?.publishedDate
+							? ', '
+							: ''
+					}}{{ book()?.volumeInfo?.publishedDate?.slice(0, 4) }}
+				</p>
+			</div>
+		</div>
+		<div class="col-3">
+			<div class="card-body">
+				{{ book()?.volumeInfo?.categories || 'Not Specified' }}
+			</div>
+		</div>
+		<div class="col-2 card-favorite">
+			<i class="bi bi-heart cart-heart"></i>
+		</div>
+		<div class="col-2 cart-button">
+			<button class="btn btn-outline-danger">Preview</button>
+		</div>
+	</div>
+</div>

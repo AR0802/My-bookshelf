@@ -2,8 +2,8 @@
 	<div class="flex-container">
 		<app-nav></app-nav>
 		<article class="layout">
-			<app-top-panel></app-top-panel>
-			<router-outlet></router-outlet>
+			<app-top-panel (foundBooks)="booksChanged($event)"></app-top-panel>
+			<router-outlet [routerOutletData]="foundBooks()"></router-outlet>
 		</article>
 	</div>
 </div>

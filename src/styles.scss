@@ -1,6 +1,11 @@
 @import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 @import '../node_modules/bootstrap-icons/font/bootstrap-icons.css';
 
+@font-face {
+	font-family: 'Inter';
+	src: url('/Inter-VariableFont_opsz\,wght.ttf') format('truetype');
+}
+
 body {
 	height: 100%;
 	background: {
@@ -10,4 +15,5 @@ body {
 		attachment: fixed;
 	}
 	padding: 3rem 1.5rem;
+	font-family: 'Inter';
 }
