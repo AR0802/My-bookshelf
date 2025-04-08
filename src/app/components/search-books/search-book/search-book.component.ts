@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	inject,
+	input,
+} from '@angular/core';
+import { Router } from '@angular/router';
 
 import { IBook } from '@shared/book.interface';
 
@@ -9,5 +15,10 @@ import { IBook } from '@shared/book.interface';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchBookComponent {
+	private router = inject(Router);
 	book = input<IBook>();
+
+	previewBook(): void {
+		this.router.navigateByUrl(`/books/${this.book()?.id}`);
+	}
 }
