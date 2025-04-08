@@ -7,9 +7,9 @@ import {
 } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 
-import { AuthService } from '../../shared/auth.service';
-import { BooksService } from '../../shared/books.service';
-import { IResponse } from '../../shared/response.interface';
+import { AuthService } from '@shared/auth.service';
+import { BooksService } from '@shared/books.service';
+import { IResponse } from '@shared/response.interface';
 
 @Component({
 	selector: 'app-top-panel',

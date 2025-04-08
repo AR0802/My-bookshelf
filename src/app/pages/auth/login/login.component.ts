@@ -9,7 +9,7 @@ import { Router, RouterLink } from '@angular/router';
 import { NgForm, FormsModule } from '@angular/forms';
 import { NgClass } from '@angular/common';
 
-import { AuthService } from '../../../shared/auth.service';
+import { AuthService } from '@shared/auth.service';
 
 @Component({
 	selector: 'app-login',

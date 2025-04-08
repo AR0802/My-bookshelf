@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-import { NavComponent } from '../../components/nav/nav.component';
-import { TopPanelComponent } from '../../components/top-panel/top-panel.component';
-import { IResponse } from '../../shared/response.interface';
-import { IBook } from '../../shared/book.interface';
+import { NavComponent } from '@components/nav/nav.component';
+import { TopPanelComponent } from '@components/top-panel/top-panel.component';
+import { IResponse } from '@shared/response.interface';
+import { IBook } from '@shared/book.interface';
 
 @Component({
 	selector: 'app-home',

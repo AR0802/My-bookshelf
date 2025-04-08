@@ -8,10 +8,10 @@ import {
 } from '@angular/core';
 import { ROUTER_OUTLET_DATA } from '@angular/router';
 
-import { SearchBooksComponent } from '../../../components/search-books/search-books.component';
-import { BooksService } from '../../../shared/books.service';
-import { IResponse } from '../../../shared/response.interface';
-import { IBook } from '../../../shared/book.interface';
+import { SearchBooksComponent } from '@components/search-books/search-books.component';
+import { BooksService } from '@shared/books.service';
+import { IResponse } from '@shared/response.interface';
+import { IBook } from '@shared/book.interface';
 
 @Component({
 	selector: 'app-home-search',

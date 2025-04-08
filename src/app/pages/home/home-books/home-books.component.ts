@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
-import { BooksComponent } from '../../../components/books/books.component';
+import { BooksComponent } from '@components/books/books.component';
 
 @Component({
 	selector: 'app-home-books',

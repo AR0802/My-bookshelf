@@ -7,10 +7,10 @@ import {
 	signal,
 } from '@angular/core';
 
+import { BooksService } from '@shared/books.service';
+import { IBook } from '@shared/book.interface';
+import { IResponse } from '@shared/response.interface';
 import { BookComponent } from './book/book.component';
-import { BooksService } from '../../shared/books.service';
-import { IBook } from '../../shared/book.interface';
-import { IResponse } from '../../shared/response.interface';
 
 @Component({
 	selector: 'app-books',
