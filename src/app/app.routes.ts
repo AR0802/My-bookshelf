@@ -7,29 +7,34 @@ export const routes: Routes = [
 	{ path: '', redirectTo: '/books', pathMatch: 'full' },
 	{
 		path: 'books',
-		loadComponent: () => import('./pages/home/home.component'),
+		loadComponent: () => import('@pages/home/home.component'),
 		canActivate: [AuthGuard],
 		data: { authGuardPipe: redirectUnauthorizedToLogin },
 		children: [
 			{
 				path: '',
 				loadComponent: () =>
-					import('./pages/home/home-books/home-books.component'),
+					import('@pages/home/home-books/home-books.component'),
+			},
+			{
+				path: 'search',
+				loadComponent: () =>
+					import('@pages/home/home-search/home-search.component'),
 			},
 			{
 				path: ':id',
 				loadComponent: () =>
-					import('./pages/home/home-book/home-book.component'),
+					import('@pages/home/home-book/home-book.component'),
 			},
 		],
 	},
 	{
 		path: 'signup',
-		loadComponent: () => import('./pages/auth/signup/signup.component'),
+		loadComponent: () => import('@pages/auth/signup/signup.component'),
 	},
 	{
 		path: 'login',
-		loadComponent: () => import('./pages/auth/login/login.component'),
+		loadComponent: () => import('@pages/auth/login/login.component'),
 	},
-	{ path: '**', loadComponent: () => import('./pages/not-found.component') },
+	{ path: '**', loadComponent: () => import('@pages/not-found.component') },
 ];
