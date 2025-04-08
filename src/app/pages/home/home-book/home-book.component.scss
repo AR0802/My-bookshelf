@@ -1,0 +1,96 @@
+.home-book-section {
+	margin-top: 5rem;
+
+	.back {
+		max-width: max-content;
+		cursor: pointer;
+
+		.back-icon {
+			color: rgba(77, 77, 77, 1);
+		}
+
+		.back-button {
+			text-decoration: none;
+			color: rgba(77, 77, 77, 1);
+			font-size: 15px;
+			margin-left: 0.7rem;
+		}
+	}
+
+	.back:hover {
+		.back-icon,
+		.back-button {
+			color: #000;
+		}
+	}
+
+	.card-container {
+		display: flex;
+		margin-top: 1.5rem;
+
+		.card {
+			width: 13rem;
+			height: 18rem;
+			padding: 1.5rem;
+
+			.card-image {
+				width: 10rem;
+				height: 13rem;
+				display: block;
+				margin: 0 auto;
+				border: 1px solid rgba(77, 77, 77, 1);
+			}
+		}
+
+		.card-description-container {
+			margin-left: 3rem;
+			color: rgba(77, 77, 77, 1);
+			max-width: 29rem;
+
+			.card-title {
+				font-size: 35px;
+				line-height: 129%;
+			}
+
+			.card-description {
+				font-size: 15px;
+				margin-top: 1rem;
+
+				.text-decoration {
+					text-decoration: underline;
+					text-underline-position: under;
+				}
+			}
+		}
+
+		.card-author {
+			margin-left: auto;
+			width: 20rem;
+			height: 19rem;
+			padding: 1.5rem;
+			font-size: 20px;
+			color: rgba(77, 77, 77, 1);
+
+			.card-author-title {
+				font-weight: 600;
+
+				.card-author-title-about {
+					color: rgba(247, 107, 86, 1);
+					margin-right: 0.2rem;
+				}
+			}
+
+			.card-author-books {
+				font-size: 15px;
+				font-weight: 700;
+				margin-top: 1rem;
+			}
+
+			.card-author-image {
+				width: 4rem;
+				height: 6.25rem;
+				margin-right: 1.5rem;
+			}
+		}
+	}
+}

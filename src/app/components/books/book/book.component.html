@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" [routerLink]="book()?.id">
 	<img
 		[src]="book()?.volumeInfo?.imageLinks?.thumbnail"
 		[title]="book()?.volumeInfo?.title"

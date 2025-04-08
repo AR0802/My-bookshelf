@@ -1,0 +1,51 @@
+<section class="home-book-section">
+	<div class="back">
+		<i class="bi bi-arrow-left back-icon"></i>
+		<a class="back-button" (click)="backClicked()">Back to results</a>
+	</div>
+	<div class="card-container">
+		<div class="card border-0">
+			<img
+				[src]="book()?.volumeInfo?.imageLinks?.thumbnail"
+				[title]="book()?.volumeInfo?.title"
+				[alt]="book()?.volumeInfo?.title"
+				class="card-image"
+			/>
+		</div>
+		<div class="card-description-container">
+			<p class="card-title">{{ book()?.volumeInfo?.title }}</p>
+			<p class="card-description">
+				{{ book()?.volumeInfo?.authors ? 'By' : '' }}
+				<span class="text-decoration">{{
+					book()?.volumeInfo?.authors?.[0]
+				}}</span
+				>{{
+					book()?.volumeInfo?.authors && book()?.volumeInfo?.publishedDate
+						? ', '
+						: ''
+				}}{{ book()?.volumeInfo?.publishedDate?.slice(0, 4) }}
+			</p>
+		</div>
+		<div class="card card-author border-0">
+			<p class="card-author-title">
+				<span class="card-author-title-about">About</span> Author
+			</p>
+			<p class="card-author-name">{{ book()?.volumeInfo?.authors?.[0] }}</p>
+			<p class="card-author-books">Other Books</p>
+			<div>
+				<img
+					src="/background.png"
+					[title]=""
+					[alt]=""
+					class="card-author-image"
+				/>
+				<img
+					src="/background.png"
+					[title]=""
+					[alt]=""
+					class="card-author-image"
+				/>
+			</div>
+		</div>
+	</div>
+</section>
