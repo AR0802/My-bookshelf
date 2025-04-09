@@ -59,6 +59,11 @@
 				.text-decoration {
 					text-decoration: underline;
 					text-underline-position: under;
+					cursor: pointer;
+				}
+
+				.text-decoration:hover {
+					color: #000;
 				}
 			}
 		}
@@ -66,7 +71,7 @@
 		.card-author {
 			margin-left: auto;
 			width: 20rem;
-			height: 19rem;
+			height: 20rem;
 			padding: 1.5rem;
 			font-size: 20px;
 			color: rgba(77, 77, 77, 1);

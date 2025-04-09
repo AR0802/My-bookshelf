@@ -6,7 +6,7 @@ import {
 	signal,
 	WritableSignal,
 } from '@angular/core';
-import { ROUTER_OUTLET_DATA } from '@angular/router';
+import { Router, ROUTER_OUTLET_DATA } from '@angular/router';
 
 import { SearchBooksComponent } from '@components/search-books/search-books.component';
 import { BooksService } from '@shared/books.service';
@@ -21,6 +21,11 @@ import { IBook } from '@shared/book.interface';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class HomeSearchComponent {
+	private booksService = inject(BooksService);
+	private router = inject(Router);
+	readonly foundBooks =
+		inject<WritableSignal<IBook[] | undefined>>(ROUTER_OUTLET_DATA);
+	books = signal<IBook[]>([]);
 	categories: string[] = [
 		'Engineering',
 		'Medical',
@@ -28,12 +33,9 @@ export default class HomeSearchComponent {
 		'Science',
 		'Self-development',
 	];
-	private booksService = inject(BooksService);
-	readonly foundBooks =
-		inject<WritableSignal<IBook[] | undefined>>(ROUTER_OUTLET_DATA);
-	books = signal<IBook[]>([]);
 
 	constructor() {
+		this.books.set(this.router.getCurrentNavigation()?.extras.state?.['items']);
 		effect(() => {
 			if (this.foundBooks()) {
 				this.books.set(this.foundBooks()!);

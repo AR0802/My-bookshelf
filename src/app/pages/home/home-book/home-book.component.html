@@ -16,7 +16,7 @@
 			<p class="card-title">{{ book()?.volumeInfo?.title }}</p>
 			<p class="card-description">
 				{{ book()?.volumeInfo?.authors ? 'By' : '' }}
-				<span class="text-decoration">{{
+				<span class="text-decoration" (click)="searchByAuthor()">{{
 					book()?.volumeInfo?.authors?.[0]
 				}}</span
 				>{{
@@ -26,26 +26,27 @@
 				}}{{ book()?.volumeInfo?.publishedDate?.slice(0, 4) }}
 			</p>
 		</div>
-		<div class="card card-author border-0">
-			<p class="card-author-title">
-				<span class="card-author-title-about">About</span> Author
-			</p>
-			<p class="card-author-name">{{ book()?.volumeInfo?.authors?.[0] }}</p>
-			<p class="card-author-books">Other Books</p>
-			<div>
-				<img
-					src="/background.png"
-					[title]=""
-					[alt]=""
-					class="card-author-image"
-				/>
-				<img
-					src="/background.png"
-					[title]=""
-					[alt]=""
-					class="card-author-image"
-				/>
+		@if (book()?.volumeInfo?.authors) {
+			<div class="card card-author border-0">
+				<p class="card-author-title">
+					<span class="card-author-title-about">About</span> Author
+				</p>
+				<p class="card-author-name">{{ book()?.volumeInfo?.authors?.[0] }}</p>
+				<p class="card-author-books">Other Books</p>
+				<div>
+					@for (authorBook of authorBooks(); track authorBook.id) {
+						<img
+							[src]="authorBook.volumeInfo.imageLinks.thumbnail"
+							[title]="authorBook.volumeInfo.title"
+							[alt]="authorBook.volumeInfo.title"
+							class="card-author-image border"
+						/>
+					}
+					@if (!authorBooks().length) {
+						<p>Nothing Found</p>
+					}
+				</div>
 			</div>
-		</div>
+		}
 	</div>
 </section>
