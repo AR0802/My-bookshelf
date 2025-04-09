@@ -38,6 +38,10 @@ export class TopPanelComponent {
 
 	search(event: Event): void {
 		const searchValue = (event.target as HTMLInputElement).value;
+		if (searchValue.trim() === '') {
+			return;
+		}
+
 		let searchApiKey = 'intitle';
 		if (this.searchParam() === this.searchParams[2]) {
 			searchApiKey = 'inauthor';
