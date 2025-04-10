@@ -18,3 +18,6 @@
 	</ul>
 </div>
 <app-search-books [books]="books()"></app-search-books>
+@if (notFoundMessage()) {
+	<h1 class="title">{{ notFoundMessage() }}</h1>
+}

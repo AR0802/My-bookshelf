@@ -22,6 +22,11 @@ export const routes: Routes = [
 					import('@pages/home/home-search/home-search.component'),
 			},
 			{
+				path: 'favorites',
+				loadComponent: () =>
+					import('@pages/home/home-favorites/home-favorites.component'),
+			},
+			{
 				path: ':id',
 				loadComponent: () =>
 					import('@pages/home/home-book/home-book.component'),

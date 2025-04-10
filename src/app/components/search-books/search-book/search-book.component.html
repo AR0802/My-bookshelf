@@ -26,7 +26,14 @@
 			</div>
 		</div>
 		<div class="col-2 card-favorite">
-			<i class="bi bi-heart cart-heart"></i>
+			<i
+				class="bi cart-heart"
+				[ngClass]="{
+					'bi-heart': !isFavorite(),
+					'bi-heart-fill': isFavorite(),
+				}"
+				(click)="toggleFavorite()"
+			></i>
 		</div>
 		<div class="col-2 cart-button">
 			<button class="btn btn-outline-danger" (click)="previewBook()">
