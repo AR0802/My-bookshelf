@@ -26,6 +26,7 @@ export default class HomeSearchComponent {
 	readonly foundBooks =
 		inject<WritableSignal<IBook[] | undefined>>(ROUTER_OUTLET_DATA);
 	books = signal<IBook[]>([]);
+	notFoundMessage = signal<string>('');
 	categories: string[] = [
 		'Engineering',
 		'Medical',
@@ -35,9 +36,20 @@ export default class HomeSearchComponent {
 	];
 
 	constructor() {
-		this.books.set(this.router.getCurrentNavigation()?.extras.state?.['items']);
+		const authorBooks: IBook[] =
+			this.router.getCurrentNavigation()?.extras.state?.['items'];
+		if (authorBooks && !authorBooks.length) {
+			this.notFoundMessage.set('Nothing Found!');
+		} else if (authorBooks?.length) {
+			this.notFoundMessage.set('');
+			this.books.set(authorBooks);
+		}
+
 		effect(() => {
-			if (this.foundBooks()) {
+			if (this.foundBooks() && !this.foundBooks()?.length) {
+				this.notFoundMessage.set('Nothing Found!');
+			} else if (this.foundBooks()?.length) {
+				this.notFoundMessage.set('');
 				this.books.set(this.foundBooks()!);
 			}
 		});
@@ -45,7 +57,12 @@ export default class HomeSearchComponent {
 
 	searchByCategory(category: string): void {
 		this.booksService.getBooks(category).subscribe((books: IResponse) => {
-			this.books.set(books.items);
+			if (!books.items.length) {
+				this.notFoundMessage.set('Nothing Found!');
+			} else {
+				this.notFoundMessage.set('');
+				this.books.set(books.items);
+			}
 		});
 	}
 }
