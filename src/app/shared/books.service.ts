@@ -12,7 +12,7 @@ export class BooksService {
 
 	getBooks(category: string): Observable<IResponse> {
 		return this.http.get<IResponse>(
-			`https://www.googleapis.com/books/v1/volumes?q=${category}&key=${environment.googleBooksApi.apiKey}`
+			`https://www.googleapis.com/books/v1/volumes?q=${category}&maxResults=40&key=${environment.googleBooksApi.apiKey}`
 		);
 	}
 
@@ -21,7 +21,7 @@ export class BooksService {
 		searchValue: string
 	): Observable<IResponse> {
 		return this.http.get<IResponse>(
-			`https://www.googleapis.com/books/v1/volumes?q= +${searchParam}:${searchValue}&key=${environment.googleBooksApi.apiKey}`
+			`https://www.googleapis.com/books/v1/volumes?q= +${searchParam}:${searchValue}&maxResults=40&key=${environment.googleBooksApi.apiKey}`
 		);
 	}
 
