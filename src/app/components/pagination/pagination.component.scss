@@ -1,0 +1,11 @@
+::ng-deep .page-item .page-link {
+	background-color: rgba(243, 243, 247, 1);
+	color: rgba(77, 77, 77, 1);
+	border: 1px solid rgba(243, 243, 247, 1);
+	box-shadow: none;
+}
+
+::ng-deep .page-item.active .page-link {
+	background-color: rgba(247, 107, 86, 1);
+	color: #fff;
+}

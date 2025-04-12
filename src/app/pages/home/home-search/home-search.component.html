@@ -17,7 +17,13 @@
 		}
 	</ul>
 </div>
-<app-search-books [books]="books()"></app-search-books>
+<app-search-books [books]="booksForPage()"></app-search-books>
 @if (notFoundMessage()) {
 	<h1 class="title">{{ notFoundMessage() }}</h1>
+}
+@if (books().length > 10) {
+	<app-pagination
+		[totalItems]="books().length"
+		(changePage)="pageChanged($event)"
+	></app-pagination>
 }
