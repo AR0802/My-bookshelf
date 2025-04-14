@@ -23,11 +23,10 @@ import { PaginationComponent } from '@components/pagination/pagination.component
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class HomeSearchComponent {
-	private booksService = inject(BooksService);
+	booksService = inject(BooksService);
 	private router = inject(Router);
 	readonly foundBooks =
 		inject<WritableSignal<IBook[] | undefined>>(ROUTER_OUTLET_DATA);
-	books = signal<IBook[]>([]);
 	booksForPage = signal<IBook[]>([]);
 	notFoundMessage = signal<string>('');
 	categories: string[] = [
@@ -45,8 +44,8 @@ export default class HomeSearchComponent {
 			this.notFoundMessage.set('Nothing Found!');
 		} else if (authorBooks?.length) {
 			this.notFoundMessage.set('');
-			this.books.set(authorBooks);
-			this.booksForPage.set(this.books().slice(0, 10));
+			this.booksService.books.set(authorBooks);
+			this.booksForPage.set(this.booksService.books().slice(0, 10));
 		}
 
 		effect(() => {
@@ -54,12 +53,16 @@ export default class HomeSearchComponent {
 				this.notFoundMessage.set('Nothing Found!');
 			} else if (this.foundBooks()?.length) {
 				this.notFoundMessage.set('');
-				this.books.set(this.foundBooks()!);
+				this.booksService.books.set(this.foundBooks()!);
 				untracked(() => {
-					this.booksForPage.set(this.books().slice(0, 10));
+					this.booksForPage.set(this.booksService.books().slice(0, 10));
 				});
 			}
 		});
+
+		if (!this.booksForPage().length) {
+			this.booksForPage.set(this.booksService.books().slice(0, 10));
+		}
 	}
 
 	searchByCategory(category: string): void {
@@ -68,15 +71,19 @@ export default class HomeSearchComponent {
 				this.notFoundMessage.set('Nothing Found!');
 			} else {
 				this.notFoundMessage.set('');
-				this.books.set(books.items);
-				this.booksForPage.set(this.books().slice(0, 10));
+				this.booksService.books.set(books.items);
+				this.booksForPage.set(this.booksService.books().slice(0, 10));
 			}
 		});
 	}
 
 	pageChanged(pageNumber: number): void {
 		this.booksForPage.set(
-			this.books().slice((pageNumber - 1) * 10, pageNumber * 10)
+			this.booksService.books().slice((pageNumber - 1) * 10, pageNumber * 10)
 		);
+		this.booksService.layoutRef()?.nativeElement?.scrollTo({
+			top: 0,
+			behavior: 'smooth',
+		});
 	}
 }

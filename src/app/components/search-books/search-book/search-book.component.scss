@@ -2,9 +2,13 @@
 	padding: 1rem;
 	margin-bottom: 1rem;
 
-	.card-img {
-		width: 4.7rem;
-		height: 6.25rem;
+	.card-img-container {
+		margin-right: 1.5rem;
+
+		.card-img {
+			width: 4.7rem;
+			height: 6.25rem;
+		}
 	}
 
 	.card-body {
@@ -38,8 +42,9 @@
 		}
 	}
 
-	.cart-button {
+	.card-button {
 		padding: 2rem;
+		margin-left: -1rem;
 
 		.btn-outline-danger {
 			color: rgba(247, 107, 86, 1);
@@ -51,6 +56,52 @@
 		.btn-outline-danger:hover {
 			background-color: rgba(247, 107, 86, 1);
 			color: #fff;
+		}
+	}
+}
+
+@media (max-width: 1200px) {
+	.card-favorite {
+		margin-left: -2rem;
+	}
+}
+
+@media (max-width: 991.9px) {
+	.card {
+		width: 11.875rem;
+		height: 24rem;
+		margin: 0;
+
+		.card-img {
+			display: block;
+			margin: 0 auto;
+			margin-bottom: 0.5rem;
+			width: 9.7rem !important;
+			height: 11.25rem !important;
+		}
+
+		.card-body {
+			padding: 0;
+		}
+
+		.card-wrap-optional {
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+		}
+
+		.card-favorite {
+			margin: 1rem 0.5rem;
+			padding: 0.8rem;
+			display: inline;
+			max-width: max-content;
+		}
+
+		.card-button {
+			padding: 0.3rem;
+			margin: 1rem 0.5rem;
+			display: inline;
+			max-width: max-content;
 		}
 	}
 }

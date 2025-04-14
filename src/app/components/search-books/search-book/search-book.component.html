@@ -1,13 +1,13 @@
 <div class="card border-0">
 	<div class="row">
-		<div class="col-1">
+		<div class="col-lg-1 card-img-container">
 			<img
 				[src]="book()?.volumeInfo?.imageLinks?.thumbnail"
 				[title]="book()?.volumeInfo?.title"
 				class="card-img"
 			/>
 		</div>
-		<div class="col-4">
+		<div class="col-lg-4">
 			<div class="card-body">
 				<p class="card-title card-wrap">{{ book()?.volumeInfo?.title }}</p>
 				<p class="card-description card-wrap">
@@ -20,12 +20,12 @@
 				</p>
 			</div>
 		</div>
-		<div class="col-3">
-			<div class="card-body">
+		<div class="col-lg-3">
+			<div class="card-body card-wrap-optional">
 				{{ book()?.volumeInfo?.categories || 'Not Specified' }}
 			</div>
 		</div>
-		<div class="col-2 card-favorite">
+		<div class="col-lg-2 card-favorite">
 			<i
 				class="bi cart-heart"
 				[ngClass]="{
@@ -35,7 +35,7 @@
 				(click)="toggleFavorite()"
 			></i>
 		</div>
-		<div class="col-2 cart-button">
+		<div class="col-lg-1 card-button">
 			<button class="btn btn-outline-danger" (click)="previewBook()">
 				Preview
 			</button>

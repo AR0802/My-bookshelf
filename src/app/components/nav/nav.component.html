@@ -1,49 +1,50 @@
-<div class="col-auto px-sm-2 px-0 bg-white sidebar">
-	<div class="d-flex flex-column align-items-center align-items-sm-start px-4">
+<app-side-menu></app-side-menu>
+<div class="d-none d-sm-block col-auto px-md-2 px-0 bg-white sidebar">
+	<div class="d-flex flex-column align-items-center align-items-md-start px-4">
 		<img src="/logo.png" alt="My Book Shelf" class="logo" />
 		<nav
-			class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
+			class="nav nav-pills flex-column mb-md-auto mb-0 align-items-center align-items-md-start"
 		>
 			<a
 				routerLink="/books"
 				routerLinkActive="active-link"
 				[routerLinkActiveOptions]="{ exact: true }"
-				class="nav-link link-dark px-4 align-middle link"
+				class="nav-link link-dark px-4 align-middle shadow-none link"
 			>
 				<i class="fs-5 bi bi-house-door icon"></i>
-				<span class="ms-2 d-none d-sm-inline icon-text">Home</span>
+				<span class="ms-2 d-none d-md-inline icon-text">Home</span>
 			</a>
 			<a
 				routerLink="search"
 				routerLinkActive="active-link"
-				class="nav-link link-dark px-4 align-middle link"
+				class="nav-link link-dark px-4 align-middle shadow-none link"
 			>
 				<i class="fs-5 bi bi-search icon"></i>
-				<span class="ms-2 d-none d-sm-inline icon-text">Search</span>
+				<span class="ms-2 d-none d-md-inline icon-text">Search</span>
 			</a>
 			<a
 				routerLink="favorites"
 				routerLinkActive="active-link"
-				class="nav-link link-dark px-4 align-middle link"
+				class="nav-link link-dark px-4 align-middle shadow-none link"
 			>
 				<i class="fs-5 bi bi-heart icon"></i>
-				<span class="ms-2 d-none d-sm-inline icon-text">Favorites</span></a
+				<span class="ms-2 d-none d-md-inline icon-text">Favorites</span></a
 			>
 			<a
 				routerLink="my-books"
 				routerLinkActive="active-link"
-				class="nav-link link-dark px-4 align-middle link"
+				class="nav-link link-dark px-4 align-middle shadow-none link"
 			>
 				<i class="fs-5 bi bi-book icon"></i>
-				<span class="ms-2 d-none d-sm-inline icon-text">My Books</span></a
+				<span class="ms-2 d-none d-md-inline icon-text">My Books</span></a
 			>
 			<a
 				routerLink="upload"
 				routerLinkActive="active-link"
-				class="nav-link link-dark px-4 align-middle link"
+				class="nav-link link-dark px-4 align-middle shadow-none link"
 			>
 				<i class="fs-5 bi bi-file-arrow-up icon"></i>
-				<span class="ms-2 d-none d-sm-inline icon-text">Upload</span>
+				<span class="ms-2 d-none d-md-inline icon-text">Upload</span>
 			</a>
 		</nav>
 		<div class="info">

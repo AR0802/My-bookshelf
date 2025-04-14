@@ -3,3 +3,9 @@
 	flex-wrap: wrap;
 	gap: 2rem;
 }
+
+@media (max-width: 697px) {
+	.favorite-container {
+		justify-content: space-around;
+	}
+}

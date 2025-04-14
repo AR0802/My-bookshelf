@@ -9,3 +9,9 @@
 	background-color: rgba(247, 107, 86, 1);
 	color: #fff;
 }
+
+@media (max-width: 570px) {
+	ngb-pagination {
+		justify-content: center !important;
+	}
+}

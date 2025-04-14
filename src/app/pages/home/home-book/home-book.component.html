@@ -4,7 +4,7 @@
 		<a class="back-button" (click)="backClicked()">Back to results</a>
 	</div>
 	<div class="card-container">
-		<div class="card border-0">
+		<div class="card-book border-0">
 			<img
 				[src]="book()?.volumeInfo?.imageLinks?.thumbnail"
 				[title]="book()?.volumeInfo?.title"
@@ -27,13 +27,13 @@
 			</p>
 		</div>
 		@if (book()?.volumeInfo?.authors) {
-			<div class="card card-author border-0">
+			<div class="card-book card-author border-0">
 				<p class="card-author-title">
 					<span class="card-author-title-about">About</span> Author
 				</p>
 				<p class="card-author-name">{{ book()?.volumeInfo?.authors?.[0] }}</p>
 				<p class="card-author-books">Other Books</p>
-				<div>
+				<div class="images-container">
 					@for (authorBook of authorBooks(); track authorBook.id) {
 						<img
 							[src]="authorBook.volumeInfo.imageLinks.thumbnail"
