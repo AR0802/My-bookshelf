@@ -1,8 +1,6 @@
-$text-color: rgba(77, 77, 77, 1);
-
 .container {
 	max-width: 28rem;
-	background-color: white;
+	background-color: var(--background-color);
 	border-radius: 7px;
 	box-shadow: 0px 2px 10px 4px rgba(34, 60, 80, 0.3);
 	padding: 3rem 3.3rem 4rem;
@@ -30,15 +28,16 @@ $text-color: rgba(77, 77, 77, 1);
 
 	.form-label {
 		font-weight: 600;
-		color: $text-color;
+		color: var(--text-color);
 	}
 
 	.form-control {
-		color: $text-color;
+		color: var(--text-color-secondary);
+		background-color: var(--form-control-bg-color);
 	}
 
 	input.ng-touched.ng-invalid {
-		border: solid red 1px;
+		border: 1px solid red;
 	}
 
 	::-ms-reveal {
@@ -67,7 +66,8 @@ $text-color: rgba(77, 77, 77, 1);
 
 	.btn-orange {
 		background-color: rgba(250, 124, 84, 1);
-		color: #fff;
+		color: var(--card-bg-color);
+		border: 1px solid rgba(250, 124, 84, 1);
 		margin-top: 2rem;
 	}
 
@@ -78,12 +78,12 @@ $text-color: rgba(77, 77, 77, 1);
 	.footer {
 		text-align: center;
 		line-height: 100%;
-		color: $text-color;
+		color: var(--text-color);
 		margin-top: 3rem;
 	}
 
 	.register-link {
-		color: $text-color;
+		color: var(--text-color);
 		text-underline-position: under;
 	}
 }

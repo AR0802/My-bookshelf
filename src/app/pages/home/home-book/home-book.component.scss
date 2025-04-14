@@ -6,12 +6,12 @@
 		cursor: pointer;
 
 		.back-icon {
-			color: rgba(77, 77, 77, 1);
+			color: var(--text-color);
 		}
 
 		.back-button {
 			text-decoration: none;
-			color: rgba(77, 77, 77, 1);
+			color: var(--text-color);
 			font-size: 15px;
 			margin-left: 0.7rem;
 		}
@@ -32,7 +32,7 @@
 			width: 13rem;
 			height: 18rem;
 			padding: 1.5rem;
-			background-color: #fff;
+			background-color: var(--card-bg-color);
 			border-radius: 10px;
 			margin-bottom: 2rem;
 
@@ -41,13 +41,13 @@
 				height: 13rem;
 				display: block;
 				margin: 0 auto;
-				border: 1px solid rgba(77, 77, 77, 1);
+				border: 1px solid var(--text-color);
 			}
 		}
 
 		.card-description-container {
 			margin: 0 2rem;
-			color: rgba(77, 77, 77, 1);
+			color: var(--text-color);
 			width: 29rem;
 			margin-bottom: 2rem;
 
@@ -78,7 +78,7 @@
 			height: 20rem;
 			padding: 1.5rem;
 			font-size: 20px;
-			color: rgba(77, 77, 77, 1);
+			color: var(--text-color);
 
 			.card-author-title {
 				font-weight: 600;

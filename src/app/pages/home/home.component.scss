@@ -4,7 +4,7 @@
 
 	.layout {
 		flex: 1;
-		background-color: rgba(243, 243, 247, 1);
+		background-color: var(--background-color);
 		border-radius: 0 13px 13px 0;
 		height: 42rem;
 		padding: 2rem;

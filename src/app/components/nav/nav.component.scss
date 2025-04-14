@@ -3,6 +3,7 @@
 	border-radius: 13px 0 0 13px;
 	width: 14.5rem;
 	height: 42rem;
+	background-color: var(--card-bg-color);
 
 	.logo {
 		width: 120px;
@@ -14,7 +15,7 @@
 	.active-link {
 		.icon,
 		.icon-text {
-			color: rgba(77, 77, 77, 1);
+			color: var(--nav-item-hover-color);
 		}
 	}
 
@@ -32,7 +33,7 @@
 
 		.icon,
 		.icon-text {
-			color: rgba(77, 77, 77, 1);
+			color: var(--nav-item-hover-color);
 		}
 	}
 
@@ -52,7 +53,7 @@
 		}
 
 		.info-link:hover {
-			color: rgba(77, 77, 77, 1);
+			color: var(--nav-item-hover-color);
 		}
 	}
 }

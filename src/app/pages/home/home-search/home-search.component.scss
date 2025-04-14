@@ -1,5 +1,6 @@
 .dropdown {
-	background-color: white;
+	background-color: var(--background-color-secondary) !important;
+	border: 1px solid var(--background-color-secondary) !important;
 	padding: 0.5rem;
 	max-width: max-content;
 	border-radius: 2rem;
@@ -7,17 +8,21 @@
 	margin: 2rem 0;
 	cursor: pointer;
 
-	.dropdown-item:active {
-		background-color: rgba(247, 247, 250, 1);
+	.dropdown-menu {
+		background-color: var(--background-color-secondary) !important;
+
+		.dropdown-item:hover {
+			background-color: rgb(132, 130, 130);
+		}
 	}
 
 	.color {
-		color: rgba(77, 77, 77, 1);
+		color: var(--text-color-secondary);
 	}
 }
 
 .title {
-	color: rgba(77, 77, 77, 1);
+	color: var(--text-color);
 	font-size: 35px;
 	text-align: center;
 }

@@ -6,8 +6,20 @@
 	src: url('/Inter-VariableFont_opsz\,wght.ttf') format('truetype');
 }
 
+:root {
+	--background-color: rgba(243, 243, 247, 1);
+	--background-color-secondary: rgb(255, 255, 255);
+	--text-color: rgba(77, 77, 77, 1);
+	--text-color-secondary: rgba(77, 77, 77, 1);
+	--form-control-bg-color: white;
+	--form-control-placeholder-color: rgba(199, 199, 199, 1);
+	--card-bg-color: white;
+	--nav-item-hover-color: rgba(77, 77, 77, 1);
+}
+
 body {
 	height: 100%;
+	scrollbar-color: grey var(--card-bg-color);
 	background: {
 		image: url('/background.png');
 		size: cover;

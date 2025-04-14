@@ -1,6 +1,7 @@
 .card {
 	padding: 1rem;
 	margin-bottom: 1rem;
+	background-color: var(--card-bg-color);
 
 	.card-img-container {
 		margin-right: 1.5rem;
@@ -12,7 +13,7 @@
 	}
 
 	.card-body {
-		color: rgba(77, 77, 77, 1);
+		color: var(--text-color);
 
 		.card-description {
 			font-size: 14px;
@@ -55,7 +56,7 @@
 
 		.btn-outline-danger:hover {
 			background-color: rgba(247, 107, 86, 1);
-			color: #fff;
+			color: var(--card-bg-color);
 		}
 	}
 }
