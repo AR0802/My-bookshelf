@@ -1,5 +1,5 @@
 .dropdown {
-	background-color: white;
+	background-color: var(--background-color-secondary);
 	padding: 0.25rem;
 	max-width: max-content;
 	border-radius: 2rem;
@@ -7,12 +7,16 @@
 	float: right;
 	cursor: pointer;
 
-	.dropdown-item:active {
-		background-color: rgba(247, 247, 250, 1);
+	.dropdown-menu {
+		background-color: var(--background-color-secondary) !important;
+
+		.dropdown-item:hover {
+			background-color: rgb(132, 130, 130);
+		}
 	}
 
 	.color {
-		color: rgba(77, 77, 77, 1);
+		color: var(--text-color-secondary);
 	}
 }
 
@@ -23,7 +27,7 @@
 		position: relative;
 
 		.dropdown-search {
-			background: rgba(247, 247, 250, 1);
+			background: var(--background-color-secondary);
 		}
 
 		.search-icon {
@@ -37,13 +41,14 @@
 		.form-control {
 			box-shadow: 3px 2px 8px 0px rgba(34, 60, 80, 0.2);
 			border-radius: 2rem;
-			color: rgba(77, 77, 77, 1);
+			color: var(--text-color-secondary);
 			padding-right: 3rem;
+			background-color: var(--form-control-bg-color);
 			z-index: 0;
 		}
 
 		.form-control::placeholder {
-			color: rgba(199, 199, 199, 1);
+			color: var(--form-control-placeholder-color);
 		}
 	}
 }

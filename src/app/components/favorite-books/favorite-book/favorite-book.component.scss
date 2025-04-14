@@ -3,6 +3,7 @@
 	height: 18rem;
 	border: 0;
 	padding: 1rem;
+	background-color: var(--card-bg-color);
 	cursor: pointer;
 
 	.card-img-top {
@@ -19,7 +20,7 @@
 		white-space: nowrap;
 		overflow: hidden;
 		margin: 0;
-		color: rgba(77, 77, 77, 1);
+		color: var(--text-color);
 	}
 
 	.card-description {
@@ -31,7 +32,7 @@
 		color: rgba(138, 138, 138, 1);
 
 		.card-grade-dynamic {
-			color: rgba(77, 77, 77, 1);
+			color: var(--text-color);
 		}
 	}
 }

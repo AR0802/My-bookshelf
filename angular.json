@@ -31,7 +31,12 @@
 						],
 						"styles": [
 							"node_modules/bootstrap/dist/css/bootstrap.min.css",
-							"src/styles.scss"
+							"src/styles.scss",
+							{
+								"input": "src/app/shared/dark.scss",
+								"bundleName": "dark",
+								"inject": false
+							}
 						],
 						"scripts": [
 							"node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"

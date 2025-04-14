@@ -1,5 +1,5 @@
 <app-side-menu></app-side-menu>
-<div class="d-none d-sm-block col-auto px-md-2 px-0 bg-white sidebar">
+<div class="d-none d-sm-block col-auto px-md-2 px-0 sidebar">
 	<div class="d-flex flex-column align-items-center align-items-md-start px-4">
 		<img src="/logo.png" alt="My Book Shelf" class="logo" />
 		<nav
@@ -45,6 +45,12 @@
 			>
 				<i class="fs-5 bi bi-file-arrow-up icon"></i>
 				<span class="ms-2 d-none d-md-inline icon-text">Upload</span>
+			</a>
+			<a
+				class="nav-link link-dark px-4 mt-5 align-middle link"
+				(click)="changeTheme()"
+			>
+				<i class="fs-5 bi bi-brightness-high-fill icon"></i>
 			</a>
 		</nav>
 		<div class="info">
