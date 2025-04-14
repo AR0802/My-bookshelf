@@ -31,6 +31,7 @@ export default class LoginComponent {
 		const { email, password } = form.value;
 		this.authService.login(email, password).subscribe(() => {
 			this.router.navigateByUrl('/books');
+			//
 		});
 	}
 }

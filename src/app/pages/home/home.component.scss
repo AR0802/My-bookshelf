@@ -11,3 +11,9 @@
 		overflow-y: scroll;
 	}
 }
+
+@media (max-width: 575px) {
+	.layout {
+		border-radius: 13px !important;
+	}
+}

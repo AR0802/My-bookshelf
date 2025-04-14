@@ -29,6 +29,7 @@
 
 	.link:hover {
 		cursor: pointer;
+
 		.icon,
 		.icon-text {
 			color: rgba(77, 77, 77, 1);
@@ -52,6 +53,25 @@
 
 		.info-link:hover {
 			color: rgba(77, 77, 77, 1);
+		}
+	}
+}
+
+@media (max-width: 768px) {
+	.logo {
+		height: 50px !important;
+		width: 70px !important;
+	}
+
+	.sidebar {
+		width: 7.5rem;
+	}
+
+	.info {
+		text-align: center;
+
+		.info-link {
+			margin: 0 auto;
 		}
 	}
 }

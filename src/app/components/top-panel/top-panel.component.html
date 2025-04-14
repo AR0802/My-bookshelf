@@ -1,4 +1,4 @@
-<div class="dropdown border">
+<div class="dropdown mb-4 border">
 	<a
 		class="d-flex align-items-center text-decoration-none dropdown-toggle pe-4 color"
 		data-bs-toggle="dropdown"
@@ -34,7 +34,7 @@
 				aria-expanded="false"
 				data-bs-offset="0,15"
 			>
-				<span class="mx-3">{{ searchParam() }}</span>
+				<span class="mx-3 dropdown-param">{{ searchParam() }}</span>
 			</a>
 			<ul class="dropdown-menu text-small shadow border-0">
 				@for (param of searchParams; track param) {

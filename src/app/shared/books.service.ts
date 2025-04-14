@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { ElementRef, inject, Injectable, signal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
@@ -9,6 +9,9 @@ import { IBook } from './book.interface';
 @Injectable({ providedIn: 'root' })
 export class BooksService {
 	private http = inject(HttpClient);
+	books = signal<IBook[]>([]);
+	homeBooks = new Map();
+	layoutRef = signal<ElementRef | undefined>(undefined);
 
 	getBooks(category: string): Observable<IResponse> {
 		return this.http.get<IResponse>(

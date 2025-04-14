@@ -1,0 +1,23 @@
+.burger-menu {
+	width: 1.5rem;
+	height: 3rem;
+	display: flex;
+	flex-flow: column;
+	justify-content: space-around;
+	align-items: center;
+	padding: 10px 0;
+	box-sizing: border-box;
+	float: right;
+}
+
+.burger-menu div {
+	width: 90%;
+	height: 3px;
+	background-color: rgb(247, 107, 86);
+}
+
+@media (min-width: 577px) {
+	.burger-menu {
+		display: none;
+	}
+}

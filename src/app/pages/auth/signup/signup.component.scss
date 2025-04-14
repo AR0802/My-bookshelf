@@ -41,12 +41,17 @@ $text-color: rgba(77, 77, 77, 1);
 		border: solid red 1px;
 	}
 
+	::-ms-reveal {
+		display: none;
+	}
+
 	.togglePassword {
 		float: right;
 		margin-top: -1.9rem;
 		margin-right: 1rem;
 		color: rgba(142, 162, 185, 1);
 		height: 1rem;
+		position: relative;
 		cursor: pointer;
 	}
 
@@ -80,5 +85,17 @@ $text-color: rgba(77, 77, 77, 1);
 	.register-link {
 		color: $text-color;
 		text-underline-position: under;
+	}
+}
+
+@media (max-width: 507.5px) {
+	.btn {
+		margin-top: 1rem !important;
+	}
+}
+
+@media (max-width: 366px) {
+	.btn {
+		margin-top: 0.5rem !important;
 	}
 }
