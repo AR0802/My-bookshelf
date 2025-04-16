@@ -4,32 +4,32 @@
 	(click)="close()"
 >
 	<div class="d-flex flex-column align-items-center px-4">
-		<img src="/logo.png" alt="My Book Shelf" class="logo" />
+		<img src="/logo.png" alt="My Book Shelf" i18n-alt class="logo" />
 		<nav class="nav nav-pills flex-column">
 			<a
-				routerLink="/books"
+				[routerLink]="routes.books"
 				routerLinkActive="active-link"
 				[routerLinkActiveOptions]="{ exact: true }"
 				class="nav-link link-dark shadow-none link"
 			>
 				<i class="fs-5 bi bi-house-door icon"></i>
-				<span class="ms-2 icon-text">Home</span>
+				<span i18n class="ms-2 icon-text">Home</span>
 			</a>
 			<a
-				routerLink="search"
+				[routerLink]="routes.search"
 				routerLinkActive="active-link"
 				class="nav-link link-dark shadow-none link"
 			>
 				<i class="fs-5 bi bi-search icon"></i>
-				<span class="ms-2 icon-text">Search</span>
+				<span i18n class="ms-2 icon-text">Search</span>
 			</a>
 			<a
-				routerLink="favorites"
+				[routerLink]="routes.favorites"
 				routerLinkActive="active-link"
 				class="nav-link link-dark shadow-none link"
 			>
 				<i class="fs-5 bi bi-heart icon"></i>
-				<span class="ms-2 icon-text">Favorites</span></a
+				<span i18n class="ms-2 icon-text">Favorites</span></a
 			>
 			<a
 				routerLink="my-books"
@@ -37,7 +37,7 @@
 				class="nav-link link-dark shadow-none link"
 			>
 				<i class="fs-5 bi bi-book icon"></i>
-				<span class="ms-2 icon-text">My Books</span></a
+				<span i18n class="ms-2 icon-text">My Books</span></a
 			>
 			<a
 				routerLink="upload"
@@ -45,13 +45,20 @@
 				class="nav-link link-dark shadow-none link"
 			>
 				<i class="fs-5 bi bi-file-arrow-up icon"></i>
-				<span class="ms-2 icon-text">Upload</span>
+				<span i18n class="ms-2 icon-text">Upload</span>
+			</a>
+			<a
+				class="nav-link link-dark px-3 mt-5 align-middle link"
+				(click)="changeTheme()"
+			>
+				<i class="fs-5 bi bi-brightness-high-fill icon"></i>
+				<span i18n class="ms-2 icon-text">Theme</span>
 			</a>
 		</nav>
 		<div class="info">
-			<a class="info-link">About</a>
-			<a class="info-link">Support</a>
-			<a class="info-link">Terms & Conditions</a>
+			<a i18n class="info-link">About</a>
+			<a i18n class="info-link">Support</a>
+			<a i18n class="info-link">Terms & Conditions</a>
 		</div>
 	</div>
 </div>

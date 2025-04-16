@@ -1,7 +1,7 @@
 <section class="home-book-section">
 	<div class="back">
 		<i class="bi bi-arrow-left back-icon"></i>
-		<a class="back-button" (click)="backClicked()">Back to results</a>
+		<a i18n class="back-button" (click)="backClicked()">Back to results</a>
 	</div>
 	<div class="card-container">
 		<div class="card-book border-0">
@@ -9,12 +9,14 @@
 				[src]="book()?.volumeInfo?.imageLinks?.thumbnail"
 				[title]="book()?.volumeInfo?.title"
 				[alt]="book()?.volumeInfo?.title"
+				i18n-alt
+				i18n-title
 				class="card-image"
 			/>
 		</div>
 		<div class="card-description-container">
-			<p class="card-title">{{ book()?.volumeInfo?.title }}</p>
-			<p class="card-description">
+			<p i18n class="card-title">{{ book()?.volumeInfo?.title }}</p>
+			<p i18n class="card-description">
 				{{ book()?.volumeInfo?.authors ? 'By' : '' }}
 				<span class="text-decoration" (click)="searchByAuthor()">{{
 					book()?.volumeInfo?.authors?.[0]
@@ -28,22 +30,24 @@
 		</div>
 		@if (book()?.volumeInfo?.authors) {
 			<div class="card-book card-author border-0">
-				<p class="card-author-title">
+				<p i18n class="card-author-title">
 					<span class="card-author-title-about">About</span> Author
 				</p>
-				<p class="card-author-name">{{ book()?.volumeInfo?.authors?.[0] }}</p>
-				<p class="card-author-books">Other Books</p>
+				<p i18n class="card-author-name">{{ book()?.volumeInfo?.authors?.[0] }}</p>
+				<p i18n class="card-author-books">Other Books</p>
 				<div class="images-container">
 					@for (authorBook of authorBooks(); track authorBook.id) {
 						<img
 							[src]="authorBook.volumeInfo.imageLinks.thumbnail"
 							[title]="authorBook.volumeInfo.title"
 							[alt]="authorBook.volumeInfo.title"
+							i18n-alt
+							i18n-title
 							class="card-author-image border"
 						/>
 					}
 					@if (!authorBooks().length) {
-						<p>Nothing Found</p>
+						<p i18n>Nothing Found</p>
 					}
 				</div>
 			</div>

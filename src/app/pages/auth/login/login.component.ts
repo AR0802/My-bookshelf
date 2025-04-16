@@ -10,6 +10,7 @@ import { NgForm, FormsModule } from '@angular/forms';
 import { NgClass } from '@angular/common';
 
 import { AuthService } from '@shared/auth.service';
+import { ERoutes } from '@shared/routes.enum';
 
 @Component({
 	selector: 'app-login',
@@ -22,6 +23,7 @@ export default class LoginComponent {
 	private router = inject(Router);
 	private authService = inject(AuthService);
 	fieldTextType: WritableSignal<boolean> = signal(false);
+	readonly routes = ERoutes;
 
 	toggleFieldTextType(): void {
 		this.fieldTextType.update((fieldTextType) => !fieldTextType);
@@ -30,8 +32,7 @@ export default class LoginComponent {
 	login(form: NgForm) {
 		const { email, password } = form.value;
 		this.authService.login(email, password).subscribe(() => {
-			this.router.navigateByUrl('/books');
-			//
+			this.router.navigateByUrl(ERoutes.books);
 		});
 	}
 }

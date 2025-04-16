@@ -14,6 +14,7 @@ import { Subscription } from 'rxjs';
 import { BooksService } from '@shared/books.service';
 import { IBook } from '@shared/book.interface';
 import { IResponse } from '@shared/response.interface';
+import { ERoutes } from '@shared/routes.enum';
 
 @Component({
 	selector: 'app-home-book',
@@ -79,7 +80,7 @@ export default class HomeBookComponent implements OnInit, OnDestroy {
 				this.book()?.volumeInfo.authors[0] as string
 			)
 			.subscribe((data: IResponse) => {
-				this.router.navigateByUrl('/books/search', { state: data });
+				this.router.navigateByUrl(ERoutes.search, { state: data });
 			});
 	}
 

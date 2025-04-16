@@ -10,6 +10,7 @@ import { NgClass } from '@angular/common';
 import { Router } from '@angular/router';
 
 import { IBook } from '@shared/book.interface';
+import { ERoutes } from '@shared/routes.enum';
 
 @Component({
 	selector: 'app-search-book',
@@ -30,7 +31,7 @@ export class SearchBookComponent implements OnInit {
 	}
 
 	previewBook(): void {
-		this.router.navigateByUrl(`/books/${this.book()?.id}`);
+		this.router.navigateByUrl(`${ERoutes.books}/${this.book()?.id}`);
 	}
 
 	toggleFavorite(): void {

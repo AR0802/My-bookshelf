@@ -10,6 +10,7 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '@shared/auth.service';
 import { BooksService } from '@shared/books.service';
 import { IResponse } from '@shared/response.interface';
+import { ERoutes } from '@shared/routes.enum';
 
 @Component({
 	selector: 'app-top-panel',
@@ -22,13 +23,14 @@ export class TopPanelComponent {
 	private authService = inject(AuthService);
 	private booksService = inject(BooksService);
 	private router = inject(Router);
-	searchParam = signal<string>('All');
+	searchParam = signal<string>($localize`All`);
 	foundBooks = output<IResponse>();
-	searchParams: string[] = ['All', 'Title', 'Author', 'Publisher', 'Subjects'];
+	searchParams: string[] = [$localize`All`, $localize`Title`, $localize`Author`, $localize`Publisher`, $localize`Subjects`];
+	readonly routes = ERoutes;
 
 	logout(): void {
 		this.authService.logout().subscribe(() => {
-			this.router.navigateByUrl('/login');
+			this.router.navigateByUrl(ERoutes.login);
 		});
 	}
 
@@ -54,8 +56,8 @@ export class TopPanelComponent {
 		if (this.searchParam() === this.searchParams[0]) {
 			this.booksService.getBooks(searchValue).subscribe((data: IResponse) => {
 				this.foundBooks.emit(data);
-				if (this.router.url !== '/books/search') {
-					this.router.navigateByUrl('/books/search');
+				if (this.router.url !== ERoutes.search) {
+					this.router.navigateByUrl(ERoutes.search);
 				}
 			});
 		} else {
@@ -63,8 +65,8 @@ export class TopPanelComponent {
 				.getBooksBySearch(searchApiKey, searchValue)
 				.subscribe((data: IResponse) => {
 					this.foundBooks.emit(data);
-					if (this.router.url !== '/books/search') {
-						this.router.navigateByUrl('/books/search');
+					if (this.router.url !== ERoutes.search) {
+						this.router.navigateByUrl(ERoutes.search);
 					}
 				});
 		}

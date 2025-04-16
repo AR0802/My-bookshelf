@@ -7,6 +7,7 @@ import {
 import { Router } from '@angular/router';
 
 import { IBook } from '@shared/book.interface';
+import { ERoutes } from '@shared/routes.enum';
 
 @Component({
 	selector: 'app-favorite-book',
@@ -19,6 +20,6 @@ export class FavoriteBookComponent {
 	book = input<IBook>();
 
 	navigate(): void {
-		this.router.navigateByUrl(`/books/${this.book()?.id}`);
+		this.router.navigateByUrl(`${ERoutes.books}/${this.book()?.id}`);
 	}
 }

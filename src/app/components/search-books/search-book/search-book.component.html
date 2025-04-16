@@ -4,13 +4,14 @@
 			<img
 				[src]="book()?.volumeInfo?.imageLinks?.thumbnail"
 				[title]="book()?.volumeInfo?.title"
+				i18n-title
 				class="card-img"
 			/>
 		</div>
 		<div class="col-lg-4">
 			<div class="card-body">
-				<p class="card-title card-wrap">{{ book()?.volumeInfo?.title }}</p>
-				<p class="card-description card-wrap">
+				<p i18n class="card-title card-wrap">{{ book()?.volumeInfo?.title }}</p>
+				<p i18n class="card-description card-wrap">
 					{{ book()?.volumeInfo?.authors?.[0]
 					}}{{
 						book()?.volumeInfo?.authors && book()?.volumeInfo?.publishedDate
@@ -21,7 +22,7 @@
 			</div>
 		</div>
 		<div class="col-lg-3">
-			<div class="card-body card-wrap-optional">
+			<div i18n class="card-body card-wrap-optional">
 				{{ book()?.volumeInfo?.categories || 'Not Specified' }}
 			</div>
 		</div>
@@ -36,7 +37,7 @@
 			></i>
 		</div>
 		<div class="col-lg-1 card-button">
-			<button class="btn btn-outline-danger" (click)="previewBook()">
+			<button i18n class="btn btn-outline-danger" (click)="previewBook()">
 				Preview
 			</button>
 		</div>

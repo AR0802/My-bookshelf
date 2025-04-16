@@ -1,6 +1,5 @@
 .dropdown {
-	background-color: var(--background-color-secondary) !important;
-	border: 1px solid var(--background-color-secondary) !important;
+	background-color: var(--background-color-secondary);
 	padding: 0.5rem;
 	max-width: max-content;
 	border-radius: 2rem;
@@ -9,10 +8,10 @@
 	cursor: pointer;
 
 	.dropdown-menu {
-		background-color: var(--background-color-secondary) !important;
+		background-color: var(--background-color-secondary);
 
 		.dropdown-item:hover {
-			background-color: rgb(132, 130, 130);
+			background-color: var(--background-color-dropdown-item-hover);
 		}
 	}
 

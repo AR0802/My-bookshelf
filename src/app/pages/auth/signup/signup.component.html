@@ -1,10 +1,10 @@
 <div class="container">
-	<img src="/logo.png" alt="My Book Shelf" class="logo" />
-	<p class="welcome">Registration</p>
-	<p class="description">For Both Staff & Students</p>
+	<img src="/logo.png" alt="My Book Shelf" i18n-alt class="logo" />
+	<p i18n class="welcome">Registration</p>
+	<p i18n class="description">For Both Staff & Students</p>
 	<form #authForm="ngForm" (ngSubmit)="signup(authForm)">
 		<div>
-			<label for="name" class="form-label">Name</label>
+			<label i18n for="name" class="form-label">Name</label>
 			<input
 				type="text"
 				class="form-control shadow-none"
@@ -14,12 +14,12 @@
 				ngModel
 				required
 			/>
-			<p [ngClass]="{ error: true, visibility: name.valid || name.untouched }">
+			<p i18n [ngClass]="{ error: true, visibility: name.valid || name.untouched }">
 				Enter Name!
 			</p>
 		</div>
 		<div>
-			<label for="email" class="form-label">Email</label>
+			<label i18n for="email" class="form-label">Email</label>
 			<input
 				type="email"
 				class="form-control shadow-none"
@@ -32,13 +32,14 @@
 				aria-describedby="emailHelp"
 			/>
 			<p
+				i18n
 				[ngClass]="{ error: true, visibility: email.valid || email.untouched }"
 			>
 				Invalid Email!
 			</p>
 		</div>
 		<div>
-			<label for="password" class="form-label">Password</label>
+			<label i18n for="password" class="form-label">Password</label>
 			<input
 				[type]="fieldPasswordTextType() ? 'text' : 'password'"
 				class="form-control shadow-none"
@@ -58,6 +59,7 @@
 				(click)="toggleFieldTextType(fieldPasswordTextType)"
 			></i>
 			<p
+				i18n
 				[ngClass]="{
 					error: true,
 					visibility: password.valid || password.untouched,
@@ -67,7 +69,7 @@
 			</p>
 		</div>
 		<div>
-			<label for="confirm-password" class="form-label">Confirm Password</label>
+			<label i18n for="confirm-password" class="form-label">Confirm Password</label>
 			<input
 				[type]="fieldConfirmPasswordTextType() ? 'text' : 'password'"
 				class="form-control shadow-none"
@@ -87,6 +89,7 @@
 				(click)="toggleFieldTextType(fieldConfirmPasswordTextType)"
 			></i>
 			<p
+				i18n
 				[ngClass]="{
 					error: true,
 					visibility:
@@ -99,6 +102,7 @@
 		</div>
 		<div class="d-grid col-12">
 			<button
+				i18n
 				class="btn btn-orange"
 				type="submit"
 				[disabled]="
@@ -109,7 +113,7 @@
 			</button>
 		</div>
 	</form>
-	<p class="footer">
-		Already a User? <a routerLink="/login" class="register-link">Login now</a>
+	<p i18n class="footer">
+		Already a User? <a [routerLink]="routes.login" class="register-link">Login now</a>
 	</p>
 </div>
