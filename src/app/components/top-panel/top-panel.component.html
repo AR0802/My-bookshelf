@@ -1,3 +1,10 @@
+<ul>
+	@for (locale of localesList; track locale.code) {
+		<li>
+			<a routerLink="/{{locale.code}}/">{{locale.label}}</a>
+		</li>
+	}
+</ul>
 <div class="dropdown mb-4 border">
 	<a
 		class="d-flex align-items-center text-decoration-none dropdown-toggle pe-4 color"

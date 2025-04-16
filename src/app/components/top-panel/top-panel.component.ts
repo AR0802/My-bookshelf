@@ -27,6 +27,10 @@ export class TopPanelComponent {
 	foundBooks = output<IResponse>();
 	searchParams: string[] = [$localize`All`, $localize`Title`, $localize`Author`, $localize`Publisher`, $localize`Subjects`];
 	readonly routes = ERoutes;
+	localesList = [
+		{code: "en-US", label: "English"},
+		{code: "es-PR", label: "Spanish"}
+	];
 
 	logout(): void {
 		this.authService.logout().subscribe(() => {
