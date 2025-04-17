@@ -558,16 +558,12 @@
           <context context-type="linenumber">26,27</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="8261354325941618068" datatype="html">
-        <source><x id="START_BLOCK_FOR" equiv-text="@for (param of searchParams; track param) {"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/><x id="START_LINK" ctype="x-a" equiv-text="&lt;a class=&quot;dropdown-item color&quot; (click)=&quot;changeSearchParam(param)&quot;&gt;"/><x id="INTERPOLATION" equiv-text="{{
-							param
-						}}"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/><x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/><x id="CLOSE_BLOCK_FOR" equiv-text="}"/></source>
-            <target><x id="START_BLOCK_FOR" equiv-text="@for (param of searchParams; track param) {"/><x id="START_LIST_ITEM" ctype="x-li" equiv-text="&lt;li&gt;"/><x id="START_LINK" ctype="x-a" equiv-text="&lt;a class=&quot;dropdown-item color&quot; (click)=&quot;changeSearchParam(param)&quot;&gt;"/><x id="INTERPOLATION" equiv-text="{{
-							param
-						}}"/><x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/><x id="CLOSE_LIST_ITEM" ctype="x-li" equiv-text="&lt;/li&gt;"/><x id="CLOSE_BLOCK_FOR" equiv-text="}"/></target>
+      <trans-unit id="2826581353496868063" datatype="html">
+        <source>Language</source>
+        <target>Idioma</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/top-panel/top-panel.component.html</context>
-          <context context-type="linenumber">41,49</context>
+          <context context-type="linenumber">36,37</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1616102757855967475" datatype="html">
@@ -612,6 +608,22 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/top-panel/top-panel.component.ts</context>
           <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5866254605255506989" datatype="html">
+        <source>English</source>
+        <target>Inglés</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/top-panel/top-panel.component.ts</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5190825892106392539" datatype="html">
+        <source>Spanish</source>
+        <target>Español</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/top-panel/top-panel.component.ts</context>
+          <context context-type="linenumber">40</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1032145116648837291" datatype="html">

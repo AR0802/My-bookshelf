@@ -1,7 +1,9 @@
 import {
 	ChangeDetectionStrategy,
 	Component,
+	Inject,
 	inject,
+	LOCALE_ID,
 	output,
 	signal,
 } from '@angular/core';
@@ -25,12 +27,20 @@ export class TopPanelComponent {
 	private router = inject(Router);
 	searchParam = signal<string>($localize`All`);
 	foundBooks = output<IResponse>();
-	searchParams: string[] = [$localize`All`, $localize`Title`, $localize`Author`, $localize`Publisher`, $localize`Subjects`];
+	searchParams: string[] = [
+		$localize`All`,
+		$localize`Title`,
+		$localize`Author`,
+		$localize`Publisher`,
+		$localize`Subjects`,
+	];
 	readonly routes = ERoutes;
 	localesList = [
-		{code: "en-US", label: "English"},
-		{code: "es-PR", label: "Spanish"}
+		{ code: 'en-US', label: $localize`English` },
+		{ code: 'es-PR', label: $localize`Spanish` },
 	];
+
+	constructor(@Inject(LOCALE_ID) private locale: string) {}
 
 	logout(): void {
 		this.authService.logout().subscribe(() => {
@@ -74,5 +84,10 @@ export class TopPanelComponent {
 					}
 				});
 		}
+	}
+
+	changeLanguage(locale: string): void {
+		if (this.locale === locale) return;
+		location.href = `/${locale}/${this.router.url}`;
 	}
 }

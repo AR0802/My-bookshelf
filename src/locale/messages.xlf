@@ -236,12 +236,15 @@
           <context context-type="linenumber">95,96</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="187187500641108332" datatype="html">
-        <source><x id="INTERPOLATION" equiv-text="{{ category() }}"/></source>
+      <trans-unit id="8832680940728722211" datatype="html">
+        <source>Show All</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/books/books.component.html</context>
-          <context context-type="linenumber">2,3</context>
+          <context context-type="linenumber">3,4</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="187187500641108332" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ book()?.volumeInfo?.title }}"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/favorite-books/favorite-book/favorite-book.component.html</context>
           <context context-type="linenumber">10,11</context>
@@ -257,24 +260,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/home-book/home-book.component.html</context>
           <context context-type="linenumber">36,37</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="8832680940728722211" datatype="html">
-        <source>Show All</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/books/books.component.html</context>
-          <context context-type="linenumber">3,4</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="1737753151350322492" datatype="html">
-        <source><x id="PH" equiv-text="this.category()"/></source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/books/books.component.ts</context>
-          <context context-type="linenumber">33</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/books/books.component.ts</context>
-          <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5482575218605871564" datatype="html">
@@ -346,7 +331,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/top-panel/top-panel.component.html</context>
-          <context context-type="linenumber">56</context>
+          <context context-type="linenumber">73</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4085930761302974863" datatype="html">
@@ -475,43 +460,64 @@
           <context context-type="linenumber">26,27</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="2826581353496868063" datatype="html">
+        <source>Language</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/top-panel/top-panel.component.html</context>
+          <context context-type="linenumber">36,37</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="1616102757855967475" datatype="html">
         <source>All</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/top-panel/top-panel.component.ts</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">28</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/top-panel/top-panel.component.ts</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5701618810648052610" datatype="html">
         <source>Title</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/top-panel/top-panel.component.ts</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7071470734400948493" datatype="html">
         <source>Author</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/top-panel/top-panel.component.ts</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7734042519638532672" datatype="html">
         <source>Publisher</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/top-panel/top-panel.component.ts</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5972502836680454671" datatype="html">
         <source>Subjects</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/top-panel/top-panel.component.ts</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5866254605255506989" datatype="html">
+        <source>English</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/top-panel/top-panel.component.ts</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5190825892106392539" datatype="html">
+        <source>Spanish</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/top-panel/top-panel.component.ts</context>
+          <context context-type="linenumber">40</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1032145116648837291" datatype="html">
