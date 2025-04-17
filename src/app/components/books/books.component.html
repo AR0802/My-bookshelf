@@ -1,9 +1,11 @@
-<section class="book-section">
-	<p class="book-section-title">{{ category() }}</p>
-	<a i18n class="book-section-show">Show All</a>
-	<div class="books">
-		@for (book of books(); track book.id) {
-			<app-book [book]="book"></app-book>
-		}
-	</div>
-</section>
+@if (books().length) {
+	<section class="book-section">
+		<p class="book-section-title">{{ category() }}</p>
+		<a i18n class="book-section-show">Show All</a>
+		<div class="books">
+			@for (book of books(); track book.id) {
+				<app-book [book]="book"></app-book>
+			}
+		</div>
+	</section>
+}

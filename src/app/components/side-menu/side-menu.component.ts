@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 import { BackdropComponent } from '@components/backdrop/backdrop.component';
@@ -11,6 +11,7 @@ import { ThemeService } from '@shared/theme.service';
 	imports: [RouterLink, RouterLinkActive, BackdropComponent],
 	templateUrl: './side-menu.component.html',
 	styleUrl: './side-menu.component.scss',
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SideMenuComponent {
 	burgerMenuService = inject(BurgerMenuService);

@@ -15,9 +15,11 @@ import { BooksService } from '@shared/books.service';
 import { IBook } from '@shared/book.interface';
 import { IResponse } from '@shared/response.interface';
 import { ERoutes } from '@shared/routes.enum';
+import { LoaderComponent } from '@components/loader/loader.component';
 
 @Component({
 	selector: 'app-home-book',
+	imports: [LoaderComponent],
 	templateUrl: './home-book.component.html',
 	styleUrl: './home-book.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -31,10 +33,12 @@ export default class HomeBookComponent implements OnInit, OnDestroy {
 	id: string | undefined;
 	book = signal<IBook | undefined>(undefined);
 	authorBooks = signal<IBook[]>([]);
+	haveAuthorBooks = signal<boolean>(false);
 
 	constructor() {
 		effect(() => {
 			if (this.book()?.volumeInfo.authors) {
+				this.haveAuthorBooks.set(true);
 				this.booksService
 					.getBooksBySearch(
 						'inauthor',
@@ -51,7 +55,11 @@ export default class HomeBookComponent implements OnInit, OnDestroy {
 								}
 								return true;
 							});
-							this.authorBooks.set(filteredBooks.slice(0, 3));
+							if (!filteredBooks.length) {
+								this.haveAuthorBooks.set(false);
+							} else {
+								this.authorBooks.set(filteredBooks.slice(0, 3));
+							}
 						}
 					});
 			}

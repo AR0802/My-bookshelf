@@ -1,9 +1,11 @@
 import {
 	ChangeDetectionStrategy,
 	Component,
+	effect,
 	inject,
 	input,
 	OnInit,
+	output,
 	signal,
 } from '@angular/core';
 
@@ -23,6 +25,13 @@ export class BooksComponent implements OnInit {
 	private booksService = inject(BooksService);
 	books = signal<IBook[]>([]);
 	category = input.required<string>();
+	booksOutput = output<IBook[]>();
+
+	constructor() {
+		effect(() => {
+			this.booksOutput.emit(this.books());
+		})
+	}
 
 	ngOnInit(): void {
 		if (!this.booksService.homeBooks.size) {
@@ -30,7 +39,8 @@ export class BooksComponent implements OnInit {
 				.getBooks(this.category())
 				.subscribe((data: IResponse) => {
 					this.books.set(data.items.slice(0, 5));
-					this.booksService.homeBooks.set(this.category(), data.items);
+					this.booksService.homeBooks.set(this.category(), data.items)
+					
 				});
 		} else {
 			this.books.set(

@@ -1,0 +1,27 @@
+.loader {
+	width: 15rem;
+	height: 15rem;
+	border: 1rem solid var(--background-color);
+	border-bottom-color: rgba(242, 120, 81, 1);
+	border-radius: 50%;
+	box-sizing: border-box;
+	animation: rotation 1s linear infinite;
+	display: block;
+	margin: 4rem auto;
+}
+
+@keyframes rotation {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+@media (max-width: 800px) {
+	.loader {
+		width: 12rem;
+		height: 12rem;
+	}
+}
