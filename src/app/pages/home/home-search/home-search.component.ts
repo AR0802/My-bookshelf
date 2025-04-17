@@ -30,18 +30,18 @@ export default class HomeSearchComponent {
 	booksForPage = signal<IBook[]>([]);
 	notFoundMessage = signal<string>('');
 	categories: string[] = [
-		'Engineering',
-		'Medical',
-		'Programming',
-		'Science',
-		'Self-development',
+		$localize`Engineering`,
+		$localize`Medical`,
+		$localize`Programming`,
+		$localize`Science`,
+		$localize`Self-development`,
 	];
 
 	constructor() {
 		const authorBooks: IBook[] =
 			this.router.getCurrentNavigation()?.extras.state?.['items'];
 		if (authorBooks && !authorBooks.length) {
-			this.notFoundMessage.set('Nothing Found!');
+			this.notFoundMessage.set($localize`Nothing Found!`);
 		} else if (authorBooks?.length) {
 			this.notFoundMessage.set('');
 			this.booksService.books.set(authorBooks);
@@ -50,7 +50,7 @@ export default class HomeSearchComponent {
 
 		effect(() => {
 			if (this.foundBooks() && !this.foundBooks()?.length) {
-				this.notFoundMessage.set('Nothing Found!');
+				this.notFoundMessage.set($localize`Nothing Found!`);
 			} else if (this.foundBooks()?.length) {
 				this.notFoundMessage.set('');
 				this.booksService.books.set(this.foundBooks()!);
@@ -68,7 +68,7 @@ export default class HomeSearchComponent {
 	searchByCategory(category: string): void {
 		this.booksService.getBooks(category).subscribe((books: IResponse) => {
 			if (!books.items.length) {
-				this.notFoundMessage.set('Nothing Found!');
+				this.notFoundMessage.set($localize`Nothing Found!`);
 			} else {
 				this.notFoundMessage.set('');
 				this.booksService.books.set(books.items);

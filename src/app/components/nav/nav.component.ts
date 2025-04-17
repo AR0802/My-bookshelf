@@ -8,6 +8,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 
 import { SideMenuComponent } from '@components/side-menu/side-menu.component';
 import { ThemeService } from '@shared/theme.service';
+import { ERoutes } from '@shared/routes.enum';
 
 @Component({
 	selector: 'app-nav',
@@ -19,6 +20,7 @@ import { ThemeService } from '@shared/theme.service';
 export class NavComponent {
 	private themeService = inject(ThemeService);
 	theme = signal<string>('');
+	readonly routes = ERoutes;
 
 	changeTheme(): void {
 		if (!this.theme()) {

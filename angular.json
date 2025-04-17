@@ -4,6 +4,14 @@
 	"newProjectRoot": "projects",
 	"projects": {
 		"my-bookshelf": {
+			"i18n": {
+				"sourceLocale": "en-US",
+				"locales": {
+					"es-PR": {
+						"translation": "src/locale/messages.es.xlf"
+					}
+				}
+			},
 			"projectType": "application",
 			"schematics": {
 				"@schematics/angular:component": {
@@ -17,6 +25,8 @@
 				"build": {
 					"builder": "@ngx-env/builder:application",
 					"options": {
+						"localize": true,
+						"i18nMissingTranslation": "error",
 						"outputPath": "dist/my-bookshelf",
 						"index": "src/index.html",
 						"browser": "src/main.ts",
@@ -62,6 +72,9 @@
 							"optimization": false,
 							"extractLicenses": false,
 							"sourceMap": true
+						},
+						"es-PR": {
+							"localize": ["es-PR"]
 						}
 					},
 					"defaultConfiguration": "production"
@@ -74,6 +87,9 @@
 						},
 						"development": {
 							"buildTarget": "my-bookshelf:build:development"
+						},
+						"es-PR": {
+							"buildTarget": "my-bookshelf:build:development,es-PR"
 						}
 					},
 					"defaultConfiguration": "development",

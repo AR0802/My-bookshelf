@@ -10,6 +10,7 @@ import { NgForm, FormsModule } from '@angular/forms';
 import { NgClass } from '@angular/common';
 
 import { AuthService } from '@shared/auth.service';
+import { ERoutes } from '@shared/routes.enum';
 
 @Component({
 	selector: 'app-signup',
@@ -23,6 +24,7 @@ export default class SignupComponent {
 	private authService = inject(AuthService);
 	fieldPasswordTextType = signal<boolean>(false);
 	fieldConfirmPasswordTextType = signal<boolean>(false);
+	readonly routes = ERoutes;
 
 	toggleFieldTextType(field: WritableSignal<boolean>): void {
 		field.update((fieldTextType) => !fieldTextType);
@@ -31,7 +33,7 @@ export default class SignupComponent {
 	signup(form: NgForm) {
 		const { name, email, password } = form.value;
 		this.authService.signup(name, email, password).subscribe(() => {
-			this.router.navigateByUrl('/books');
+			this.router.navigateByUrl(ERoutes.books);
 		});
 	}
 }

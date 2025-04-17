@@ -11,9 +11,9 @@ import { BooksComponent } from '@components/books/books.component';
 })
 export default class HomeBooksComponent {
 	categories: string[] = [
-		'Programming',
-		'Science',
-		'Self-development',
-		'Sport',
+		$localize`Programming`,
+		$localize`Science`,
+		$localize`Self-development`,
+		$localize`Sport`,
 	];
 }
