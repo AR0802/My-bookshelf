@@ -3,7 +3,7 @@
 		<app-nav></app-nav>
 		<article #layout class="layout">
 			<app-burger-menu></app-burger-menu>
-			<app-top-panel (foundBooks)="booksChanged($event)"></app-top-panel>
+			<app-top-panel (foundBooks)="booksChange($event)"></app-top-panel>
 			<router-outlet [routerOutletData]="foundBooks()"></router-outlet>
 		</article>
 	</div>

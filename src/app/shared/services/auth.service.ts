@@ -10,13 +10,13 @@ import {
 } from '@angular/fire/auth';
 import { from, Observable } from 'rxjs';
 
-import { IUser } from './user.interface';
+import { IUser } from '@shared/interfaces';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+	currentUserSig = signal<IUser | null | undefined>(undefined);
 	private firebaseAuth = inject(Auth);
 	user$ = user(this.firebaseAuth);
-	currentUserSig = signal<IUser | null | undefined>(undefined);
 
 	signup(name: string, email: string, password: string): Observable<void> {
 		const promise = createUserWithEmailAndPassword(

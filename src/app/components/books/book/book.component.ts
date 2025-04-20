@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { IBook } from '@shared/book.interface';
+import { IBook } from '@shared/interfaces';
 
 @Component({
 	selector: 'app-book',
@@ -10,6 +10,13 @@ import { IBook } from '@shared/book.interface';
 	styleUrl: './book.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BookComponent {
+export class BookComponent implements OnInit {
 	book = input<IBook>();
+	separator = signal<string>('');
+
+	ngOnInit(): void {
+		if (this.book()?.volumeInfo?.authors && this.book()?.volumeInfo?.publishedDate) {
+			this.separator.set(', ');
+		}
+	}
 }

@@ -1,7 +1,6 @@
 import {
 	ChangeDetectionStrategy,
 	Component,
-	effect,
 	inject,
 	OnDestroy,
 	OnInit,
@@ -9,12 +8,11 @@ import {
 } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { catchError, EMPTY, Subscription } from 'rxjs';
 
-import { BooksService } from '@shared/books.service';
-import { IBook } from '@shared/book.interface';
-import { IResponse } from '@shared/response.interface';
-import { ERoutes } from '@shared/routes.enum';
+import { BooksService } from '@shared/services/books.service';
+import { IBook, IResponse } from '@shared/interfaces';
+import { ERoutes } from '@shared/enums/routes.enum';
 import { LoaderComponent } from '@components/loader/loader.component';
 
 @Component({
@@ -25,59 +23,70 @@ import { LoaderComponent } from '@components/loader/loader.component';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class HomeBookComponent implements OnInit, OnDestroy {
+	id: string | undefined;
+	private subscription: Subscription | undefined;
+	book = signal<IBook | undefined>(undefined);
+	authorBooks = signal<IBook[]>([]);
+	haveAuthorBooks = signal<boolean>(false);
+	separator = signal<string>('');
 	private location = inject(Location);
 	private router = inject(Router);
 	private activatedRoute = inject(ActivatedRoute);
 	private booksService = inject(BooksService);
-	private subscription: Subscription | undefined;
-	id: string | undefined;
-	book = signal<IBook | undefined>(undefined);
-	authorBooks = signal<IBook[]>([]);
-	haveAuthorBooks = signal<boolean>(false);
-
-	constructor() {
-		effect(() => {
-			if (this.book()?.volumeInfo.authors) {
-				this.haveAuthorBooks.set(true);
-				this.booksService
-					.getBooksBySearch(
-						'inauthor',
-						this.book()?.volumeInfo.authors[0] as string
-					)
-					.subscribe((data: IResponse) => {
-						if (data.items) {
-							const filteredBooks = data.items.filter((book: IBook) => {
-								if (
-									this.book()?.id === book.id ||
-									!book.volumeInfo.imageLinks
-								) {
-									return false;
-								}
-								return true;
-							});
-							if (!filteredBooks.length) {
-								this.haveAuthorBooks.set(false);
-							} else {
-								this.authorBooks.set(filteredBooks.slice(0, 3));
-							}
-						}
-					});
-			}
-		});
-	}
 
 	ngOnInit(): void {
 		this.subscription = this.activatedRoute.params.subscribe(
 			(params: Params) => {
 				this.id = params['id'];
-				this.booksService.getBook(this.id!).subscribe((book: IBook) => {
-					this.book.set(book);
-				});
+				this.booksService
+					.getBook(this.id!)
+					.pipe(
+						catchError(() => {
+							return EMPTY;
+						})
+					)
+					.subscribe((book: IBook) => {
+						this.book.set(book);
+						if (this.book()?.volumeInfo.authors) {
+							if (this.book()?.volumeInfo?.publishedDate) {
+								this.separator.set(', ');
+							}
+							this.haveAuthorBooks.set(true);
+							this.booksService
+								.getBooksBySearch(
+									'inauthor',
+									this.book()?.volumeInfo.authors[0] as string
+								)
+								.pipe(
+									catchError(() => {
+										return EMPTY;
+									})
+								)
+								.subscribe((data: IResponse) => {
+									if (data.items) {
+										const filteredBooks = data.items.filter((book: IBook) => {
+											if (
+												this.book()?.id === book.id ||
+												!book.volumeInfo.imageLinks
+											) {
+												return false;
+											}
+											return true;
+										});
+										if (!filteredBooks.length) {
+											this.haveAuthorBooks.set(false);
+										} else {
+											this.authorBooks.set(filteredBooks.slice(0, 3));
+										}
+									}
+								});
+						}
+					});
 			}
 		);
 	}
 
-	backClicked(): void {
+	back(): void {
 		this.location.back();
 	}
 
@@ -87,8 +96,16 @@ export default class HomeBookComponent implements OnInit, OnDestroy {
 				'inauthor',
 				this.book()?.volumeInfo.authors[0] as string
 			)
+			.pipe(
+				catchError(() => {
+					return EMPTY;
+				})
+			)
 			.subscribe((data: IResponse) => {
-				this.router.navigateByUrl(ERoutes.search, { state: data });
+				this.booksService.searchAuthorBooks.set(true);
+				this.router.navigateByUrl(`/${ERoutes.Books}/${ERoutes.Search}`, {
+					state: data,
+				});
 			});
 	}
 

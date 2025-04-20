@@ -1,13 +1,13 @@
 <app-backdrop />
 <div
-	class="side-menu {{ burgerMenuService.show() ? 'open' : 'closed' }}"
+	class="side-menu {{ show() ? 'open' : 'closed' }}"
 	(click)="close()"
 >
 	<div class="d-flex flex-column align-items-center px-4">
 		<img src="/logo.png" alt="My Book Shelf" i18n-alt class="logo" />
 		<nav class="nav nav-pills flex-column">
 			<a
-				[routerLink]="routes.books"
+				[routerLink]="'/' + routes.Books"
 				routerLinkActive="active-link"
 				[routerLinkActiveOptions]="{ exact: true }"
 				class="nav-link link-dark shadow-none link"
@@ -16,7 +16,7 @@
 				<span i18n class="ms-2 icon-text">Home</span>
 			</a>
 			<a
-				[routerLink]="routes.search"
+				[routerLink]="'/' + routes.Books + '/' + routes.Search"
 				routerLinkActive="active-link"
 				class="nav-link link-dark shadow-none link"
 			>
@@ -24,7 +24,7 @@
 				<span i18n class="ms-2 icon-text">Search</span>
 			</a>
 			<a
-				[routerLink]="routes.favorites"
+				[routerLink]="'/' + routes.Books + '/' + routes.Favorites"
 				routerLinkActive="active-link"
 				class="nav-link link-dark shadow-none link"
 			>

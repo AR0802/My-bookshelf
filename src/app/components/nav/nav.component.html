@@ -6,7 +6,7 @@
 			class="nav nav-pills flex-column mb-md-auto mb-0 align-items-center align-items-md-start"
 		>
 			<a
-				[routerLink]="routes.books"
+				[routerLink]="'/' + routes.Books"
 				routerLinkActive="active-link"
 				[routerLinkActiveOptions]="{ exact: true }"
 				class="nav-link link-dark px-4 align-middle shadow-none link"
@@ -15,7 +15,7 @@
 				<span i18n class="ms-2 d-none d-md-inline icon-text">Home</span>
 			</a>
 			<a
-				[routerLink]="routes.search"
+				[routerLink]="'/' + routes.Books + '/' + routes.Search"
 				routerLinkActive="active-link"
 				class="nav-link link-dark px-4 align-middle shadow-none link"
 			>
@@ -23,7 +23,7 @@
 				<span i18n class="ms-2 d-none d-md-inline icon-text">Search</span>
 			</a>
 			<a
-				[routerLink]="routes.favorites"
+				[routerLink]="'/' + routes.Books + '/' + routes.Favorites"
 				routerLinkActive="active-link"
 				class="nav-link link-dark px-4 align-middle shadow-none link"
 			>

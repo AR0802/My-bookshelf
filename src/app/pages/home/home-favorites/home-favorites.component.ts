@@ -1,7 +1,7 @@
 import { Component, OnInit, signal } from '@angular/core';
 
 import { FavoriteBooksComponent } from '@components/favorite-books/favorite-books.component';
-import { IBook } from '@shared/book.interface';
+import { IBook } from '@shared/interfaces';
 
 @Component({
 	selector: 'app-home-favorite',

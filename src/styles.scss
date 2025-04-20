@@ -7,17 +7,25 @@
 }
 
 :root {
+	--white: white;
+	--red: red;
+	--black: black;
+	--slightly-orange: rgba(247, 107, 86, 1);
+	--grey: rgba(138, 138, 138, 1);
+	--box-shadow-color: rgba(34, 60, 80, 0.2);
+	--orange-auth-color: rgba(250, 124, 84, 1);
+	--text-color-most-used: rgba(77, 77, 77, 1);
 	--background-color: rgba(243, 243, 247, 1);
 	--background-color-secondary: rgb(255, 255, 255);
-	--background-color-auth: white;
+	--background-color-auth: var(--white);
 	--background-color-dropdown-search: rgba(247, 247, 250, 1);
 	--background-color-dropdown-item-hover: rgba(247, 247, 250, 1);
-	--text-color: rgba(77, 77, 77, 1);
-	--text-color-secondary: rgba(77, 77, 77, 1);
-	--form-control-bg-color: white;
+	--text-color: var(--text-color-most-used);
+	--text-color-secondary: var(--text-color-most-used);
+	--form-control-bg-color:  var(--white);
 	--form-control-placeholder-color: rgba(199, 199, 199, 1);
-	--card-bg-color: white;
-	--nav-item-hover-color: rgba(77, 77, 77, 1);
+	--card-bg-color: var(--white);
+	--nav-item-hover-color:  var(--text-color-most-used);
 }
 
 body {

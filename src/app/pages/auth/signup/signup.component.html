@@ -13,9 +13,10 @@
 				#name="ngModel"
 				ngModel
 				required
+				pattern="^[a-zA-Zа-яА-ЯёЁ][a-zA-Zа-яА-ЯёЁ0-9_\-]{2,15}$"
 			/>
 			<p i18n [ngClass]="{ error: true, visibility: name.valid || name.untouched }">
-				Enter Name!
+				Invalid Name!
 			</p>
 		</div>
 		<div>
@@ -48,7 +49,7 @@
 				#password="ngModel"
 				ngModel
 				required
-				minlength="8"
+				pattern="(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}"
 			/>
 			<i
 				class="bi togglePassword"
@@ -65,7 +66,7 @@
 					visibility: password.valid || password.untouched,
 				}"
 			>
-				The password length must be at least 8 characters!
+				Invalid Password!
 			</p>
 		</div>
 		<div>
@@ -78,7 +79,7 @@
 				#confirmPassword="ngModel"
 				ngModel
 				required
-				minlength="8"
+				pattern="^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}$"
 			/>
 			<i
 				class="bi togglePassword"
@@ -114,6 +115,6 @@
 		</div>
 	</form>
 	<p i18n class="footer">
-		Already a User? <a [routerLink]="routes.login" class="register-link">Login now</a>
+		Already a User? <a [routerLink]="'/' + routes.Login" class="register-link">Login now</a>
 	</p>
 </div>

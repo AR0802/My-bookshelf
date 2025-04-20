@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
-import { IBook } from '@shared/book.interface';
+import { IBook } from '@shared/interfaces';
 import { FavoriteBookComponent } from './favorite-book/favorite-book.component';
 
 @Component({

@@ -20,11 +20,11 @@
 	}
 
 	.icon {
-		color: rgba(138, 138, 138, 1);
+		color: var(--grey);
 	}
 
 	.icon-text {
-		color: rgba(138, 138, 138, 1);
+		color: var(--grey);
 		font-size: 18px;
 	}
 
@@ -46,7 +46,7 @@
 			display: block;
 			max-width: max-content;
 			margin-bottom: 0.5rem;
-			color: rgba(138, 138, 138, 1);
+			color: var(--grey);
 			text-decoration: none;
 			font-size: 15px;
 			cursor: pointer;

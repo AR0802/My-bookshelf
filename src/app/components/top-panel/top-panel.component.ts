@@ -7,26 +7,24 @@ import {
 	output,
 	signal,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 
-import { AuthService } from '@shared/auth.service';
-import { BooksService } from '@shared/books.service';
-import { IResponse } from '@shared/response.interface';
-import { ERoutes } from '@shared/routes.enum';
+import { AuthService } from '@shared/services/auth.service';
+import { BooksService } from '@shared/services/books.service';
+import { IResponse } from '@shared/interfaces';
+import { ERoutes } from '@shared/enums/routes.enum';
+import { catchError, EMPTY } from 'rxjs';
 
 @Component({
 	selector: 'app-top-panel',
-	imports: [RouterLink],
+	imports: [RouterLink, FormsModule],
 	templateUrl: './top-panel.component.html',
 	styleUrl: './top-panel.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TopPanelComponent {
-	private authService = inject(AuthService);
-	private booksService = inject(BooksService);
-	private router = inject(Router);
-	searchParam = signal<string>($localize`All`);
-	foundBooks = output<IResponse>();
+	readonly routes = ERoutes;
 	searchParams: string[] = [
 		$localize`All`,
 		$localize`Title`,
@@ -34,18 +32,29 @@ export class TopPanelComponent {
 		$localize`Publisher`,
 		$localize`Subjects`,
 	];
-	readonly routes = ERoutes;
 	localesList = [
 		{ code: 'en-US', label: $localize`English` },
 		{ code: 'es-PR', label: $localize`Spanish` },
 	];
+	foundBooks = output<IResponse>();
+	searchParam = signal<string>($localize`All`);
+	private authService = inject(AuthService);
+	private booksService = inject(BooksService);
+	private router = inject(Router);
 
 	constructor(@Inject(LOCALE_ID) private locale: string) {}
 
 	logout(): void {
-		this.authService.logout().subscribe(() => {
-			this.router.navigateByUrl(ERoutes.login);
-		});
+		this.authService
+			.logout()
+			.pipe(
+				catchError(() => {
+					return EMPTY;
+				})
+			)
+			.subscribe(() => {
+				this.router.navigateByUrl(`/${ERoutes.Login}`);
+			});
 	}
 
 	changeSearchParam(param: string): void {
@@ -53,10 +62,9 @@ export class TopPanelComponent {
 	}
 
 	search(event: Event): void {
-		const searchValue = (event.target as HTMLInputElement).value;
-		if (searchValue.trim() === '') {
-			return;
-		}
+		const target = event.target as HTMLInputElement;
+		if (!target.validity.valid) return;
+		const searchValue = target.value;
 
 		let searchApiKey = 'intitle';
 		if (this.searchParam() === this.searchParams[2]) {
@@ -68,19 +76,33 @@ export class TopPanelComponent {
 		}
 
 		if (this.searchParam() === this.searchParams[0]) {
-			this.booksService.getBooks(searchValue).subscribe((data: IResponse) => {
-				this.foundBooks.emit(data);
-				if (this.router.url !== ERoutes.search) {
-					this.router.navigateByUrl(ERoutes.search);
-				}
-			});
+			this.booksService
+				.getBooks(searchValue)
+				.pipe(
+					catchError(() => {
+						return [];
+					})
+				)
+				.subscribe((data: IResponse) => {
+					this.booksService.searchBooks.set(true);
+					this.foundBooks.emit(data);
+					if (this.router.url !== `/${ERoutes.Books}/${ERoutes.Search}`) {
+						this.router.navigateByUrl(`/${ERoutes.Books}/${ERoutes.Search}`);
+					}
+				});
 		} else {
 			this.booksService
 				.getBooksBySearch(searchApiKey, searchValue)
+				.pipe(
+					catchError(() => {
+						return [];
+					})
+				)
 				.subscribe((data: IResponse) => {
+					this.booksService.searchBooks.set(true);
 					this.foundBooks.emit(data);
-					if (this.router.url !== ERoutes.search) {
-						this.router.navigateByUrl(ERoutes.search);
+					if (this.router.url !== `/${ERoutes.Books}/${ERoutes.Search}`) {
+						this.router.navigateByUrl(`/${ERoutes.Books}/${ERoutes.Search}`);
 					}
 				});
 		}

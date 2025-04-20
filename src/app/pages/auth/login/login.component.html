@@ -35,7 +35,7 @@
 				#password="ngModel"
 				ngModel
 				required
-				minlength="8"
+				pattern="(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}"
 			/>
 			<i
 				class="bi togglePassword"
@@ -52,7 +52,7 @@
 					visibility: password.valid || password.untouched,
 				}"
 			>
-				The password length must be at least 8 characters!
+				Invalid Password!
 			</p>
 		</div>
 		<div class="d-grid col-12">
@@ -67,6 +67,6 @@
 		</div>
 	</form>
 	<p i18n class="footer">
-		New User? <a [routerLink]="routes.signup" class="register-link">Register Here</a>
+		New User? <a [routerLink]="'/' + routes.Signup" class="register-link">Register Here</a>
 	</p>
 </div>

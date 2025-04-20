@@ -9,8 +9,9 @@ import { Router, RouterLink } from '@angular/router';
 import { NgForm, FormsModule } from '@angular/forms';
 import { NgClass } from '@angular/common';
 
-import { AuthService } from '@shared/auth.service';
-import { ERoutes } from '@shared/routes.enum';
+import { AuthService } from '@shared/services/auth.service';
+import { ERoutes } from '@shared/enums/routes.enum';
+import { catchError, EMPTY } from 'rxjs';
 
 @Component({
 	selector: 'app-signup',
@@ -20,11 +21,11 @@ import { ERoutes } from '@shared/routes.enum';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class SignupComponent {
-	private router = inject(Router);
-	private authService = inject(AuthService);
+	readonly routes = ERoutes;
 	fieldPasswordTextType = signal<boolean>(false);
 	fieldConfirmPasswordTextType = signal<boolean>(false);
-	readonly routes = ERoutes;
+	private router = inject(Router);
+	private authService = inject(AuthService);
 
 	toggleFieldTextType(field: WritableSignal<boolean>): void {
 		field.update((fieldTextType) => !fieldTextType);
@@ -32,8 +33,15 @@ export default class SignupComponent {
 
 	signup(form: NgForm) {
 		const { name, email, password } = form.value;
-		this.authService.signup(name, email, password).subscribe(() => {
-			this.router.navigateByUrl(ERoutes.books);
-		});
+		this.authService
+			.signup(name, email, password)
+			.pipe(
+				catchError(() => {
+					return EMPTY;
+				})
+			)
+			.subscribe(() => {
+				this.router.navigateByUrl(`${ERoutes.Books}`);
+			});
 	}
 }

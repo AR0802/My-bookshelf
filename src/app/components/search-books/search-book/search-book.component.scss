@@ -28,7 +28,7 @@
 
 	.card-favorite {
 		padding: 2.4rem;
-		color: rgba(138, 138, 138, 1);
+		color: var(--grey);
 
 		.cart-heart {
 			cursor: pointer;
@@ -48,14 +48,14 @@
 		margin-left: -1rem;
 
 		.btn-outline-danger {
-			color: rgba(247, 107, 86, 1);
-			border: 1px solid rgba(247, 107, 86, 1);
+			color: var(--slightly-orange);
+			border: 1px solid var(--slightly-orange);
 			width: 85px;
 			padding: 0.3rem;
 		}
 
 		.btn-outline-danger:hover {
-			background-color: rgba(247, 107, 86, 1);
+			background-color: var(--slightly-orange);
 			color: var(--card-bg-color);
 		}
 	}

@@ -12,11 +12,7 @@
 			<div class="card-body">
 				<p i18n class="card-title card-wrap">{{ book()?.volumeInfo?.title }}</p>
 				<p i18n class="card-description card-wrap">
-					{{ book()?.volumeInfo?.authors?.[0]
-					}}{{
-						book()?.volumeInfo?.authors && book()?.volumeInfo?.publishedDate
-							? ', '
-							: ''
+					{{ book()?.volumeInfo?.authors?.[0] }}{{ separator()
 					}}{{ book()?.volumeInfo?.publishedDate?.slice(0, 4) }}
 				</p>
 			</div>

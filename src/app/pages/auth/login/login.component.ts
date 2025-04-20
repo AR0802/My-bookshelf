@@ -3,14 +3,14 @@ import {
 	Component,
 	inject,
 	signal,
-	WritableSignal,
 } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { NgForm, FormsModule } from '@angular/forms';
 import { NgClass } from '@angular/common';
 
-import { AuthService } from '@shared/auth.service';
-import { ERoutes } from '@shared/routes.enum';
+import { AuthService } from '@shared/services/auth.service';
+import { ERoutes } from '@shared/enums/routes.enum';
+import { catchError, EMPTY } from 'rxjs';
 
 @Component({
 	selector: 'app-login',
@@ -20,10 +20,10 @@ import { ERoutes } from '@shared/routes.enum';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class LoginComponent {
+	readonly routes = ERoutes;
+	fieldTextType = signal<boolean>(false);
 	private router = inject(Router);
 	private authService = inject(AuthService);
-	fieldTextType: WritableSignal<boolean> = signal(false);
-	readonly routes = ERoutes;
 
 	toggleFieldTextType(): void {
 		this.fieldTextType.update((fieldTextType) => !fieldTextType);
@@ -31,8 +31,15 @@ export default class LoginComponent {
 
 	login(form: NgForm) {
 		const { email, password } = form.value;
-		this.authService.login(email, password).subscribe(() => {
-			this.router.navigateByUrl(ERoutes.books);
-		});
+		this.authService
+			.login(email, password)
+			.pipe(
+				catchError(() => {
+					return EMPTY;
+				})
+			)
+			.subscribe(() => {
+				this.router.navigateByUrl(`${ERoutes.Books}`);
+			});
 	}
 }

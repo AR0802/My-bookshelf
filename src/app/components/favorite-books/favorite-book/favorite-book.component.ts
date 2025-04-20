@@ -3,11 +3,13 @@ import {
 	Component,
 	inject,
 	input,
+	OnInit,
+	signal,
 } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { IBook } from '@shared/book.interface';
-import { ERoutes } from '@shared/routes.enum';
+import { IBook } from '@shared/interfaces';
+import { ERoutes } from '@shared/enums/routes.enum';
 
 @Component({
 	selector: 'app-favorite-book',
@@ -15,11 +17,18 @@ import { ERoutes } from '@shared/routes.enum';
 	styleUrl: './favorite-book.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FavoriteBookComponent {
-	private router = inject(Router);
+export class FavoriteBookComponent implements OnInit {
 	book = input<IBook>();
+	separator = signal<string>('');
+	private router = inject(Router);
+
+	ngOnInit(): void {
+		if (this.book()?.volumeInfo?.authors && this.book()?.volumeInfo?.publishedDate) {
+			this.separator.set(', ');
+		}
+	}
 
 	navigate(): void {
-		this.router.navigateByUrl(`${ERoutes.books}/${this.book()?.id}`);
+		this.router.navigateByUrl(`${ERoutes.Books}/${this.book()?.id}`);
 	}
 }

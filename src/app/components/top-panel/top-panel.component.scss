@@ -3,7 +3,7 @@
 	padding: 0.25rem;
 	max-width: max-content;
 	border-radius: 2rem;
-	box-shadow: 0px 2px 8px 0px rgba(34, 60, 80, 0.2);
+	box-shadow: 0px 2px 8px 0px var(--box-shadow-color);
 	float: right;
 	cursor: pointer;
 
@@ -25,7 +25,7 @@
 	margin-right: 1.5rem;
 
 	.lang-icon {
-		color: rgba(247, 107, 86, 1);
+		color: var(--slightly-orange);
 	}
 }
 
@@ -40,7 +40,7 @@
 		}
 
 		.search-icon {
-			color: rgba(247, 107, 86, 1);
+			color: var(--slightly-orange);
 			position: absolute;
 			right: 1rem;
 			top: 0.7rem;
@@ -48,7 +48,7 @@
 		}
 
 		.form-control {
-			box-shadow: 3px 2px 8px 0px rgba(34, 60, 80, 0.2);
+			box-shadow: 3px 2px 8px 0px var(--box-shadow-color);
 			border-radius: 2rem;
 			color: var(--text-color-secondary);
 			padding-right: 3rem;

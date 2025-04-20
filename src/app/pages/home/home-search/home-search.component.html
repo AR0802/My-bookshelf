@@ -22,9 +22,9 @@
 	<h1 class="title">{{ notFoundMessage() }}</h1>
 }
 
-@if (booksService.books().length > 10) {
+@if (books().length > 10) {
 	<app-pagination
-		[totalItems]="booksService.books().length"
-		(changePage)="pageChanged($event)"
+		[totalItems]="books().length"
+		(changePage)="pageChange($event)"
 	></app-pagination>
 }

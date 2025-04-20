@@ -1,0 +1,1 @@
+export const googleBooksAPIUrl = 'https://www.googleapis.com/books/v1/volumes';

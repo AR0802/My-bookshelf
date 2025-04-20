@@ -5,9 +5,9 @@
 	--background-color-dropdown-search: rgb(166, 166, 166);
 	--background-color-dropdown-item-hover: rgb(132, 130, 130);
 	--text-color: rgb(161, 156, 156);
-	--text-color-secondary: black;
+	--text-color-secondary: var(--black);
 	--form-control-bg-color: rgb(223, 215, 215);
 	--form-control-placeholder-color: rgb(87, 85, 85);
-	--card-bg-color: black;
-	--nav-item-hover-color: rgba(77, 77, 77, 1);
+	--card-bg-color: var(--black);
+	--nav-item-hover-color: var(--text-color-most-used);
 }

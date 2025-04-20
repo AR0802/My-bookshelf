@@ -12,9 +12,8 @@ import { RouterOutlet } from '@angular/router';
 import { NavComponent } from '@components/nav/nav.component';
 import { TopPanelComponent } from '@components/top-panel/top-panel.component';
 import { BurgerMenuComponent } from '@components/burger-menu/burger-menu.component';
-import { BooksService } from '@shared/books.service';
-import { IResponse } from '@shared/response.interface';
-import { IBook } from '@shared/book.interface';
+import { BooksService } from '@shared/services/books.service';
+import { IBook, IResponse } from '@shared/interfaces';
 
 @Component({
 	selector: 'app-home',
@@ -24,15 +23,15 @@ import { IBook } from '@shared/book.interface';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class HomeComponent implements OnInit {
-	booksService = inject(BooksService);
-	foundBooks = signal<IBook[] | undefined>(undefined);
 	@ViewChild('layout', { static: true }) layoutRef: ElementRef | undefined;
+	foundBooks = signal<IBook[] | undefined>(undefined);
+	booksService = inject(BooksService);
 
 	ngOnInit(): void {
 		this.booksService.layoutRef.set(this.layoutRef);
 	}
 
-	booksChanged(data: IResponse): void {
+	booksChange(data: IResponse): void {
 		this.foundBooks.set(data.items);
 	}
 }

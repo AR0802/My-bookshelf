@@ -6,7 +6,7 @@
 }
 
 ::ng-deep .page-item.active .page-link {
-	background-color: rgba(247, 107, 86, 1);
+	background-color: var(--slightly-orange);
 	color: var(--card-bg-color);
 }
 

@@ -15,9 +15,7 @@ export default defineConfig([
 			js,
 			import: eslintPluginImport,
 		},
-		extends: ['js/recommended'],
 		rules: {
-			'no-undef': 'error',
 			'no-redeclare': 'error',
 			'no-duplicate-imports': 'error',
 			'no-useless-concat': 'error',

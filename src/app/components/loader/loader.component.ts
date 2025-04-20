@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
 	selector: 'app-loader',
-	template: '<span class="loader"></span>',
+	templateUrl: './loader.component.html',
 	styleUrl: './loader.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush
 })

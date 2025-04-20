@@ -1,12 +1,12 @@
 import { Routes } from '@angular/router';
 import { AuthGuard, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 
-import { ERoutes } from '@shared/routes.enum';
+import { ERoutes } from '@shared/enums/routes.enum';
 
-const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(ERoutes.login);
+const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(`/${ERoutes.Login}`);
 
 export const routes: Routes = [
-	{ path: '', redirectTo: ERoutes.books, pathMatch: 'full' },
+	{ path: '', redirectTo: ERoutes.Books, pathMatch: 'full' },
 	{
 		path: 'books',
 		loadComponent: () => import('@pages/home/home.component'),
@@ -43,5 +43,5 @@ export const routes: Routes = [
 		path: 'login',
 		loadComponent: () => import('@pages/auth/login/login.component'),
 	},
-	{ path: '**', loadComponent: () => import('@pages/not-found.component') },
+	{ path: '**', loadComponent: () => import('@pages/not-found/not-found.component') },
 ];

@@ -3,6 +3,7 @@ import {
 	Component,
 	effect,
 	inject,
+	OnInit,
 	signal,
 	untracked,
 	WritableSignal,
@@ -10,10 +11,10 @@ import {
 import { Router, ROUTER_OUTLET_DATA } from '@angular/router';
 
 import { SearchBooksComponent } from '@components/search-books/search-books.component';
-import { BooksService } from '@shared/books.service';
-import { IResponse } from '@shared/response.interface';
-import { IBook } from '@shared/book.interface';
+import { BooksService } from '@shared/services/books.service';
+import { IBook, IResponse } from '@shared/interfaces';
 import { PaginationComponent } from '@components/pagination/pagination.component';
+import { catchError, EMPTY } from 'rxjs';
 
 @Component({
 	selector: 'app-home-search',
@@ -22,13 +23,7 @@ import { PaginationComponent } from '@components/pagination/pagination.component
 	styleUrl: './home-search.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class HomeSearchComponent {
-	booksService = inject(BooksService);
-	private router = inject(Router);
-	readonly foundBooks =
-		inject<WritableSignal<IBook[] | undefined>>(ROUTER_OUTLET_DATA);
-	booksForPage = signal<IBook[]>([]);
-	notFoundMessage = signal<string>('');
+export default class HomeSearchComponent implements OnInit {
 	categories: string[] = [
 		$localize`Engineering`,
 		$localize`Medical`,
@@ -36,48 +31,77 @@ export default class HomeSearchComponent {
 		$localize`Science`,
 		$localize`Self-development`,
 	];
+	booksForPage = signal<IBook[]>([]);
+	books = signal<IBook[]>([]);
+	authorBooks = signal<IBook[] | undefined>(undefined);
+	notFoundMessage = signal<string>('');
+	private router = inject(Router);
+	readonly foundBooks =
+		inject<WritableSignal<IBook[] | undefined>>(ROUTER_OUTLET_DATA);
+	private booksService = inject(BooksService);
 
 	constructor() {
-		const authorBooks: IBook[] =
-			this.router.getCurrentNavigation()?.extras.state?.['items'];
-		if (authorBooks && !authorBooks.length) {
-			this.notFoundMessage.set($localize`Nothing Found!`);
-		} else if (authorBooks?.length) {
-			this.notFoundMessage.set('');
-			this.booksService.books.set(authorBooks);
-			this.booksForPage.set(this.booksService.books().slice(0, 10));
-		}
+		this.authorBooks.set(
+			this.router.getCurrentNavigation()?.extras.state?.['items']
+		);
 
 		effect(() => {
-			if (this.foundBooks() && !this.foundBooks()?.length) {
-				this.notFoundMessage.set($localize`Nothing Found!`);
-			} else if (this.foundBooks()?.length) {
-				this.notFoundMessage.set('');
-				this.booksService.books.set(this.foundBooks()!);
-				untracked(() => {
-					this.booksForPage.set(this.booksService.books().slice(0, 10));
-				});
+			if (this.booksService.searchBooks()) {
+				if (this.foundBooks() && !this.foundBooks()?.length) {
+					this.notFoundMessage.set($localize`Nothing Found!`);
+				} else if (this.foundBooks()?.length) {
+					this.notFoundMessage.set('');
+					this.booksService.books.set(this.foundBooks()!);
+					untracked(() => {
+						this.books.set(this.booksService.books());
+						this.booksForPage.set(this.booksService.books().slice(0, 10));
+					});
+				}
+				this.booksService.searchBooks.set(false);
 			}
 		});
+	}
+
+	ngOnInit(): void {
+		if (this.booksService.searchAuthorBooks()) {
+			if (this.authorBooks() && !this.authorBooks()?.length) {
+				this.notFoundMessage.set($localize`Nothing Found!`);
+			} else if (this.authorBooks()?.length) {
+				this.notFoundMessage.set('');
+				this.booksService.books.set(this.authorBooks()!);
+				this.books.set(this.booksService.books());
+				this.booksForPage.set(this.booksService.books().slice(0, 10));
+			}
+			this.booksService.searchAuthorBooks.set(false);
+		}
 
 		if (!this.booksForPage().length) {
 			this.booksForPage.set(this.booksService.books().slice(0, 10));
+			this.books.set(this.booksService.books());
 		}
 	}
 
 	searchByCategory(category: string): void {
-		this.booksService.getBooks(category).subscribe((books: IResponse) => {
-			if (!books.items.length) {
-				this.notFoundMessage.set($localize`Nothing Found!`);
-			} else {
-				this.notFoundMessage.set('');
-				this.booksService.books.set(books.items);
-				this.booksForPage.set(this.booksService.books().slice(0, 10));
-			}
-		});
+		this.booksService
+			.getBooks(category)
+			.pipe(
+				catchError(() => {
+					return EMPTY;
+				})
+			)
+			.subscribe((books: IResponse) => {
+				if (!books.items.length) {
+					this.notFoundMessage.set($localize`Nothing Found!`);
+				} else {
+					this.notFoundMessage.set('');
+					this.booksService.books.set(books.items);
+					this.books.set(this.booksService.books());
+					this.booksForPage.set(this.booksService.books().slice(0, 10));
+				}
+			});
 	}
 
-	pageChanged(pageNumber: number): void {
+	pageChange(pageNumber: number): void {
 		this.booksForPage.set(
 			this.booksService.books().slice((pageNumber - 1) * 10, pageNumber * 10)
 		);

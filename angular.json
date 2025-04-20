@@ -1,5 +1,12 @@
 {
-	"$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "schematics": {
+    "@schematics/angular": {
+      "component": {
+        "changeDetection": "OnPush"
+      }
+    }
+  },
 	"version": 1,
 	"newProjectRoot": "projects",
 	"projects": {
@@ -26,7 +33,7 @@
 					"builder": "@ngx-env/builder:application",
 					"options": {
 						"localize": true,
-						"i18nMissingTranslation": "error",
+						"i18nMissingTranslation": "warning",
 						"outputPath": "dist/my-bookshelf",
 						"index": "src/index.html",
 						"browser": "src/main.ts",
@@ -43,7 +50,7 @@
 							"node_modules/bootstrap/dist/css/bootstrap.min.css",
 							"src/styles.scss",
 							{
-								"input": "src/app/shared/dark.scss",
+								"input": "src/app/styles/dark.scss",
 								"bundleName": "dark",
 								"inject": false
 							}

@@ -9,8 +9,8 @@ import {
 import { NgClass } from '@angular/common';
 import { Router } from '@angular/router';
 
-import { IBook } from '@shared/book.interface';
-import { ERoutes } from '@shared/routes.enum';
+import { IBook } from '@shared/interfaces';
+import { ERoutes } from '@shared/enums/routes.enum';
 
 @Component({
 	selector: 'app-search-book',
@@ -20,18 +20,22 @@ import { ERoutes } from '@shared/routes.enum';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchBookComponent implements OnInit {
-	private router = inject(Router);
 	book = input<IBook>();
 	isFavorite = signal<boolean>(false);
+	separator = signal<string>('');
+	private router = inject(Router);
 
 	ngOnInit(): void {
 		if (localStorage.getItem(this.book()?.id as string)) {
 			this.isFavorite.set(true);
 		}
+		if (this.book()?.volumeInfo?.authors && this.book()?.volumeInfo?.publishedDate) {
+			this.separator.set(', ');
+		}
 	}
 
 	previewBook(): void {
-		this.router.navigateByUrl(`${ERoutes.books}/${this.book()?.id}`);
+		this.router.navigateByUrl(`${ERoutes.Books}/${this.book()?.id}`);
 	}
 
 	toggleFavorite(): void {

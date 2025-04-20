@@ -6,6 +6,8 @@ import {
 } from '@angular/core';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { pageSize, currentPage } from '@shared/constants/pagination.constants';
+
 @Component({
 	selector: 'app-pagination',
 	imports: [NgbPaginationModule],
@@ -14,12 +16,12 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaginationComponent {
+	pageSize = pageSize;
+	currentPage = currentPage;
 	totalItems = input.required<number>();
-	pageSize = 10;
-	currentPage = 1;
 	changePage = output<number>();
 
-	pageChanged(pageIndex: number) {
+	pageChange(pageIndex: number) {
 		this.changePage.emit(pageIndex);
 	}
 }

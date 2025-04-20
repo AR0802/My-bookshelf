@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
-import { BurgerMenuService } from '@shared/burger-menu.service';
+import { BurgerMenuService } from '@shared/services/burger-menu.service';
 
 @Component({
 	selector: 'app-burger-menu',
