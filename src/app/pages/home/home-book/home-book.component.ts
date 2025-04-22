@@ -1,14 +1,15 @@
 import {
 	ChangeDetectionStrategy,
 	Component,
+	DestroyRef,
 	inject,
-	OnDestroy,
 	OnInit,
 	signal,
 } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { catchError, EMPTY, Subscription } from 'rxjs';
+import { catchError, EMPTY, tap } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { BooksService } from '@shared/services/books.service';
 import { IBook, IResponse } from '@shared/interfaces';
@@ -22,9 +23,8 @@ import { LoaderComponent } from '@components/loader/loader.component';
 	styleUrl: './home-book.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class HomeBookComponent implements OnInit, OnDestroy {
-	id: string | undefined;
-	private subscription: Subscription | undefined;
+export class HomeBookComponent implements OnInit {
+	id = signal<string | undefined>(undefined);
 	book = signal<IBook | undefined>(undefined);
 	authorBooks = signal<IBook[]>([]);
 	haveAuthorBooks = signal<boolean>(false);
@@ -33,13 +33,19 @@ export default class HomeBookComponent implements OnInit, OnDestroy {
 	private router = inject(Router);
 	private activatedRoute = inject(ActivatedRoute);
 	private booksService = inject(BooksService);
+	private destroyRef = inject(DestroyRef);
 
 	ngOnInit(): void {
-		this.subscription = this.activatedRoute.params.subscribe(
-			(params: Params) => {
-				this.id = params['id'];
+		this.activatedRoute.params
+			.pipe(
+				tap((params: Params) => {
+					this.id.set(params['id']);
+				}),
+				takeUntilDestroyed(this.destroyRef)
+			)
+			.subscribe(() => {
 				this.booksService
-					.getBook(this.id!)
+					.getBook(this.id()!)
 					.pipe(
 						catchError(() => {
 							return EMPTY;
@@ -58,32 +64,32 @@ export default class HomeBookComponent implements OnInit, OnDestroy {
 									this.book()?.volumeInfo.authors[0] as string
 								)
 								.pipe(
+									tap((data: IResponse) => {
+										if (data.items) {
+											const filteredBooks = data.items.filter((book: IBook) => {
+												if (
+													this.book()?.id === book.id ||
+													!book.volumeInfo.imageLinks
+												) {
+													return false;
+												}
+												return true;
+											});
+											if (!filteredBooks.length) {
+												this.haveAuthorBooks.set(false);
+											} else {
+												this.authorBooks.set(filteredBooks.slice(0, 3));
+											}
+										}
+									}),
 									catchError(() => {
 										return EMPTY;
 									})
 								)
-								.subscribe((data: IResponse) => {
-									if (data.items) {
-										const filteredBooks = data.items.filter((book: IBook) => {
-											if (
-												this.book()?.id === book.id ||
-												!book.volumeInfo.imageLinks
-											) {
-												return false;
-											}
-											return true;
-										});
-										if (!filteredBooks.length) {
-											this.haveAuthorBooks.set(false);
-										} else {
-											this.authorBooks.set(filteredBooks.slice(0, 3));
-										}
-									}
-								});
+								.subscribe();
 						}
 					});
-			}
-		);
+			});
 	}
 
 	back(): void {
@@ -103,13 +109,9 @@ export default class HomeBookComponent implements OnInit, OnDestroy {
 			)
 			.subscribe((data: IResponse) => {
 				this.booksService.searchAuthorBooks.set(true);
-				this.router.navigateByUrl(`/${ERoutes.Books}/${ERoutes.Search}`, {
+				this.router.navigateByUrl(`/${ERoutes.BOOKS}/${ERoutes.SEARCH}`, {
 					state: data,
 				});
 			});
-	}
-
-	ngOnDestroy(): void {
-		this.subscription?.unsubscribe();
 	}
 }

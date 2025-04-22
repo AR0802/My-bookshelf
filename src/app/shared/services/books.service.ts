@@ -1,9 +1,15 @@
 import { ElementRef, inject, Injectable, signal } from '@angular/core';
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import {
+	addDoc,
+	collection,
+	collectionData,
+	Firestore,
+} from '@angular/fire/firestore';
 
 import { environment } from '@environments/environment';
-import { IBook, IResponse } from '@shared/interfaces';
+import { IBook, IResponse, IUserBook } from '@shared/interfaces';
 import { googleBooksAPIUrl } from '@shared/constants/googleBooksAPIUrl.constant';
 
 @Injectable({ providedIn: 'root' })
@@ -14,6 +20,8 @@ export class BooksService {
 	searchAuthorBooks = signal<boolean>(false);
 	layoutRef = signal<ElementRef | undefined>(undefined);
 	private http = inject(HttpClient);
+	private firestore = inject(Firestore);
+	private booksCollection = collection(this.firestore, 'books');
 
 	getBooks(category: string): Observable<IResponse> {
 		return this.http.get<IResponse>(
@@ -33,6 +41,18 @@ export class BooksService {
 	getBook(id: string): Observable<IBook> {
 		return this.http.get<IBook>(
 			`${googleBooksAPIUrl}/${id}?key=${environment.googleBooksApi.apiKey}`
+		);
+	}
+
+	getUserBooks(): Observable<IUserBook[]> {
+		return collectionData(this.booksCollection, {
+			idField: 'id',
+		}) as Observable<IUserBook[]>;
+	}
+
+	addUserBook(userBook: Omit<IUserBook, 'id'>): Observable<string> {
+		return from(
+			addDoc(this.booksCollection, userBook).then((response) => response.id)
 		);
 	}
 }

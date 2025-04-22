@@ -29,13 +29,16 @@ export class SearchBookComponent implements OnInit {
 		if (localStorage.getItem(this.book()?.id as string)) {
 			this.isFavorite.set(true);
 		}
-		if (this.book()?.volumeInfo?.authors && this.book()?.volumeInfo?.publishedDate) {
+		if (
+			this.book()?.volumeInfo?.authors &&
+			this.book()?.volumeInfo?.publishedDate
+		) {
 			this.separator.set(', ');
 		}
 	}
 
 	previewBook(): void {
-		this.router.navigateByUrl(`${ERoutes.Books}/${this.book()?.id}`);
+		this.router.navigateByUrl(`${ERoutes.BOOKS}/${this.book()?.id}`);
 	}
 
 	toggleFavorite(): void {

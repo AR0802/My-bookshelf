@@ -20,8 +20,8 @@ import { catchError, EMPTY } from 'rxjs';
 	styleUrl: './signup.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class SignupComponent {
-	readonly routes = ERoutes;
+export class SignupComponent {
+	readonly ERoutes = ERoutes;
 	fieldPasswordTextType = signal<boolean>(false);
 	fieldConfirmPasswordTextType = signal<boolean>(false);
 	private router = inject(Router);
@@ -41,7 +41,7 @@ export default class SignupComponent {
 				})
 			)
 			.subscribe(() => {
-				this.router.navigateByUrl(`${ERoutes.Books}`);
+				this.router.navigateByUrl(`${ERoutes.BOOKS}`);
 			});
 	}
 }

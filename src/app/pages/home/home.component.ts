@@ -22,7 +22,7 @@ import { IBook, IResponse } from '@shared/interfaces';
 	styleUrl: './home.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit {
 	@ViewChild('layout', { static: true }) layoutRef: ElementRef | undefined;
 	foundBooks = signal<IBook[] | undefined>(undefined);
 	booksService = inject(BooksService);

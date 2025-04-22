@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, input, OnInit, signal } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	input,
+	OnInit,
+	signal,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { IBook } from '@shared/interfaces';
@@ -15,7 +21,10 @@ export class BookComponent implements OnInit {
 	separator = signal<string>('');
 
 	ngOnInit(): void {
-		if (this.book()?.volumeInfo?.authors && this.book()?.volumeInfo?.publishedDate) {
+		if (
+			this.book()?.volumeInfo?.authors &&
+			this.book()?.volumeInfo?.publishedDate
+		) {
 			this.separator.set(', ');
 		}
 	}

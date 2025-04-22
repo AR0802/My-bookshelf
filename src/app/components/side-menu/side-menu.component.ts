@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	inject,
+	OnInit,
+	signal,
+} from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 import { BackdropComponent } from '@components/backdrop/backdrop.component';
@@ -11,10 +17,10 @@ import { ThemeService } from '@shared/services/theme.service';
 	imports: [RouterLink, RouterLinkActive, BackdropComponent],
 	templateUrl: './side-menu.component.html',
 	styleUrl: './side-menu.component.scss',
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SideMenuComponent implements OnInit {
-	readonly routes = ERoutes;
+	readonly ERoutes = ERoutes;
 	theme = signal<string>('');
 	show = signal<boolean>(false);
 	private burgerMenuService = inject(BurgerMenuService);

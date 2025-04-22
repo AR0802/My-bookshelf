@@ -8,7 +8,7 @@
 		<span i18n class="mx-3">Browse</span>
 	</a>
 	<ul class="dropdown-menu text-small shadow border-0">
-		@for (category of categories; track category) {
+		@for (category of categories; track $index) {
 			<li>
 				<a class="dropdown-item color" (click)="searchByCategory(category)">{{
 					category

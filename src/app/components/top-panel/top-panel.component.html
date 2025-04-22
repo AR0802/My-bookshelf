@@ -18,10 +18,20 @@
 	<ul class="dropdown-menu dropdown-menu-end text-small shadow border-0">
 		<li><a i18n class="dropdown-item color">Profile</a></li>
 		<li>
-			<a i18n class="dropdown-item color" [routerLink]="'/' + routes.Books + '/' + routes.Search">Search</a>
+			<a
+				i18n
+				class="dropdown-item color"
+				[routerLink]="['/', ERoutes.BOOKS, ERoutes.SEARCH]"
+				>Search</a
+			>
 		</li>
 		<li>
-			<a i18n class="dropdown-item color" [routerLink]="'/' + routes.Books + '/' + routes.Favorites">Favourite</a>
+			<a
+				i18n
+				class="dropdown-item color"
+				[routerLink]="['/', ERoutes.BOOKS, ERoutes.FAVORITES]"
+				>Favourites</a
+			>
 		</li>
 		<li><a i18n class="dropdown-item color" (click)="logout()">Logout</a></li>
 	</ul>
@@ -39,7 +49,9 @@
 	<ul class="dropdown-menu text-small shadow border-0">
 		@for (locale of localesList; track locale.code) {
 			<li>
-				<a class="dropdown-item color" (click)="changeLanguage(locale.code)">{{locale.label}}</a>
+				<a class="dropdown-item color" (click)="changeLanguage(locale.code)">{{
+					locale.label
+				}}</a>
 			</li>
 		}
 	</ul>
@@ -56,7 +68,7 @@
 				<span class="mx-3 dropdown-param">{{ searchParam() }}</span>
 			</a>
 			<ul class="dropdown-menu text-small shadow border-0">
-				@for (param of searchParams; track param) {
+				@for (param of searchParams; track $index) {
 					<li>
 						<a class="dropdown-item color" (click)="changeSearchParam(param)">{{
 							param

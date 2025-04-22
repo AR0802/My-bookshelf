@@ -1,0 +1,81 @@
+.container {
+	max-width: 40rem;
+	background-color: var(--card-bg-color);
+	border-radius: 7px;
+	padding: 2.5rem 5rem 2rem;
+	margin-top: 2rem;
+
+	.title {
+		font-size: 20px;
+		line-height: 100%;
+		text-align: center;
+		color: var(--text-color);
+		margin-bottom: 2rem;
+	}
+
+	.form-label {
+		font-weight: 600;
+		color: var(--text-color);
+	}
+
+	.form-control {
+		color: var(--text-color-secondary);
+		background-color: var(--form-control-bg-color);
+	}
+
+	.form-control::placeholder {
+		color: var(--form-control-placeholder-color);
+	}
+
+	input.ng-touched.ng-invalid {
+		border: 1px solid var(--red);
+	}
+
+	textarea.ng-touched.ng-invalid {
+		border: 1px solid var(--red);
+	}
+
+	::-ms-reveal {
+		display: none;
+	}
+
+	.error {
+		color: var(--red);
+		font-size: 14px;
+		margin-bottom: 8px;
+	}
+
+	.visibility {
+		visibility: hidden;
+	}
+
+	.btn-orange {
+		background-color: var(--orange-auth-color);
+		color: var(--card-bg-color);
+		border: 1px solid var(--orange-auth-color);
+		width: max-content;
+		padding: 0.5rem 5rem;
+		margin: 0 auto;
+		margin-top: 0.5rem;
+	}
+
+	.btn-orange:hover {
+		background-color: rgba(235, 82, 49, 1);
+	}
+}
+
+@media (max-width: 675px) {
+	.container {
+		padding: 2.5rem 3rem 2rem;
+
+		.btn-orange {
+			padding: 0.5rem 3rem !important;
+		}
+	}
+}
+
+@media (max-width: 500px) {
+	.container {
+		padding: 2.5rem 1.5rem 2rem;
+	}
+}

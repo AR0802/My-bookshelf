@@ -2,6 +2,9 @@
 @if (!books().length) {
 	<app-loader></app-loader>
 }
-@for (category of categories; track category) {
-	<app-books (booksOutput)="booksChanged($event)" [category]="category"></app-books>
+@for (category of categories; track $index) {
+	<app-books
+		(booksOutput)="booksChanged($event)"
+		[category]="category"
+	></app-books>
 }

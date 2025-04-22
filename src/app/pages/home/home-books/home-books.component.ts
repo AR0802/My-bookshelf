@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject, signal} from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	inject,
+	signal,
+} from '@angular/core';
 
 import { BooksComponent } from '@components/books/books.component';
 import { LoaderComponent } from '@components/loader/loader.component';
@@ -12,7 +17,7 @@ import { BooksService } from '@shared/services/books.service';
 	styleUrl: './home-books.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class HomeBooksComponent {
+export class HomeBooksComponent {
 	categories: string[] = [
 		$localize`Programming`,
 		$localize`Science`,

@@ -23,12 +23,15 @@ export class FavoriteBookComponent implements OnInit {
 	private router = inject(Router);
 
 	ngOnInit(): void {
-		if (this.book()?.volumeInfo?.authors && this.book()?.volumeInfo?.publishedDate) {
+		if (
+			this.book()?.volumeInfo?.authors &&
+			this.book()?.volumeInfo?.publishedDate
+		) {
 			this.separator.set(', ');
 		}
 	}
 
 	navigate(): void {
-		this.router.navigateByUrl(`${ERoutes.Books}/${this.book()?.id}`);
+		this.router.navigateByUrl(`/${ERoutes.BOOKS}/${this.book()?.id}`);
 	}
 }

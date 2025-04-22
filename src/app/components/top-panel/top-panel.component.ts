@@ -14,7 +14,7 @@ import { AuthService } from '@shared/services/auth.service';
 import { BooksService } from '@shared/services/books.service';
 import { IResponse } from '@shared/interfaces';
 import { ERoutes } from '@shared/enums/routes.enum';
-import { catchError, EMPTY } from 'rxjs';
+import { catchError, EMPTY, tap } from 'rxjs';
 
 @Component({
 	selector: 'app-top-panel',
@@ -24,7 +24,7 @@ import { catchError, EMPTY } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TopPanelComponent {
-	readonly routes = ERoutes;
+	readonly ERoutes = ERoutes;
 	searchParams: string[] = [
 		$localize`All`,
 		$localize`Title`,
@@ -53,7 +53,7 @@ export class TopPanelComponent {
 				})
 			)
 			.subscribe(() => {
-				this.router.navigateByUrl(`/${ERoutes.Login}`);
+				this.router.navigateByUrl(`/${ERoutes.LOGIN}`);
 			});
 	}
 
@@ -79,30 +79,34 @@ export class TopPanelComponent {
 			this.booksService
 				.getBooks(searchValue)
 				.pipe(
+					tap((data: IResponse) => {
+						this.booksService.searchBooks.set(true);
+						this.foundBooks.emit(data);
+					}),
 					catchError(() => {
 						return [];
 					})
 				)
-				.subscribe((data: IResponse) => {
-					this.booksService.searchBooks.set(true);
-					this.foundBooks.emit(data);
-					if (this.router.url !== `/${ERoutes.Books}/${ERoutes.Search}`) {
-						this.router.navigateByUrl(`/${ERoutes.Books}/${ERoutes.Search}`);
+				.subscribe(() => {
+					if (this.router.url !== `/${ERoutes.BOOKS}/${ERoutes.SEARCH}`) {
+						this.router.navigateByUrl(`/${ERoutes.BOOKS}/${ERoutes.SEARCH}`);
 					}
 				});
 		} else {
 			this.booksService
 				.getBooksBySearch(searchApiKey, searchValue)
 				.pipe(
+					tap((data: IResponse) => {
+						this.booksService.searchBooks.set(true);
+						this.foundBooks.emit(data);
+					}),
 					catchError(() => {
 						return [];
 					})
 				)
-				.subscribe((data: IResponse) => {
-					this.booksService.searchBooks.set(true);
-					this.foundBooks.emit(data);
-					if (this.router.url !== `/${ERoutes.Books}/${ERoutes.Search}`) {
-						this.router.navigateByUrl(`/${ERoutes.Books}/${ERoutes.Search}`);
+				.subscribe(() => {
+					if (this.router.url !== `/${ERoutes.BOOKS}/${ERoutes.SEARCH}`) {
+						this.router.navigateByUrl(`/${ERoutes.BOOKS}/${ERoutes.SEARCH}`);
 					}
 				});
 		}

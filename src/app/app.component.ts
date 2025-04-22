@@ -1,12 +1,13 @@
 import {
 	ChangeDetectionStrategy,
 	Component,
+	DestroyRef,
 	inject,
-	OnDestroy,
 	OnInit,
 } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { catchError, EMPTY, Subscription } from 'rxjs';
+import { catchError, EMPTY, tap } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { AuthService } from '@shared/services/auth.service';
 
@@ -17,30 +18,27 @@ import { AuthService } from '@shared/services/auth.service';
 	styleUrl: './app.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent implements OnInit, OnDestroy {
-	private subscription: Subscription | undefined;
+export class AppComponent implements OnInit {
 	private authService = inject(AuthService);
+	private destroyRef = inject(DestroyRef);
 
 	ngOnInit(): void {
-		this.subscription = this.authService.user$
+		this.authService.user$
 			.pipe(
+				tap((user) => {
+					user
+						? this.authService.currentUserSig.set({
+								email: user.email!,
+								name: user.displayName!,
+								id: user.uid,
+							})
+						: this.authService.currentUserSig.set(null);
+				}),
 				catchError(() => {
 					return EMPTY;
-				})
+				}),
+				takeUntilDestroyed(this.destroyRef)
 			)
-			.subscribe((user) => {
-				if (user) {
-					this.authService.currentUserSig.set({
-						email: user.email!,
-						name: user.displayName!,
-					});
-				} else {
-					this.authService.currentUserSig.set(null);
-				}
-			});
-	}
-
-	ngOnDestroy(): void {
-		this.subscription?.unsubscribe();
+			.subscribe();
 	}
 }
