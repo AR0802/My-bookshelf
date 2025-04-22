@@ -1,0 +1,125 @@
+<div class="container">
+	<p i18n class="title">Upload Your Book</p>
+	<form [formGroup]="uploadBookForm" (ngSubmit)="upload()">
+		<div>
+			<label i18n for="title" class="form-label">Title</label>
+			<input
+				type="text"
+				class="form-control shadow-none"
+				id="title"
+				[formControl]="uploadBookForm.controls.title"
+				placeholder="Book title"
+				i18n-placeholder
+			/>
+			<p
+				i18n
+				[ngClass]="{
+					error: true,
+					visibility:
+						uploadBookForm.controls.title.valid ||
+						uploadBookForm.controls.title.untouched,
+				}"
+			>
+				Enter Title!
+			</p>
+		</div>
+		<div>
+			<label i18n for="author" class="form-label">Author</label>
+			<input
+				type="text"
+				class="form-control shadow-none"
+				id="author"
+				[formControl]="uploadBookForm.controls.author"
+				placeholder="Author"
+				i18n-placeholder
+			/>
+			<p
+				i18n
+				[ngClass]="{
+					error: true,
+					visibility:
+						uploadBookForm.controls.author.valid ||
+						uploadBookForm.controls.author.untouched,
+				}"
+			>
+				Enter Author!
+			</p>
+		</div>
+		<div>
+			<label i18n for="author" class="form-label">Description</label>
+			<textarea
+				class="form-control shadow-none"
+				id="description"
+				[formControl]="uploadBookForm.controls.description"
+				rows="3"
+				placeholder="Description"
+				i18n-placeholder
+			></textarea>
+			<p
+				i18n
+				[ngClass]="{
+					error: true,
+					visibility:
+						uploadBookForm.controls.description.valid ||
+						uploadBookForm.controls.description.untouched,
+				}"
+			>
+				Enter Description!
+			</p>
+		</div>
+		<div>
+			<label i18n for="file" class="form-label">File</label>
+			<input
+				type="text"
+				class="form-control shadow-none"
+				id="file"
+				[formControl]="uploadBookForm.controls.file"
+				placeholder="Upload book file"
+				i18n-placeholder
+			/>
+			<p
+				i18n
+				[ngClass]="{
+					error: true,
+					visibility:
+						uploadBookForm.controls.file.valid ||
+						uploadBookForm.controls.file.untouched,
+				}"
+			>
+				Enter File!
+			</p>
+		</div>
+		<div>
+			<label i18n for="image" class="form-label">Image</label>
+			<input
+				type="text"
+				class="form-control shadow-none"
+				id="image"
+				[formControl]="uploadBookForm.controls.image"
+				placeholder="Image"
+				i18n-placeholder
+			/>
+			<p
+				i18n
+				[ngClass]="{
+					error: true,
+					visibility:
+						uploadBookForm.controls.image.valid ||
+						uploadBookForm.controls.image.untouched,
+				}"
+			>
+				Enter Image!
+			</p>
+		</div>
+		<div class="d-grid col-12">
+			<button
+				i18n
+				class="btn btn-orange"
+				type="submit"
+				[disabled]="uploadBookForm.invalid"
+			>
+				UPLOAD
+			</button>
+		</div>
+	</form>
+</div>

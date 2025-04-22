@@ -18,7 +18,7 @@ import { ERoutes } from '@shared/enums/routes.enum';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavComponent {
-	readonly routes = ERoutes;
+	readonly ERoutes = ERoutes;
 	theme = signal<string>('');
 	private themeService = inject(ThemeService);
 

@@ -15,7 +15,10 @@
 				required
 				pattern="^[a-zA-Zа-яА-ЯёЁ][a-zA-Zа-яА-ЯёЁ0-9_\-]{2,15}$"
 			/>
-			<p i18n [ngClass]="{ error: true, visibility: name.valid || name.untouched }">
+			<p
+				i18n
+				[ngClass]="{ error: true, visibility: name.valid || name.untouched }"
+			>
 				Invalid Name!
 			</p>
 		</div>
@@ -70,7 +73,9 @@
 			</p>
 		</div>
 		<div>
-			<label i18n for="confirm-password" class="form-label">Confirm Password</label>
+			<label i18n for="confirm-password" class="form-label"
+				>Confirm Password</label
+			>
 			<input
 				[type]="fieldConfirmPasswordTextType() ? 'text' : 'password'"
 				class="form-control shadow-none"
@@ -115,6 +120,7 @@
 		</div>
 	</form>
 	<p i18n class="footer">
-		Already a User? <a [routerLink]="'/' + routes.Login" class="register-link">Login now</a>
+		Already a User?
+		<a [routerLink]="['/', ERoutes.LOGIN]" class="register-link">Login now</a>
 	</p>
 </div>

@@ -14,7 +14,7 @@ import { SearchBooksComponent } from '@components/search-books/search-books.comp
 import { BooksService } from '@shared/services/books.service';
 import { IBook, IResponse } from '@shared/interfaces';
 import { PaginationComponent } from '@components/pagination/pagination.component';
-import { catchError, EMPTY } from 'rxjs';
+import { catchError, EMPTY, tap } from 'rxjs';
 
 @Component({
 	selector: 'app-home-search',
@@ -23,7 +23,7 @@ import { catchError, EMPTY } from 'rxjs';
 	styleUrl: './home-search.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class HomeSearchComponent implements OnInit {
+export class HomeSearchComponent implements OnInit {
 	categories: string[] = [
 		$localize`Engineering`,
 		$localize`Medical`,
@@ -85,20 +85,21 @@ export default class HomeSearchComponent implements OnInit {
 		this.booksService
 			.getBooks(category)
 			.pipe(
+				tap((books: IResponse) => {
+					if (!books.items.length) {
+						this.notFoundMessage.set($localize`Nothing Found!`);
+					} else {
+						this.notFoundMessage.set('');
+						this.booksService.books.set(books.items);
+						this.books.set(this.booksService.books());
+						this.booksForPage.set(this.booksService.books().slice(0, 10));
+					}
+				}),
 				catchError(() => {
 					return EMPTY;
 				})
 			)
-			.subscribe((books: IResponse) => {
-				if (!books.items.length) {
-					this.notFoundMessage.set($localize`Nothing Found!`);
-				} else {
-					this.notFoundMessage.set('');
-					this.booksService.books.set(books.items);
-					this.books.set(this.booksService.books());
-					this.booksForPage.set(this.booksService.books().slice(0, 10));
-				}
-			});
+			.subscribe();
 	}
 
 	pageChange(pageNumber: number): void {

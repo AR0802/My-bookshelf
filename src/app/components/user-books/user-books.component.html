@@ -1,0 +1,5 @@
+<div class="favorite-container">
+	@for (book of books(); track book.id) {
+		<app-user-book [book]="book"></app-user-book>
+	}
+</div>

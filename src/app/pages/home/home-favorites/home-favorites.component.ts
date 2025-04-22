@@ -1,4 +1,9 @@
-import { Component, OnInit, signal } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	OnInit,
+	signal,
+} from '@angular/core';
 
 import { FavoriteBooksComponent } from '@components/favorite-books/favorite-books.component';
 import { IBook } from '@shared/interfaces';
@@ -8,8 +13,9 @@ import { IBook } from '@shared/interfaces';
 	imports: [FavoriteBooksComponent],
 	templateUrl: './home-favorites.component.html',
 	styleUrl: './home-favorites.component.scss',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class HomeFavoriteComponent implements OnInit {
+export class HomeFavoriteComponent implements OnInit {
 	books = signal<IBook[]>([]);
 
 	ngOnInit(): void {

@@ -1,0 +1,37 @@
+.card {
+	width: 11.875rem;
+	height: 18rem;
+	border: 0;
+	padding: 1rem;
+	background-color: var(--card-bg-color);
+
+	.card-img-top {
+		width: 9.7rem;
+		height: 11.25rem;
+		display: block;
+		margin: 0 auto;
+		border-radius: 5px;
+		margin-bottom: 0.5rem;
+	}
+
+	.card-text {
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
+		margin: 0;
+		color: var(--text-color);
+	}
+
+	.card-description {
+		font-size: 14px;
+	}
+
+	.card-grade {
+		font-size: 14px;
+		color: var(--grey);
+
+		.card-grade-dynamic {
+			color: var(--text-color);
+		}
+	}
+}

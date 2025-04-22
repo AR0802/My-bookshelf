@@ -1,0 +1,17 @@
+<div class="card">
+	<img
+		[src]="book()?.image"
+		[title]="book()?.title"
+		[alt]="book()?.title"
+		i18n-alt
+		i18n-title
+		class="card-img-top"
+	/>
+	<p i18n class="card-text card-title">{{ book()?.title }}</p>
+	<p i18n class="card-text card-description">
+		{{ book()?.author }}
+	</p>
+	<p i18n class="card-text card-grade">
+		<span class="card-grade-dynamic">4,5</span>/5
+	</p>
+</div>
