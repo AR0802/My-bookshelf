@@ -1,8 +1,8 @@
 import {
 	ChangeDetectionStrategy,
 	Component,
+	effect,
 	inject,
-	OnInit,
 	signal,
 } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
@@ -19,15 +19,17 @@ import { ThemeService } from '@shared/services/theme.service';
 	styleUrl: './side-menu.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SideMenuComponent implements OnInit {
+export class SideMenuComponent {
 	readonly ERoutes = ERoutes;
 	theme = signal<string>('');
 	show = signal<boolean>(false);
 	private burgerMenuService = inject(BurgerMenuService);
 	private themeService = inject(ThemeService);
 
-	ngOnInit(): void {
-		this.show.set(this.burgerMenuService.show());
+	constructor() {
+		effect(() => {
+			this.show.set(this.burgerMenuService.show());
+		});
 	}
 
 	changeTheme(): void {

@@ -53,6 +53,13 @@ export const routes: Routes = [
 					),
 			},
 			{
+				path: 'my-books/:id',
+				loadComponent: () =>
+					import('@pages/home/home-my-book/home-my-book.component').then(
+						(component) => component.HomeMyBookComponent
+					),
+			},
+			{
 				path: ':id',
 				loadComponent: () =>
 					import('@pages/home/home-book/home-book.component').then(

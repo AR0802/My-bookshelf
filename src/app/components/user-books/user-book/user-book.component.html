@@ -1,4 +1,8 @@
-<div class="card">
+<div
+	class="card"
+	[routerLink]="book()?.id"
+	[queryParams]="{ file: book()?.file }"
+>
 	<img
 		[src]="book()?.image"
 		[title]="book()?.title"
