@@ -1,7 +1,0 @@
-[[redirects]]
-    from = "/en-US/**"
-    to = "/en-US/index.html"
-
-[[redirects]]
-    from = "/es-PR/**"
-    to = "/es-PR/index.html"

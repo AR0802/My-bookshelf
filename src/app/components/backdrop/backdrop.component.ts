@@ -1,8 +1,8 @@
 import {
 	ChangeDetectionStrategy,
 	Component,
+	effect,
 	inject,
-	OnInit,
 	signal,
 } from '@angular/core';
 
@@ -14,12 +14,14 @@ import { BurgerMenuService } from '@shared/services/burger-menu.service';
 	styleUrl: './backdrop.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BackdropComponent implements OnInit {
+export class BackdropComponent {
 	show = signal<boolean>(false);
 	private burgerMenuService = inject(BurgerMenuService);
 
-	ngOnInit(): void {
-		this.show.set(this.burgerMenuService.show());
+	constructor() {
+		effect(() => {
+			this.show.set(this.burgerMenuService.show());
+		});
 	}
 
 	close(): void {
