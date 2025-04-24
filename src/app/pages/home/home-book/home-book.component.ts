@@ -15,10 +15,11 @@ import { BooksService } from '@shared/services/books.service';
 import { IBook, IResponse } from '@shared/interfaces';
 import { ERoutes } from '@shared/enums/routes.enum';
 import { LoaderComponent } from '@components/loader/loader.component';
+import { AlertComponent } from '@components/alert/alert.component';
 
 @Component({
 	selector: 'app-home-book',
-	imports: [LoaderComponent],
+	imports: [LoaderComponent, AlertComponent],
 	templateUrl: './home-book.component.html',
 	styleUrl: './home-book.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -29,6 +30,7 @@ export class HomeBookComponent implements OnInit {
 	authorBooks = signal<IBook[]>([]);
 	haveAuthorBooks = signal<boolean>(false);
 	separator = signal<string>('');
+	error = signal<string>('');
 	private location = inject(Location);
 	private router = inject(Router);
 	private activatedRoute = inject(ActivatedRoute);
@@ -47,9 +49,11 @@ export class HomeBookComponent implements OnInit {
 				this.booksService
 					.getBook(this.id()!)
 					.pipe(
-						catchError(() => {
+						catchError((error: Error) => {
+							this.error.set(error.message);
 							return EMPTY;
-						})
+						}),
+						takeUntilDestroyed(this.destroyRef)
 					)
 					.subscribe((book: IBook) => {
 						this.book.set(book);
@@ -82,9 +86,11 @@ export class HomeBookComponent implements OnInit {
 											}
 										}
 									}),
-									catchError(() => {
+									catchError((error: Error) => {
+										this.error.set(error.message);
 										return EMPTY;
-									})
+									}),
+									takeUntilDestroyed(this.destroyRef)
 								)
 								.subscribe();
 						}
@@ -103,15 +109,18 @@ export class HomeBookComponent implements OnInit {
 				this.book()?.volumeInfo.authors[0] as string
 			)
 			.pipe(
-				catchError(() => {
+				tap((data: IResponse) => {
+					this.booksService.searchAuthorBooks.set(true);
+					this.router.navigateByUrl(`/${ERoutes.BOOKS}/${ERoutes.SEARCH}`, {
+						state: data,
+					});
+				}),
+				catchError((error: Error) => {
+					this.error.set(error.message);
 					return EMPTY;
-				})
+				}),
+				takeUntilDestroyed(this.destroyRef)
 			)
-			.subscribe((data: IResponse) => {
-				this.booksService.searchAuthorBooks.set(true);
-				this.router.navigateByUrl(`/${ERoutes.BOOKS}/${ERoutes.SEARCH}`, {
-					state: data,
-				});
-			});
+			.subscribe();
 	}
 }

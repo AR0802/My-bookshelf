@@ -4,21 +4,24 @@ import {
 	DestroyRef,
 	inject,
 	OnInit,
+	signal,
 } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { catchError, EMPTY, tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { AuthService } from '@shared/services/auth.service';
+import { AlertComponent } from '@components/alert/alert.component';
 
 @Component({
 	selector: 'app-root',
-	imports: [RouterOutlet],
+	imports: [RouterOutlet, AlertComponent],
 	templateUrl: './app.component.html',
 	styleUrl: './app.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit {
+	error = signal<string>('');
 	private authService = inject(AuthService);
 	private destroyRef = inject(DestroyRef);
 
@@ -34,7 +37,8 @@ export class AppComponent implements OnInit {
 							})
 						: this.authService.currentUserSig.set(null);
 				}),
-				catchError(() => {
+				catchError((error: Error) => {
+					this.error.set(error.message);
 					return EMPTY;
 				}),
 				takeUntilDestroyed(this.destroyRef)

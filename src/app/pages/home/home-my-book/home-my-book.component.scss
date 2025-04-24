@@ -1,4 +1,44 @@
+.back {
+	position: absolute;
+	max-width: max-content;
+	cursor: pointer;
+
+	.back-icon {
+		color: var(--text-color);
+	}
+
+	.back-button {
+		text-decoration: none;
+		color: var(--text-color);
+		font-size: 15px;
+		margin-left: 1rem;
+	}
+
+	&:hover {
+		.back-icon,
+		.back-button {
+			color: var(--black);
+		}
+	}
+}
+
+.pages {
+	text-align: center;
+	color: var(--text-color);
+	margin-bottom: 0.5rem;
+
+	.button {
+		border: 0;
+		background-color: var(--background-color);
+		color: var(--text-color);
+
+		&:disabled {
+			color: var(--text-color-disabled);
+		}
+	}
+}
+
 pdf-viewer {
 	filter: drop-shadow(5px 5px 5px #222222);
-	height: 33.5rem;
+	height: 33rem;
 }

@@ -1,24 +1,27 @@
 import {
 	ChangeDetectionStrategy,
 	Component,
+	DestroyRef,
 	Inject,
 	inject,
 	LOCALE_ID,
 	output,
 	signal,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { catchError, EMPTY, tap } from 'rxjs';
 
 import { AuthService } from '@shared/services/auth.service';
 import { BooksService } from '@shared/services/books.service';
 import { IResponse } from '@shared/interfaces';
 import { ERoutes } from '@shared/enums/routes.enum';
-import { catchError, EMPTY, tap } from 'rxjs';
+import { AlertComponent } from '@components/alert/alert.component';
 
 @Component({
 	selector: 'app-top-panel',
-	imports: [RouterLink, FormsModule],
+	imports: [RouterLink, FormsModule, AlertComponent],
 	templateUrl: './top-panel.component.html',
 	styleUrl: './top-panel.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -38,9 +41,11 @@ export class TopPanelComponent {
 	];
 	foundBooks = output<IResponse>();
 	searchParam = signal<string>($localize`All`);
+	error = signal<string>('');
 	private authService = inject(AuthService);
 	private booksService = inject(BooksService);
 	private router = inject(Router);
+	private destroyRef = inject(DestroyRef);
 
 	constructor(@Inject(LOCALE_ID) private locale: string) {}
 
@@ -48,13 +53,16 @@ export class TopPanelComponent {
 		this.authService
 			.logout()
 			.pipe(
-				catchError(() => {
+				tap(() => {
+					this.router.navigateByUrl(`/${ERoutes.LOGIN}`);
+				}),
+				catchError((error: Error) => {
+					this.error.set(error.message);
 					return EMPTY;
-				})
+				}),
+				takeUntilDestroyed(this.destroyRef)
 			)
-			.subscribe(() => {
-				this.router.navigateByUrl(`/${ERoutes.LOGIN}`);
-			});
+			.subscribe();
 	}
 
 	changeSearchParam(param: string): void {
@@ -82,16 +90,17 @@ export class TopPanelComponent {
 					tap((data: IResponse) => {
 						this.booksService.searchBooks.set(true);
 						this.foundBooks.emit(data);
+						if (this.router.url !== `/${ERoutes.BOOKS}/${ERoutes.SEARCH}`) {
+							this.router.navigateByUrl(`/${ERoutes.BOOKS}/${ERoutes.SEARCH}`);
+						}
 					}),
-					catchError(() => {
-						return [];
-					})
+					catchError((error: Error) => {
+						this.error.set(error.message);
+						return EMPTY;
+					}),
+					takeUntilDestroyed(this.destroyRef)
 				)
-				.subscribe(() => {
-					if (this.router.url !== `/${ERoutes.BOOKS}/${ERoutes.SEARCH}`) {
-						this.router.navigateByUrl(`/${ERoutes.BOOKS}/${ERoutes.SEARCH}`);
-					}
-				});
+				.subscribe();
 		} else {
 			this.booksService
 				.getBooksBySearch(searchApiKey, searchValue)
@@ -99,16 +108,17 @@ export class TopPanelComponent {
 					tap((data: IResponse) => {
 						this.booksService.searchBooks.set(true);
 						this.foundBooks.emit(data);
+						if (this.router.url !== `/${ERoutes.BOOKS}/${ERoutes.SEARCH}`) {
+							this.router.navigateByUrl(`/${ERoutes.BOOKS}/${ERoutes.SEARCH}`);
+						}
 					}),
-					catchError(() => {
-						return [];
-					})
+					catchError((error: Error) => {
+						this.error.set(error.message);
+						return EMPTY;
+					}),
+					takeUntilDestroyed(this.destroyRef)
 				)
-				.subscribe(() => {
-					if (this.router.url !== `/${ERoutes.BOOKS}/${ERoutes.SEARCH}`) {
-						this.router.navigateByUrl(`/${ERoutes.BOOKS}/${ERoutes.SEARCH}`);
-					}
-				});
+				.subscribe();
 		}
 	}
 

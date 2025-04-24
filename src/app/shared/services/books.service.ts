@@ -10,7 +10,7 @@ import {
 
 import { environment } from '@environments/environment';
 import { IBook, IResponse, IUserBook } from '@shared/interfaces';
-import { googleBooksAPIUrl } from '@shared/constants/googleBooksAPIUrl.constant';
+import { googleBooksAPIUrl } from '@shared/constants/google-books-api-url.constant';
 
 @Injectable({ providedIn: 'root' })
 export class BooksService {

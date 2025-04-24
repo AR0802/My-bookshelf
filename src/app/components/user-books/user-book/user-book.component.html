@@ -1,8 +1,4 @@
-<div
-	class="card"
-	[routerLink]="book()?.id"
-	[queryParams]="{ file: book()?.file }"
->
+<div class="card">
 	<img
 		[src]="book()?.image"
 		[title]="book()?.title"
@@ -18,4 +14,12 @@
 	<p i18n class="card-text card-grade">
 		<span class="card-grade-dynamic">4,5</span>/5
 	</p>
+	<button
+		i18n
+		class="btn btn-outline-danger"
+		[routerLink]="book()?.id"
+		[queryParams]="{ file: book()?.file }"
+	>
+		Read
+	</button>
 </div>

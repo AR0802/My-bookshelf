@@ -1,10 +1,9 @@
 .card {
 	width: 11.875rem;
-	height: 18rem;
+	height: 21rem;
 	border: 0;
 	padding: 1rem;
 	background-color: var(--card-bg-color);
-	cursor: pointer;
 
 	.card-img-top {
 		width: 9.7rem;
@@ -30,9 +29,23 @@
 	.card-grade {
 		font-size: 14px;
 		color: var(--grey);
+		margin-bottom: 0.5rem;
 
 		.card-grade-dynamic {
 			color: var(--text-color);
 		}
+	}
+
+	.btn-outline-danger {
+		color: var(--slightly-orange);
+		border: 1px solid var(--slightly-orange);
+		width: 9.5rem;
+		padding: 0.3rem;
+		margin: 0 auto;
+	}
+
+	.btn-outline-danger:hover {
+		background-color: var(--slightly-orange);
+		color: var(--card-bg-color);
 	}
 }

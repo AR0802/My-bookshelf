@@ -8,21 +8,29 @@ import {
 } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Location } from '@angular/common';
 import { tap } from 'rxjs';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 
+import { LoaderComponent } from '@components/loader/loader.component';
+import { currentPage } from '@shared/constants/pagination.constants';
+
 @Component({
 	selector: 'app-home-my-book',
-	imports: [PdfViewerModule],
+	imports: [PdfViewerModule, LoaderComponent],
 	templateUrl: './home-my-book.component.html',
 	styleUrl: './home-my-book.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeMyBookComponent implements OnInit {
+	page: number = currentPage;
+	totalPages: number = currentPage;
+	isLoaded: boolean = false;
 	file = signal<string>('');
+	location = inject(Location);
 	private activatedRoute = inject(ActivatedRoute);
 	private destroyRef = inject(DestroyRef);
-
+	
 	ngOnInit(): void {
 		this.activatedRoute.queryParams
 			.pipe(
@@ -32,5 +40,18 @@ export class HomeMyBookComponent implements OnInit {
 				takeUntilDestroyed(this.destroyRef)
 			)
 			.subscribe();
+	}
+
+	afterLoadComplete(pdfData: { numPages: number }) {
+		this.totalPages = pdfData.numPages;
+		this.isLoaded = true;
+	}
+
+	nextPage() {
+		this.page++;
+	}
+
+	prevPage() {
+		this.page--;
 	}
 }
