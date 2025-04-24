@@ -1,0 +1,41 @@
+.dropdown {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background: rgba(0, 0, 0, 0.75);
+	z-index: 50;
+}
+
+.alert-box {
+	position: fixed;
+	top: 30vh;
+	left: 20vw;
+	width: 60vw;
+	background: var(--background-color-auth);
+	padding: 16px;
+	z-index: 100;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+
+	.alert-message {
+		color: var(--text-color);
+	}
+
+	.alert-box-actions {
+		text-align: right;
+
+		.alert-box-actions-button {
+			padding: 5px 10px;
+			border-radius: 5px;
+			text-decoration: none;
+			color: var(--card-bg-color);
+			background-color: var(--slightly-orange);
+			cursor: pointer;
+
+			&:hover {
+				background-color: var(--orange-hover);
+			}
+		}
+	}
+}

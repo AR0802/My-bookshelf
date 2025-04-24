@@ -1,6 +1,29 @@
+<div class="back" (click)="location.back()">
+	<i class="fs-4 bi bi-arrow-left-square back-icon"></i>
+	<a i18n class="back-button">Back</a>
+</div>
+@if (!isLoaded) {
+	<app-loader></app-loader>
+} @else {
+	<div class="pages">
+		<button class="button" (click)="prevPage()" [disabled]="page === 1">
+			<i class="fs-5 bi bi-arrow-left"></i>
+		</button>
+		<span class="mx-2"> {{ page }} of {{ totalPages }} </span>
+		<button
+			class="button"
+			(click)="nextPage()"
+			[disabled]="page === totalPages"
+		>
+			<i class="fs-5 bi bi-arrow-right"></i>
+		</button>
+	</div>
+}
 <pdf-viewer
 	[src]="file()"
 	[original-size]="false"
 	[autoresize]="true"
 	[show-borders]="false"
+	[page]="page"
+	(after-load-complete)="afterLoadComplete($event)"
 ></pdf-viewer>

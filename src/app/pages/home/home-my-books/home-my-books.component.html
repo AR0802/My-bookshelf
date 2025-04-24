@@ -1,2 +1,5 @@
+@if (error()) {
+	<app-alert [message]="error()" (close)="error.set('')"></app-alert>
+}
 <h1 i18n class="title">My Books</h1>
 <app-user-books [books]="books()"></app-user-books>

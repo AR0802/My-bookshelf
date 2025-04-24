@@ -1,4 +1,7 @@
-<div class="dropdown mb-4 border">
+@if (error()) {
+	<app-alert [message]="error()" (close)="error.set('')"></app-alert>
+}
+<div class="dropdown mb-3 border">
 	<a
 		class="d-flex align-items-center text-decoration-none dropdown-toggle pe-4 color"
 		data-bs-toggle="dropdown"
@@ -36,7 +39,7 @@
 		<li><a i18n class="dropdown-item color" (click)="logout()">Logout</a></li>
 	</ul>
 </div>
-<div class="dropdown dropdown-lang mb-4 border">
+<div class="dropdown dropdown-lang mb-3 border">
 	<a
 		class="d-flex align-items-center text-decoration-none dropdown-toggle pe-3 color"
 		data-bs-toggle="dropdown"

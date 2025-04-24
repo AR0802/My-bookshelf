@@ -1,17 +1,19 @@
 import {
 	ChangeDetectionStrategy,
 	Component,
+	DestroyRef,
 	inject,
 	input,
 	OnInit,
 	output,
 	signal,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { catchError, tap } from 'rxjs';
 
 import { BooksService } from '@shared/services/books.service';
 import { IBook, IResponse } from '@shared/interfaces';
 import { BookComponent } from './book/book.component';
-import { catchError, tap } from 'rxjs';
 
 @Component({
 	selector: 'app-books',
@@ -25,6 +27,7 @@ export class BooksComponent implements OnInit {
 	booksOutput = output<IBook[]>();
 	books = signal<IBook[]>([]);
 	private booksService = inject(BooksService);
+	private destroyRef = inject(DestroyRef);
 
 	ngOnInit(): void {
 		if (!this.booksService.homeBooks.size) {
@@ -38,7 +41,8 @@ export class BooksComponent implements OnInit {
 					}),
 					catchError(() => {
 						return [];
-					})
+					}),
+					takeUntilDestroyed(this.destroyRef)
 				)
 				.subscribe();
 		} else {

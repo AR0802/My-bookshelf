@@ -1,3 +1,6 @@
+@if (error()) {
+	<app-alert [message]="error()" (close)="error.set('')"></app-alert>
+}
 <div class="container">
 	<p i18n class="title">Upload Your Book</p>
 	<form [formGroup]="uploadBookForm" (ngSubmit)="upload()">

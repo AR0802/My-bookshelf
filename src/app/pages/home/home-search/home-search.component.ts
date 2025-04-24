@@ -1,6 +1,7 @@
 import {
 	ChangeDetectionStrategy,
 	Component,
+	DestroyRef,
 	effect,
 	inject,
 	OnInit,
@@ -8,17 +9,19 @@ import {
 	untracked,
 	WritableSignal,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router, ROUTER_OUTLET_DATA } from '@angular/router';
+import { catchError, EMPTY, tap } from 'rxjs';
 
 import { SearchBooksComponent } from '@components/search-books/search-books.component';
 import { BooksService } from '@shared/services/books.service';
 import { IBook, IResponse } from '@shared/interfaces';
 import { PaginationComponent } from '@components/pagination/pagination.component';
-import { catchError, EMPTY, tap } from 'rxjs';
+import { AlertComponent } from '@components/alert/alert.component';
 
 @Component({
 	selector: 'app-home-search',
-	imports: [SearchBooksComponent, PaginationComponent],
+	imports: [SearchBooksComponent, PaginationComponent, AlertComponent],
 	templateUrl: './home-search.component.html',
 	styleUrl: './home-search.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -35,10 +38,12 @@ export class HomeSearchComponent implements OnInit {
 	books = signal<IBook[]>([]);
 	authorBooks = signal<IBook[] | undefined>(undefined);
 	notFoundMessage = signal<string>('');
+	error = signal<string>('');
 	private router = inject(Router);
 	readonly foundBooks =
 		inject<WritableSignal<IBook[] | undefined>>(ROUTER_OUTLET_DATA);
 	private booksService = inject(BooksService);
+	private destroyRef = inject(DestroyRef);
 
 	constructor() {
 		this.authorBooks.set(
@@ -95,9 +100,11 @@ export class HomeSearchComponent implements OnInit {
 						this.booksForPage.set(this.booksService.books().slice(0, 10));
 					}
 				}),
-				catchError(() => {
+				catchError((error: Error) => {
+					this.error.set(error.message);
 					return EMPTY;
-				})
+				}),
+				takeUntilDestroyed(this.destroyRef)
 			)
 			.subscribe();
 	}

@@ -7,6 +7,7 @@
 
 	.title {
 		font-size: 20px;
+		font-weight: 600;
 		line-height: 100%;
 		text-align: center;
 		color: var(--text-color);
@@ -57,10 +58,10 @@
 		padding: 0.5rem 5rem;
 		margin: 0 auto;
 		margin-top: 0.5rem;
-	}
 
-	.btn-orange:hover {
-		background-color: rgba(235, 82, 49, 1);
+		&:hover {
+			background-color: var(--orange-hover);
+		}
 	}
 }
 
