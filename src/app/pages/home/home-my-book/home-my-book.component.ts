@@ -31,7 +31,7 @@ export class HomeMyBookComponent implements OnInit {
 	location = inject(Location);
 	private activatedRoute = inject(ActivatedRoute);
 	private destroyRef = inject(DestroyRef);
-
+	
 	ngOnInit(): void {
 		this.pdfViewer = document.documentElement.querySelector('pdf-viewer');
 		this.activatedRoute.queryParams
