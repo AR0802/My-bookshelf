@@ -25,13 +25,15 @@ import { currentPage } from '@shared/constants/pagination.constants';
 export class HomeMyBookComponent implements OnInit {
 	page: number = currentPage;
 	totalPages: number = currentPage;
-	isLoaded: boolean = false;
+	isLoaded = false;
+	pdfViewer: Element | null = null;
 	file = signal<string>('');
 	location = inject(Location);
 	private activatedRoute = inject(ActivatedRoute);
 	private destroyRef = inject(DestroyRef);
-	
+
 	ngOnInit(): void {
+		this.pdfViewer = document.documentElement.querySelector('pdf-viewer');
 		this.activatedRoute.queryParams
 			.pipe(
 				tap((queryParam: Params) => {

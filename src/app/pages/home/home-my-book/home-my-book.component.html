@@ -18,6 +18,9 @@
 			<i class="fs-5 bi bi-arrow-right"></i>
 		</button>
 	</div>
+	<button class="full-page-button" (click)="pdfViewer?.requestFullscreen()">
+		Full page
+	</button>
 }
 <pdf-viewer
 	[src]="file()"

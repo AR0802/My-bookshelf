@@ -29,12 +29,24 @@
 
 	.button {
 		border: 0;
-		background-color: var(--background-color);
+		background-color: transparent;
 		color: var(--text-color);
 
 		&:disabled {
 			color: var(--text-color-disabled);
 		}
+	}
+}
+
+.full-page-button {
+	float: right;
+	margin-top: -2.2rem;
+	border: 0;
+	background-color: transparent;
+	color: var(--text-color);
+
+	&:hover {
+		color: var(--black);
 	}
 }
 
