@@ -12,6 +12,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { AuthService } from '@shared/services/auth.service';
 import { AlertComponent } from '@components/alert/alert.component';
+import { ThemeService } from '@shared/services/theme.service';
 
 @Component({
 	selector: 'app-root',
@@ -23,9 +24,11 @@ import { AlertComponent } from '@components/alert/alert.component';
 export class AppComponent implements OnInit {
 	error = signal<string>('');
 	private authService = inject(AuthService);
+	private themeService = inject(ThemeService);
 	private destroyRef = inject(DestroyRef);
 
 	ngOnInit(): void {
+		this.themeService.loadTheme(JSON.parse(localStorage.getItem('theme')!));
 		this.authService.user$
 			.pipe(
 				tap((user) => {
