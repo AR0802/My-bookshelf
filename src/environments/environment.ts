@@ -10,4 +10,8 @@ export const environment = {
 		messagingSenderId: '907158047000',
 		appId: '1:907158047000:web:b1b95026e1d3cd7df0b66d',
 	},
+	supabase: {
+		supabaseUrl: 'https://myztpkcttqizgpbexdsd.supabase.co',
+		supabaseKey: import.meta.env.NG_APP_SUPABASE_KEY,
+	},
 };

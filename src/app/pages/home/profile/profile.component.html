@@ -1,0 +1,20 @@
+<img [src]="imgUrl()" alt="" />
+<div>
+	<label i18n for="name" class="form-label">Name</label>
+	<input type="text" class="form-control shadow-none" id="name" />
+</div>
+<div>
+	<label i18n for="image" class="form-label">Image</label>
+	<input
+		type="file"
+		accept="image/png, image/jpeg"
+		class="form-control shadow-none"
+		id="image"
+		(change)="fileSelect($event)"
+	/>
+	<div class="d-grid col-12">
+		<button i18n class="btn btn-orange" type="button" (click)="upload()">
+			UPLOAD
+		</button>
+	</div>
+</div>

@@ -6,4 +6,5 @@ export enum ERoutes {
 	FAVORITES = 'favorites',
 	MYBOOKS = 'my-books',
 	UPLOAD = 'upload',
+	PROFILE = 'profile',
 }
