@@ -40,7 +40,7 @@ export class SignupComponent {
 		field.update((fieldTextType) => !fieldTextType);
 	}
 
-	signup(form: NgForm) {
+	signup(form: NgForm): void {
 		const { name, email, password } = form.value;
 		this.authService
 			.signup(name, email, password)

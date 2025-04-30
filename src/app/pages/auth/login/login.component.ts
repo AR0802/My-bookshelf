@@ -38,7 +38,7 @@ export class LoginComponent {
 		this.fieldTextType.update((fieldTextType) => !fieldTextType);
 	}
 
-	login(form: NgForm) {
+	login(form: NgForm): void {
 		const { email, password } = form.value;
 		this.authService
 			.login(email, password)
@@ -59,5 +59,18 @@ export class LoginComponent {
 				takeUntilDestroyed(this.destroyRef)
 			)
 			.subscribe();
+	}
+
+	loginWithGoogle() {
+		this.authService.loginWithGoogle().pipe(
+			tap(() => {
+				this.router.navigateByUrl(`${ERoutes.BOOKS}`);
+			}),
+			catchError((error: Error) => {
+				this.error.set(error.message);
+				return EMPTY;
+			}),
+			takeUntilDestroyed(this.destroyRef)
+		).subscribe();
 	}
 }

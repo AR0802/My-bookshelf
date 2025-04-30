@@ -1,9 +1,4 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	inject,
-	signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 import { SideMenuComponent } from '@components/side-menu/side-menu.component';
@@ -19,15 +14,14 @@ import { ERoutes } from '@shared/enums/routes.enum';
 })
 export class NavComponent {
 	readonly ERoutes = ERoutes;
-	theme = signal<string>('');
 	private themeService = inject(ThemeService);
 
 	changeTheme(): void {
-		if (!this.theme()) {
-			this.theme.set('dark');
+		if (!this.themeService.theme()) {
+			this.themeService.theme.set('dark');
 		} else {
-			this.theme.set('');
+			this.themeService.theme.set('');
 		}
-		this.themeService.loadTheme(this.theme());
+		this.themeService.loadTheme(this.themeService.theme());
 	}
 }

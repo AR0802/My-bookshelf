@@ -9,7 +9,7 @@ const redirectUnauthorizedToLogin = () =>
 export const routes: Routes = [
 	{ path: '', redirectTo: ERoutes.BOOKS, pathMatch: 'full' },
 	{
-		path: 'books',
+		path: ERoutes.BOOKS,
 		loadComponent: () =>
 			import('@pages/home/home.component').then(
 				(component) => component.HomeComponent
@@ -25,35 +25,42 @@ export const routes: Routes = [
 					),
 			},
 			{
-				path: 'search',
+				path: ERoutes.SEARCH,
 				loadComponent: () =>
 					import('@pages/home/home-search/home-search.component').then(
 						(component) => component.HomeSearchComponent
 					),
 			},
 			{
-				path: 'favorites',
+				path: ERoutes.FAVORITES,
 				loadComponent: () =>
 					import('@pages/home/home-favorites/home-favorites.component').then(
 						(component) => component.HomeFavoriteComponent
 					),
 			},
 			{
-				path: 'upload',
+				path: ERoutes.UPLOAD,
 				loadComponent: () =>
 					import('@pages/home/home-upload/home-upload.component').then(
 						(component) => component.HomeUploadComponent
 					),
 			},
 			{
-				path: 'my-books',
+				path: ERoutes.PROFILE,
+				loadComponent: () =>
+					import('@pages/home/profile/profile.component').then(
+						(component) => component.ProfileComponent
+					),
+			},
+			{
+				path: ERoutes.MYBOOKS,
 				loadComponent: () =>
 					import('@pages/home/home-my-books/home-my-books.component').then(
 						(component) => component.HomeMyBooksComponent
 					),
 			},
 			{
-				path: 'my-books/:id',
+				path: `${ERoutes.MYBOOKS}/:id`,
 				loadComponent: () =>
 					import('@pages/home/home-my-book/home-my-book.component').then(
 						(component) => component.HomeMyBookComponent
@@ -69,14 +76,14 @@ export const routes: Routes = [
 		],
 	},
 	{
-		path: 'signup',
+		path: ERoutes.SIGNUP,
 		loadComponent: () =>
 			import('@pages/auth/signup/signup.component').then(
 				(component) => component.SignupComponent
 			),
 	},
 	{
-		path: 'login',
+		path: ERoutes.LOGIN,
 		loadComponent: () =>
 			import('@pages/auth/login/login.component').then(
 				(component) => component.LoginComponent

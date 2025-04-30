@@ -2,7 +2,9 @@ import { inject, Injectable, signal } from '@angular/core';
 import {
 	Auth,
 	createUserWithEmailAndPassword,
+	GoogleAuthProvider,
 	signInWithEmailAndPassword,
+	signInWithPopup,
 	signOut,
 	updateProfile,
 	user,
@@ -38,5 +40,9 @@ export class AuthService {
 
 	logout(): Observable<void> {
 		return from(signOut(this.firebaseAuth));
+	}
+
+	loginWithGoogle(): Observable<UserCredential> {
+		return from(signInWithPopup(this.firebaseAuth, new GoogleAuthProvider()));
 	}
 }

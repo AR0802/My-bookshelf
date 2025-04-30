@@ -21,11 +21,17 @@ export class HomeFavoriteComponent implements OnInit {
 	ngOnInit(): void {
 		const favoriteBooks: IBook[] = [];
 		for (let i = 0; i < localStorage.length; i++) {
-			favoriteBooks.push(
+			if (
 				JSON.parse(
 					localStorage.getItem(localStorage.key(i) as string) as string
-				)
-			);
+				) instanceof Object
+			) {
+				favoriteBooks.push(
+					JSON.parse(
+						localStorage.getItem(localStorage.key(i) as string) as string
+					)
+				);
+			}
 		}
 		this.books.set(favoriteBooks);
 	}

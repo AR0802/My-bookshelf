@@ -21,7 +21,6 @@ import { ThemeService } from '@shared/services/theme.service';
 })
 export class SideMenuComponent {
 	readonly ERoutes = ERoutes;
-	theme = signal<string>('');
 	show = signal<boolean>(false);
 	private burgerMenuService = inject(BurgerMenuService);
 	private themeService = inject(ThemeService);
@@ -33,12 +32,12 @@ export class SideMenuComponent {
 	}
 
 	changeTheme(): void {
-		if (!this.theme()) {
-			this.theme.set('dark');
+		if (!this.themeService.theme()) {
+			this.themeService.theme.set('dark');
 		} else {
-			this.theme.set('');
+			this.themeService.theme.set('');
 		}
-		this.themeService.loadTheme(this.theme());
+		this.themeService.loadTheme(this.themeService.theme());
 	}
 
 	close(): void {

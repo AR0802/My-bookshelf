@@ -77,6 +77,14 @@
 		}
 	}
 
+	.btn-google {
+		background-color: var(--slightly-orange);
+
+		.btn-google-text {
+			margin-left: 1rem;
+		}
+	}
+
 	.footer {
 		text-align: center;
 		line-height: 100%;

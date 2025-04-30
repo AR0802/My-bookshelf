@@ -19,7 +19,14 @@
 		<span i18n class="mx-3">Kenson</span>
 	</a>
 	<ul class="dropdown-menu dropdown-menu-end text-small shadow border-0">
-		<li><a i18n class="dropdown-item color">Profile</a></li>
+		<li>
+			<a
+				i18n
+				class="dropdown-item color"
+				[routerLink]="['/', ERoutes.BOOKS, ERoutes.PROFILE]"
+				>Profile</a
+			>
+		</li>
 		<li>
 			<a
 				i18n
