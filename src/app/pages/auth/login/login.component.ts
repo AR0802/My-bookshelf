@@ -15,8 +15,8 @@ import { AuthService } from '@shared/services/auth.service';
 import { ERoutes } from '@shared/enums/routes.enum';
 import { AlertComponent } from '@components/alert/alert.component';
 import {
-	invalidCredentialError,
-	tooManyRequestsError,
+	INVALID_CREDENTIAL_ERROR,
+	TOO_MANY_REQUEST_ERROR,
 } from '@shared/constants/firebase-errors.constants';
 
 @Component({
@@ -47,9 +47,9 @@ export class LoginComponent {
 					this.router.navigateByUrl(`${ERoutes.BOOKS}`);
 				}),
 				catchError((error: Error) => {
-					if (error.message === invalidCredentialError) {
+					if (error.message === INVALID_CREDENTIAL_ERROR) {
 						this.error.set('Invalid login or password!');
-					} else if (error.message === tooManyRequestsError) {
+					} else if (error.message === TOO_MANY_REQUEST_ERROR) {
 						this.error.set('Too many requests, try later!');
 					} else {
 						this.error.set(error.message);
@@ -62,15 +62,18 @@ export class LoginComponent {
 	}
 
 	loginWithGoogle() {
-		this.authService.loginWithGoogle().pipe(
-			tap(() => {
-				this.router.navigateByUrl(`${ERoutes.BOOKS}`);
-			}),
-			catchError((error: Error) => {
-				this.error.set(error.message);
-				return EMPTY;
-			}),
-			takeUntilDestroyed(this.destroyRef)
-		).subscribe();
+		this.authService
+			.loginWithGoogle()
+			.pipe(
+				tap(() => {
+					this.router.navigateByUrl(`${ERoutes.BOOKS}`);
+				}),
+				catchError((error: Error) => {
+					this.error.set(error.message);
+					return EMPTY;
+				}),
+				takeUntilDestroyed(this.destroyRef)
+			)
+			.subscribe();
 	}
 }

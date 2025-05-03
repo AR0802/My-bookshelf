@@ -13,7 +13,7 @@ import { tap } from 'rxjs';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 import { LoaderComponent } from '@components/loader/loader.component';
-import { currentPage } from '@shared/constants/pagination.constants';
+import { CURRENT_PAGE } from '@shared/constants/pagination.constants';
 
 @Component({
 	selector: 'app-home-my-book',
@@ -23,15 +23,15 @@ import { currentPage } from '@shared/constants/pagination.constants';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeMyBookComponent implements OnInit {
-	page: number = currentPage;
-	totalPages: number = currentPage;
+	page: number = CURRENT_PAGE;
+	totalPages: number = CURRENT_PAGE;
 	isLoaded = false;
 	pdfViewer: Element | null = null;
 	file = signal<string>('');
 	location = inject(Location);
 	private activatedRoute = inject(ActivatedRoute);
 	private destroyRef = inject(DestroyRef);
-	
+
 	ngOnInit(): void {
 		this.pdfViewer = document.documentElement.querySelector('pdf-viewer');
 		this.activatedRoute.queryParams

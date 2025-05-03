@@ -45,4 +45,10 @@ export class AuthService {
 	loginWithGoogle(): Observable<UserCredential> {
 		return from(signInWithPopup(this.firebaseAuth, new GoogleAuthProvider()));
 	}
+
+	updateName(name: string): Observable<void> {
+		return from(
+			updateProfile(this.firebaseAuth.currentUser!, { displayName: name })
+		);
+	}
 }

@@ -16,8 +16,8 @@ import { AuthService } from '@shared/services/auth.service';
 import { ERoutes } from '@shared/enums/routes.enum';
 import { AlertComponent } from '@components/alert/alert.component';
 import {
-	emailInUseError,
-	tooManyRequestsError,
+	EMAIL_IN_USER_ERROR,
+	TOO_MANY_REQUEST_ERROR,
 } from '@shared/constants/firebase-errors.constants';
 
 @Component({
@@ -49,9 +49,9 @@ export class SignupComponent {
 					this.router.navigateByUrl(`${ERoutes.BOOKS}`);
 				}),
 				catchError((error: Error) => {
-					if (error.message === emailInUseError) {
+					if (error.message === EMAIL_IN_USER_ERROR) {
 						this.error.set('Such email already exists!');
-					} else if (error.message === tooManyRequestsError) {
+					} else if (error.message === TOO_MANY_REQUEST_ERROR) {
 						this.error.set('Too many requests, try later!');
 					} else {
 						this.error.set(error.message);

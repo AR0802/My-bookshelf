@@ -9,14 +9,14 @@
 		data-bs-offset="0,15"
 	>
 		<img
-			src="https://github.com/mdo.png"
+			[src]="imgUrl() ? imgUrl() : '/anon.png'"
 			alt="User photo"
 			i18n-alt
 			width="40"
 			height="40"
 			class="rounded-circle"
 		/>
-		<span i18n class="mx-3">Kenson</span>
+		<span i18n class="mx-3">{{ userName() }}</span>
 	</a>
 	<ul class="dropdown-menu dropdown-menu-end text-small shadow border-0">
 		<li>

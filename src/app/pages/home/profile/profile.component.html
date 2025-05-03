@@ -1,20 +1,66 @@
-<img [src]="imgUrl()" alt="" />
-<div>
-	<label i18n for="name" class="form-label">Name</label>
-	<input type="text" class="form-control shadow-none" id="name" />
-</div>
-<div>
-	<label i18n for="image" class="form-label">Image</label>
-	<input
-		type="file"
-		accept="image/png, image/jpeg"
-		class="form-control shadow-none"
-		id="image"
-		(change)="fileSelect($event)"
-	/>
-	<div class="d-grid col-12">
-		<button i18n class="btn btn-orange" type="button" (click)="upload()">
-			UPLOAD
-		</button>
-	</div>
+@if (error()) {
+	<app-alert [message]="error()" (close)="error.set('')"></app-alert>
+}
+<div class="container">
+	<form [formGroup]="profileForm" (ngSubmit)="saveProfile()">
+		<div>
+			<label i18n for="name" class="form-label">Name</label>
+			<input
+				type="text"
+				class="form-control shadow-none"
+				id="name"
+				[formControl]="profileForm.controls.name"
+				placeholder="Username"
+				i18n-placeholder
+			/>
+			<p
+				i18n
+				[ngClass]="{
+					error: true,
+					visibility:
+						profileForm.controls.name.valid ||
+						profileForm.controls.name.pristine,
+				}"
+			>
+				Enter valid name!
+			</p>
+		</div>
+		<div>
+			<label i18n for="image" class="form-label">Image</label>
+			<input
+				type="file"
+				accept="image/png, image/jpeg"
+				class="form-control shadow-none d-none"
+				id="image"
+				#fileInput
+				[formControl]="profileForm.controls.image"
+				(change)="fileSelect($event)"
+			/>
+			<button
+				type="button"
+				class="btn btn-warning text-white ms-4"
+				(click)="fileInput.click()"
+			>
+				Select Image
+			</button>
+			@if (imgUrl()) {
+				<div class="image-container">
+					<img class="user-image" [src]="imgUrl()" i18n-alt alt="User image" />
+					<i class="fs-4 bi bi-x cancel-icon" (click)="removeImage()"></i>
+				</div>
+			}
+			<button
+				i18n
+				class="btn btn-orange"
+				type="submit"
+				[disabled]="
+					profileForm.invalid ||
+					(profileForm.value.name === initialName() &&
+						profileForm.value.image === '')
+				"
+			>
+				Save Profile
+			</button>
+		</div>
+	</form>
 </div>

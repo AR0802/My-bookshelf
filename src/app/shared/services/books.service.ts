@@ -10,7 +10,7 @@ import {
 
 import { environment } from '@environments/environment';
 import { IBook, IResponse, IUserBook } from '@shared/interfaces';
-import { googleBooksAPIUrl } from '@shared/constants/google-books-api-url.constant';
+import { GOOGLE_BOOKS_API_URL } from '@shared/constants/google-books-api-url.constant';
 
 @Injectable({ providedIn: 'root' })
 export class BooksService {
@@ -25,7 +25,7 @@ export class BooksService {
 
 	getBooks(category: string): Observable<IResponse> {
 		return this.http.get<IResponse>(
-			`${googleBooksAPIUrl}?q=${category}&maxResults=40&key=${environment.googleBooksApi.apiKey}`
+			`${GOOGLE_BOOKS_API_URL}?q=${category}&maxResults=40&key=${environment.googleBooksApi.apiKey}`
 		);
 	}
 
@@ -34,13 +34,13 @@ export class BooksService {
 		searchValue: string
 	): Observable<IResponse> {
 		return this.http.get<IResponse>(
-			`${googleBooksAPIUrl}?q= +${searchParam}:${searchValue}&maxResults=40&key=${environment.googleBooksApi.apiKey}`
+			`${GOOGLE_BOOKS_API_URL}?q= +${searchParam}:${searchValue}&maxResults=40&key=${environment.googleBooksApi.apiKey}`
 		);
 	}
 
 	getBook(id: string): Observable<IBook> {
 		return this.http.get<IBook>(
-			`${googleBooksAPIUrl}/${id}?key=${environment.googleBooksApi.apiKey}`
+			`${GOOGLE_BOOKS_API_URL}/${id}?key=${environment.googleBooksApi.apiKey}`
 		);
 	}
 

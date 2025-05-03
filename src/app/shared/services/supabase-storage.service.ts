@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { SupabaseClient, createClient } from '@supabase/supabase-js';
 
 import { environment } from '@environments/environment';
@@ -7,7 +7,8 @@ import { environment } from '@environments/environment';
 	providedIn: 'root',
 })
 export class SupabaseStorageService {
-	public supabaseClient: SupabaseClient;
+	supabaseClient: SupabaseClient;
+	imgUrl = signal('');
 
 	constructor() {
 		this.supabaseClient = createClient(
@@ -19,7 +20,10 @@ export class SupabaseStorageService {
 	async upload(bucket: string, path: string, file: File) {
 		const { data, error } = await this.supabaseClient.storage
 			.from(bucket)
-			.upload(path, file);
+			.update(path, file, {
+				cacheControl: '3600',
+				upsert: true,
+			});
 
 		return { data, error };
 	}
@@ -29,12 +33,6 @@ export class SupabaseStorageService {
 			.from(bucket)
 			.download(path);
 
-		return { data, error };
-	}
-
-	async getBucket() {
-		const { data, error } =
-			await this.supabaseClient.storage.getBucket('my-bookshelf');
 		return { data, error };
 	}
 }
