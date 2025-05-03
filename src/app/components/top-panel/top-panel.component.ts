@@ -2,6 +2,7 @@ import {
 	ChangeDetectionStrategy,
 	Component,
 	DestroyRef,
+	effect,
 	Inject,
 	inject,
 	LOCALE_ID,
@@ -18,6 +19,8 @@ import { BooksService } from '@shared/services/books.service';
 import { IResponse } from '@shared/interfaces';
 import { ERoutes } from '@shared/enums/routes.enum';
 import { AlertComponent } from '@components/alert/alert.component';
+import { SupabaseStorageService } from '@shared/services/supabase-storage.service';
+import { BUCKET_NAME } from '@shared/constants/supabase.constant';
 
 @Component({
 	selector: 'app-top-panel',
@@ -42,10 +45,36 @@ export class TopPanelComponent {
 	foundBooks = output<IResponse>();
 	searchParam = signal<string>($localize`All`);
 	error = signal<string>('');
+	imgUrl = signal('');
+	userName = signal('');
 	private authService = inject(AuthService);
 	private booksService = inject(BooksService);
 	private router = inject(Router);
 	private destroyRef = inject(DestroyRef);
+	supabaseStorageService = inject(SupabaseStorageService);
+
+	setUserImageEffect = effect(() => {
+		if (this.authService.currentUserSig()) {
+			this.userName.set(this.authService.currentUserSig()?.name as string);
+			if (this.supabaseStorageService.imgUrl()) {
+				this.imgUrl.set(this.supabaseStorageService.imgUrl());
+			} else {
+				this.supabaseStorageService
+					.download(
+						BUCKET_NAME,
+						this.authService.currentUserSig()?.id as string
+					)
+					.then((data) => {
+						if (!data.error) {
+							this.imgUrl.set(URL.createObjectURL(data.data!));
+							this.supabaseStorageService.imgUrl.set(
+								URL.createObjectURL(data.data!)
+							);
+						}
+					});
+			}
+		}
+	});
 
 	constructor(@Inject(LOCALE_ID) private locale: string) {}
 
@@ -54,6 +83,7 @@ export class TopPanelComponent {
 			.logout()
 			.pipe(
 				tap(() => {
+					this.supabaseStorageService.imgUrl.set('');
 					this.router.navigateByUrl(`/${ERoutes.LOGIN}`);
 				}),
 				catchError((error: Error) => {
