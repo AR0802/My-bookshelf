@@ -22,7 +22,8 @@
 			"@components/*": ["./src/app/components/*"],
 			"@pages/*": ["./src/app/pages/*"],
 			"@shared/*": ["./src/app/shared/*"],
-			"@environments/*": ["./src/environments/*"]
+			"@environments/*": ["./src/environments/*"],
+			"@ui-components/*": ["./src/app/ui-components/*"]
 		}
 	},
 	"angularCompilerOptions": {

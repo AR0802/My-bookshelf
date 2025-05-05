@@ -15,12 +15,11 @@
 			/>
 			<p
 				i18n
-				[ngClass]="{
-					error: true,
-					visibility:
-						profileForm.controls.name.valid ||
-						profileForm.controls.name.pristine,
-				}"
+				class="error {{
+					profileForm.controls.name.valid || profileForm.controls.name.pristine
+						? 'visibility'
+						: ''
+				}}"
 			>
 				Enter valid name!
 			</p>

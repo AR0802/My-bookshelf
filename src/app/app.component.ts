@@ -11,7 +11,7 @@ import { catchError, EMPTY, tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { AuthService } from '@shared/services/auth.service';
-import { AlertComponent } from '@components/alert/alert.component';
+import { AlertComponent } from '@ui-components/alert/alert.component';
 import { ThemeService } from '@shared/services/theme.service';
 
 @Component({

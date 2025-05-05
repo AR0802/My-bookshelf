@@ -5,22 +5,22 @@
 	<img src="/logo.png" alt="My Book Shelf" i18n-alt class="logo" />
 	<p i18n class="welcome">Registration</p>
 	<p i18n class="description">For Both Staff & Students</p>
-	<form #authForm="ngForm" (ngSubmit)="signup(authForm)">
+	<form [formGroup]="authForm" (ngSubmit)="signup()">
 		<div>
 			<label i18n for="name" class="form-label">Name</label>
 			<input
 				type="text"
 				class="form-control shadow-none"
 				id="name"
-				name="name"
-				#name="ngModel"
-				ngModel
-				required
-				pattern="^[a-zA-Zа-яА-ЯёЁ][a-zA-Zа-яА-ЯёЁ0-9_\-]{2,15}$"
+				[formControl]="authForm.controls.name"
 			/>
 			<p
 				i18n
-				[ngClass]="{ error: true, visibility: name.valid || name.untouched }"
+				class="error {{
+					authForm.controls.name.valid || authForm.controls.name.untouched
+						? 'visibility'
+						: ''
+				}}"
 			>
 				Invalid Name!
 			</p>
@@ -31,16 +31,16 @@
 				type="email"
 				class="form-control shadow-none"
 				id="email"
-				name="email"
-				#email="ngModel"
-				email
-				ngModel
-				required
+				[formControl]="authForm.controls.email"
 				aria-describedby="emailHelp"
 			/>
 			<p
 				i18n
-				[ngClass]="{ error: true, visibility: email.valid || email.untouched }"
+				class="error {{
+					authForm.controls.email.valid || authForm.controls.email.untouched
+						? 'visibility'
+						: ''
+				}}"
 			>
 				Invalid Email!
 			</p>
@@ -51,26 +51,22 @@
 				[type]="fieldPasswordTextType() ? 'text' : 'password'"
 				class="form-control shadow-none"
 				id="password"
-				name="password"
-				#password="ngModel"
-				ngModel
-				required
-				pattern="(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}"
+				[formControl]="authForm.controls.password"
 			/>
 			<i
-				class="bi togglePassword"
-				[ngClass]="{
-					'bi-eye-slash-fill': !fieldPasswordTextType(),
-					'bi-eye-fill': fieldPasswordTextType(),
-				}"
+				class="bi togglePassword {{
+					fieldConfirmPasswordTextType() ? 'bi-eye-fill' : 'bi-eye-slash-fill'
+				}}"
 				(click)="toggleFieldTextType(fieldPasswordTextType)"
 			></i>
 			<p
 				i18n
-				[ngClass]="{
-					error: true,
-					visibility: password.valid || password.untouched,
-				}"
+				class="error {{
+					authForm.controls.password.valid ||
+					authForm.controls.password.untouched
+						? 'visibility'
+						: ''
+				}}"
 			>
 				Invalid Password!
 			</p>
@@ -83,28 +79,23 @@
 				[type]="fieldConfirmPasswordTextType() ? 'text' : 'password'"
 				class="form-control shadow-none"
 				id="confirm-password"
-				name="confirmPassword"
-				#confirmPassword="ngModel"
-				ngModel
-				required
-				pattern="^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}$"
+				[formControl]="authForm.controls.confirmPassword"
 			/>
 			<i
-				class="bi togglePassword"
-				[ngClass]="{
-					'bi-eye-slash-fill': !fieldConfirmPasswordTextType(),
-					'bi-eye-fill': fieldConfirmPasswordTextType(),
-				}"
+				class="bi togglePassword {{
+					fieldConfirmPasswordTextType() ? 'bi-eye-fill' : 'bi-eye-slash-fill'
+				}}"
 				(click)="toggleFieldTextType(fieldConfirmPasswordTextType)"
 			></i>
 			<p
 				i18n
-				[ngClass]="{
-					error: true,
-					visibility:
-						password.value === confirmPassword.value ||
-						confirmPassword.untouched,
-				}"
+				class="error {{
+					authForm.controls.password.value ===
+						authForm.controls.confirmPassword.value ||
+					authForm.controls.confirmPassword.untouched
+						? 'visibility'
+						: ''
+				}}"
 			>
 				Passwords must be the same!
 			</p>
@@ -115,7 +106,9 @@
 				class="btn btn-orange"
 				type="submit"
 				[disabled]="
-					authForm.invalid || password.value !== confirmPassword.value
+					authForm.invalid ||
+					authForm.controls.password.value !==
+						authForm.controls.confirmPassword.value
 				"
 			>
 				Register

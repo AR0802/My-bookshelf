@@ -6,7 +6,7 @@ import {
 	OnInit,
 	signal,
 } from '@angular/core';
-import { Location } from '@angular/common';
+import { Location, SlicePipe } from '@angular/common';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { catchError, EMPTY, tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -14,12 +14,12 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { BooksService } from '@shared/services/books.service';
 import { IBook, IResponse } from '@shared/interfaces';
 import { ERoutes } from '@shared/enums/routes.enum';
-import { LoaderComponent } from '@components/loader/loader.component';
-import { AlertComponent } from '@components/alert/alert.component';
+import { LoaderComponent } from '@ui-components/loader/loader.component';
+import { AlertComponent } from '@ui-components/alert/alert.component';
 
 @Component({
 	selector: 'app-home-book',
-	imports: [LoaderComponent, AlertComponent],
+	imports: [LoaderComponent, AlertComponent, SlicePipe],
 	templateUrl: './home-book.component.html',
 	styleUrl: './home-book.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,

@@ -13,17 +13,17 @@ import {
 	ReactiveFormsModule,
 	Validators,
 } from '@angular/forms';
-import { Location, NgClass } from '@angular/common';
+import { Location } from '@angular/common';
 import { catchError, EMPTY, tap } from 'rxjs';
 
-import { AlertComponent } from '@components/alert/alert.component';
+import { AlertComponent } from '@ui-components/alert/alert.component';
 import { AuthService } from '@shared/services/auth.service';
 import { SupabaseStorageService } from '@shared/services/supabase-storage.service';
 import { BUCKET_NAME } from '@shared/constants/supabase.constant';
 
 @Component({
 	selector: 'app-profile',
-	imports: [ReactiveFormsModule, NgClass, AlertComponent],
+	imports: [ReactiveFormsModule, AlertComponent],
 	templateUrl: './profile.component.html',
 	styleUrl: './profile.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -39,11 +39,11 @@ export class ProfileComponent implements OnInit {
 	private destroyRef = inject(DestroyRef);
 
 	profileForm = new FormGroup({
-		name: new FormControl('', [
+		name: new FormControl<string>('', [
 			Validators.required,
 			Validators.pattern('^[a-zA-Zа-яА-ЯёЁ][a-zA-Zа-яА-ЯёЁ0-9_-]{2,15}$'),
 		]),
-		image: new FormControl(''),
+		image: new FormControl<string>(''),
 	});
 
 	ngOnInit(): void {

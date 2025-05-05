@@ -13,7 +13,7 @@ import { UserBooksComponent } from '@components/user-books/user-books.component'
 import { BooksService } from '@shared/services/books.service';
 import { AuthService } from '@shared/services/auth.service';
 import { IUserBook } from '@shared/interfaces';
-import { AlertComponent } from '@components/alert/alert.component';
+import { AlertComponent } from '@ui-components/alert/alert.component';
 
 @Component({
 	selector: 'app-home-my-books',

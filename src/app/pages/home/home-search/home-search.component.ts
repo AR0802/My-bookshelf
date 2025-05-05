@@ -17,7 +17,7 @@ import { SearchBooksComponent } from '@components/search-books/search-books.comp
 import { BooksService } from '@shared/services/books.service';
 import { IBook, IResponse } from '@shared/interfaces';
 import { PaginationComponent } from '@components/pagination/pagination.component';
-import { AlertComponent } from '@components/alert/alert.component';
+import { AlertComponent } from '@ui-components/alert/alert.component';
 
 @Component({
 	selector: 'app-home-search',

@@ -6,7 +6,7 @@ import {
 	OnInit,
 	signal,
 } from '@angular/core';
-import { NgClass } from '@angular/common';
+import { SlicePipe } from '@angular/common';
 import { Router } from '@angular/router';
 
 import { IBook } from '@shared/interfaces';
@@ -14,7 +14,7 @@ import { ERoutes } from '@shared/enums/routes.enum';
 
 @Component({
 	selector: 'app-search-book',
-	imports: [NgClass],
+	imports: [SlicePipe],
 	templateUrl: './search-book.component.html',
 	styleUrl: './search-book.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,

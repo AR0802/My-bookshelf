@@ -7,12 +7,14 @@ import {
 	signal,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { SlicePipe } from '@angular/common';
 
 import { IBook } from '@shared/interfaces';
 import { ERoutes } from '@shared/enums/routes.enum';
 
 @Component({
 	selector: 'app-favorite-book',
+	imports: [SlicePipe],
 	templateUrl: './favorite-book.component.html',
 	styleUrl: './favorite-book.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
