@@ -7,13 +7,17 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router, RouterLink } from '@angular/router';
-import { NgForm, FormsModule } from '@angular/forms';
-import { NgClass } from '@angular/common';
+import {
+	FormControl,
+	FormGroup,
+	ReactiveFormsModule,
+	Validators,
+} from '@angular/forms';
 import { catchError, EMPTY, tap } from 'rxjs';
 
 import { AuthService } from '@shared/services/auth.service';
 import { ERoutes } from '@shared/enums/routes.enum';
-import { AlertComponent } from '@components/alert/alert.component';
+import { AlertComponent } from '@ui-components/alert/alert.component';
 import {
 	INVALID_CREDENTIAL_ERROR,
 	TOO_MANY_REQUEST_ERROR,
@@ -21,7 +25,7 @@ import {
 
 @Component({
 	selector: 'app-login',
-	imports: [RouterLink, NgClass, FormsModule, AlertComponent],
+	imports: [RouterLink, ReactiveFormsModule, AlertComponent],
 	templateUrl: './login.component.html',
 	styleUrl: './login.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -34,14 +38,24 @@ export class LoginComponent {
 	private authService = inject(AuthService);
 	private destroyRef = inject(DestroyRef);
 
+	authForm = new FormGroup({
+		email: new FormControl<string>('', [Validators.required, Validators.email]),
+		password: new FormControl<string>('', [
+			Validators.required,
+			Validators.pattern(
+				'(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}'
+			),
+		]),
+	});
+
 	toggleFieldTextType(): void {
 		this.fieldTextType.update((fieldTextType) => !fieldTextType);
 	}
 
-	login(form: NgForm): void {
-		const { email, password } = form.value;
+	login(): void {
+		const { email, password } = this.authForm.value;
 		this.authService
-			.login(email, password)
+			.login(email!, password!)
 			.pipe(
 				tap(() => {
 					this.router.navigateByUrl(`${ERoutes.BOOKS}`);

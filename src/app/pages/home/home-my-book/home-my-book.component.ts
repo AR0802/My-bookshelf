@@ -12,7 +12,7 @@ import { Location } from '@angular/common';
 import { tap } from 'rxjs';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 
-import { LoaderComponent } from '@components/loader/loader.component';
+import { LoaderComponent } from '@ui-components/loader/loader.component';
 import { CURRENT_PAGE } from '@shared/constants/pagination.constants';
 
 @Component({

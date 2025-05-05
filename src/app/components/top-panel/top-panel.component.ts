@@ -18,7 +18,7 @@ import { AuthService } from '@shared/services/auth.service';
 import { BooksService } from '@shared/services/books.service';
 import { IResponse } from '@shared/interfaces';
 import { ERoutes } from '@shared/enums/routes.enum';
-import { AlertComponent } from '@components/alert/alert.component';
+import { AlertComponent } from '@ui-components/alert/alert.component';
 import { SupabaseStorageService } from '@shared/services/supabase-storage.service';
 import { BUCKET_NAME } from '@shared/constants/supabase.constant';
 

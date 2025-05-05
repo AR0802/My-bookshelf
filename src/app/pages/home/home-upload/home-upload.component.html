@@ -16,12 +16,12 @@
 			/>
 			<p
 				i18n
-				[ngClass]="{
-					error: true,
-					visibility:
-						uploadBookForm.controls.title.valid ||
-						uploadBookForm.controls.title.untouched,
-				}"
+				class="error {{
+					uploadBookForm.controls.title.valid ||
+					uploadBookForm.controls.title.untouched
+						? 'visibility'
+						: ''
+				}}"
 			>
 				Enter Title!
 			</p>
@@ -38,12 +38,12 @@
 			/>
 			<p
 				i18n
-				[ngClass]="{
-					error: true,
-					visibility:
-						uploadBookForm.controls.author.valid ||
-						uploadBookForm.controls.author.untouched,
-				}"
+				class="error {{
+					uploadBookForm.controls.author.valid ||
+					uploadBookForm.controls.author.untouched
+						? 'visibility'
+						: ''
+				}}"
 			>
 				Enter Author!
 			</p>
@@ -60,12 +60,12 @@
 			></textarea>
 			<p
 				i18n
-				[ngClass]="{
-					error: true,
-					visibility:
-						uploadBookForm.controls.description.valid ||
-						uploadBookForm.controls.description.untouched,
-				}"
+				class="error {{
+					uploadBookForm.controls.description.valid ||
+					uploadBookForm.controls.description.untouched
+						? 'visibility'
+						: ''
+				}}"
 			>
 				Enter Description!
 			</p>
@@ -82,12 +82,12 @@
 			/>
 			<p
 				i18n
-				[ngClass]="{
-					error: true,
-					visibility:
-						uploadBookForm.controls.file.valid ||
-						uploadBookForm.controls.file.untouched,
-				}"
+				class="error {{
+					uploadBookForm.controls.file.valid ||
+					uploadBookForm.controls.file.untouched
+						? 'visibility'
+						: ''
+				}}"
 			>
 				Enter File!
 			</p>
@@ -104,12 +104,12 @@
 			/>
 			<p
 				i18n
-				[ngClass]="{
-					error: true,
-					visibility:
-						uploadBookForm.controls.image.valid ||
-						uploadBookForm.controls.image.untouched,
-				}"
+				class="error {{
+					uploadBookForm.controls.image.valid ||
+					uploadBookForm.controls.image.untouched
+						? 'visibility'
+						: ''
+				}}"
 			>
 				Enter Image!
 			</p>

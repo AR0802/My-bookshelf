@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
-import { SideMenuComponent } from '@components/side-menu/side-menu.component';
+import { SideMenuComponent } from '@ui-components/side-menu/side-menu.component';
 import { ThemeService } from '@shared/services/theme.service';
 import { ERoutes } from '@shared/enums/routes.enum';
 

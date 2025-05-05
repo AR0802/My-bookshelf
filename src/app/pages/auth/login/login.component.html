@@ -7,23 +7,23 @@
 	<p i18n class="description">
 		Sign in to continue working with your Digital Library
 	</p>
-	<form #authForm="ngForm" (ngSubmit)="login(authForm)">
+	<form [formGroup]="authForm" (ngSubmit)="login()">
 		<div>
 			<label i18n for="email" class="form-label">Email</label>
 			<input
 				type="email"
 				class="form-control shadow-none"
 				id="email"
-				name="email"
-				#email="ngModel"
-				email
-				ngModel
-				required
+				[formControl]="authForm.controls.email"
 				aria-describedby="emailHelp"
 			/>
 			<p
 				i18n
-				[ngClass]="{ error: true, visibility: email.valid || email.untouched }"
+				class="error {{
+					authForm.controls.email.valid || authForm.controls.email.untouched
+						? 'visibility'
+						: ''
+				}}"
 			>
 				Invalid Email!
 			</p>
@@ -34,26 +34,22 @@
 				[type]="fieldTextType() ? 'text' : 'password'"
 				class="form-control shadow-none"
 				id="password"
-				name="password"
-				#password="ngModel"
-				ngModel
-				required
-				pattern="(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}"
+				[formControl]="authForm.controls.password"
 			/>
 			<i
-				class="bi togglePassword"
-				[ngClass]="{
-					'bi-eye-slash-fill': !fieldTextType(),
-					'bi-eye-fill': fieldTextType(),
-				}"
+				class="bi togglePassword {{
+					fieldTextType() ? 'bi-eye-fill' : 'bi-eye-slash-fill'
+				}}"
 				(click)="toggleFieldTextType()"
 			></i>
 			<p
 				i18n
-				[ngClass]="{
-					error: true,
-					visibility: password.valid || password.untouched,
-				}"
+				class="error {{
+					authForm.controls.password.valid ||
+					authForm.controls.password.untouched
+						? 'visibility'
+						: ''
+				}}"
 			>
 				Invalid Password!
 			</p>

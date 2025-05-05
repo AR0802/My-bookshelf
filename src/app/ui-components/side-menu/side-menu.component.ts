@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
-import { BackdropComponent } from '@components/backdrop/backdrop.component';
+import { BackdropComponent } from '@ui-components/backdrop/backdrop.component';
 import { BurgerMenuService } from '@shared/services/burger-menu.service';
 import { ERoutes } from '@shared/enums/routes.enum';
 import { ThemeService } from '@shared/services/theme.service';

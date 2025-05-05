@@ -11,7 +11,7 @@ import { RouterOutlet } from '@angular/router';
 
 import { NavComponent } from '@components/nav/nav.component';
 import { TopPanelComponent } from '@components/top-panel/top-panel.component';
-import { BurgerMenuComponent } from '@components/burger-menu/burger-menu.component';
+import { BurgerMenuComponent } from '@ui-components/burger-menu/burger-menu.component';
 import { BooksService } from '@shared/services/books.service';
 import { IBook, IResponse } from '@shared/interfaces';
 

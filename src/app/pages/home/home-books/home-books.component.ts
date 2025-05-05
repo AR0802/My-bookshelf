@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 
 import { BooksComponent } from '@components/books/books.component';
-import { LoaderComponent } from '@components/loader/loader.component';
+import { LoaderComponent } from '@ui-components/loader/loader.component';
 import { IBook } from '@shared/interfaces';
 import { BooksService } from '@shared/services/books.service';
 
