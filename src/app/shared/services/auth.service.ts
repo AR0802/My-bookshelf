@@ -13,6 +13,11 @@ import {
 import { from, Observable } from 'rxjs';
 
 import { IUser } from '@shared/interfaces';
+import {
+	EMAIL_IN_USER_ERROR,
+	INVALID_CREDENTIAL_ERROR,
+	TOO_MANY_REQUEST_ERROR,
+} from '@shared/constants/firebase-errors.constants';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -50,5 +55,17 @@ export class AuthService {
 		return from(
 			updateProfile(this.firebaseAuth.currentUser!, { displayName: name })
 		);
+	}
+
+	handleError(error: Error): string {
+		if (error.message === INVALID_CREDENTIAL_ERROR) {
+			return 'Invalid login or password!';
+		} else if (error.message === EMAIL_IN_USER_ERROR) {
+			return 'Such email already exists!';
+		} else if (error.message === TOO_MANY_REQUEST_ERROR) {
+			return 'Too many requests, try later!';
+		} else {
+			return error.message;
+		}
 	}
 }

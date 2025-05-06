@@ -1,3 +1,5 @@
+@use "@styles/_variables.scss" as *;
+
 .side-menu {
 	position: fixed;
 	width: 280px;
@@ -73,7 +75,7 @@
 	}
 }
 
-@media (min-width: 577px) {
+@media (min-width: $width-576px) {
 	.side-menu {
 		display: none;
 	}

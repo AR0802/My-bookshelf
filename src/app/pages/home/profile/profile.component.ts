@@ -58,33 +58,43 @@ export class ProfileComponent implements OnInit {
 				.download(BUCKET_NAME, this.authService.currentUserSig()?.id as string)
 				.then((data) => {
 					if (data.data) {
-						this.imgUrl.set(URL.createObjectURL(data.data));
+						this.createURL(data.data);
 						this.supabaseStorageService.imgUrl.set(this.imgUrl());
 					}
 				});
 		}
 	}
 
-	fileSelect(event: Event): void {
-		const input = event.target as HTMLInputElement;
-		if (input.files && input.files.length > 0) {
-			this.selectedFile.set(input.files[0]);
-		}
+	private createURL(file: File | Blob): void {
 		if (this.imgUrl()) {
 			URL.revokeObjectURL(this.imgUrl());
 		}
-		const imageURL = URL.createObjectURL(this.selectedFile()!);
-		this.imgUrl.set(imageURL);
+		this.imgUrl.set(URL.createObjectURL(file));
 	}
 
-	removeImage(): void {
-		URL.revokeObjectURL(this.imgUrl());
-		this.imgUrl.set('');
+	private revokeURL(): void {
+		if (this.imgUrl()) {
+			URL.revokeObjectURL(this.imgUrl());
+			this.imgUrl.set('');
+		}
+	}
+
+	protected fileSelect(event: Event): void {
+		const input = event.target as HTMLInputElement;
+		this.revokeURL();
+		if (input.files && input.files.length > 0) {
+			this.selectedFile.set(input.files[0]);
+		} else return;
+		this.createURL(this.selectedFile()!);
+	}
+
+	protected removeImage(): void {
+		this.revokeURL();
 		this.selectedFile.set(null);
 		this.profileForm.controls.image.setValue('');
 	}
 
-	saveProfile(): void {
+	protected saveProfile(): void {
 		const name = this.profileForm.value.name!;
 		this.authService
 			.updateName(name)

@@ -1,10 +1,12 @@
+@use "@styles/_variables.scss" as *;
+
 .favorite-container {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 2rem;
 }
 
-@media (max-width: 697px) {
+@media (max-width: $width-696px) {
 	.favorite-container {
 		justify-content: space-around;
 	}

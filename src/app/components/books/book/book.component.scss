@@ -1,3 +1,5 @@
+@use "@styles/_variables.scss" as *;
+
 .card {
 	width: 11.875rem;
 	height: 18rem;
@@ -38,7 +40,7 @@
 	}
 }
 
-@media (max-width: 696px) {
+@media (max-width: $width-696px) {
 	.card {
 		margin-right: 0;
 	}

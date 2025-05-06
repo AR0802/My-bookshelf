@@ -1,3 +1,5 @@
+@use "@styles/_variables.scss" as *;
+
 .sidebar {
 	position: relative;
 	border-radius: 13px 0 0 13px;
@@ -58,7 +60,7 @@
 	}
 }
 
-@media (max-width: 768px) {
+@media (max-width: $width-768px) {
 	.logo {
 		height: 50px !important;
 		width: 70px !important;

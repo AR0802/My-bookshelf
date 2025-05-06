@@ -27,7 +27,10 @@
 					<span class="text-decoration" (click)="searchByAuthor()">{{
 						book()?.volumeInfo?.authors?.[0]
 					}}</span
-					>{{ separator() }}{{ book()?.volumeInfo?.publishedDate | slice: 0 : 4 }}
+					>{{
+						this.book()?.volumeInfo?.authors &&
+							this.book()?.volumeInfo?.publishedDate | separatorPipe
+					}}{{ book()?.volumeInfo?.publishedDate | slice: 0 : 4 }}
 				</p>
 			</div>
 			@if (book()?.volumeInfo?.authors) {

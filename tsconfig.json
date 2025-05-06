@@ -23,6 +23,7 @@
 			"@pages/*": ["./src/app/pages/*"],
 			"@shared/*": ["./src/app/shared/*"],
 			"@environments/*": ["./src/environments/*"],
+			"@styles/*": ["./src/app/styles/*"],
 			"@ui-components/*": ["./src/app/ui-components/*"]
 		}
 	},

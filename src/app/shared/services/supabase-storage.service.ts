@@ -7,7 +7,7 @@ import { environment } from '@environments/environment';
 	providedIn: 'root',
 })
 export class SupabaseStorageService {
-	supabaseClient: SupabaseClient;
+	private supabaseClient: SupabaseClient;
 	imgUrl = signal('');
 
 	constructor() {

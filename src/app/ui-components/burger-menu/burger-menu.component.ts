@@ -9,9 +9,9 @@ import { BurgerMenuService } from '@shared/services/burger-menu.service';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BurgerMenuComponent {
-	burgerMenuService = inject(BurgerMenuService);
+	private burgerMenuService = inject(BurgerMenuService);
 
-	open(): void {
+	protected open(): void {
 		this.burgerMenuService.toggle(true);
 	}
 }

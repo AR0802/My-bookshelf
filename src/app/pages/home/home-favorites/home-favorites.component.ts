@@ -19,6 +19,10 @@ export class HomeFavoriteComponent implements OnInit {
 	books = signal<IBook[]>([]);
 
 	ngOnInit(): void {
+		this.setFavoriteBooks();
+	}
+
+	private setFavoriteBooks(): void {
 		const favoriteBooks: IBook[] = [];
 		for (let i = 0; i < localStorage.length; i++) {
 			if (

@@ -1,16 +1,18 @@
+@use "@styles/_variables.scss" as *;
+
 .title {
 	margin: 3rem 0 2rem;
 	color: var(--text-color);
 	font-size: 35px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: $width-768px) {
 	.title {
 		font-size: 30px;
 	}
 }
 
-@media (max-width: 576px) {
+@media (max-width: $width-576px) {
 	.title {
 		font-size: 25px;
 	}

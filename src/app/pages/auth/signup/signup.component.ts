@@ -19,10 +19,6 @@ import { catchError, EMPTY, tap } from 'rxjs';
 import { AuthService } from '@shared/services/auth.service';
 import { ERoutes } from '@shared/enums/routes.enum';
 import { AlertComponent } from '@ui-components/alert/alert.component';
-import {
-	EMAIL_IN_USER_ERROR,
-	TOO_MANY_REQUEST_ERROR,
-} from '@shared/constants/firebase-errors.constants';
 
 @Component({
 	selector: 'app-signup',
@@ -60,11 +56,11 @@ export class SignupComponent {
 		]),
 	});
 
-	toggleFieldTextType(field: WritableSignal<boolean>): void {
+	protected toggleFieldTextType(field: WritableSignal<boolean>): void {
 		field.update((fieldTextType) => !fieldTextType);
 	}
 
-	signup(): void {
+	protected signup(): void {
 		const { name, email, password } = this.authForm.value;
 		this.authService
 			.signup(name!, email!, password!)
@@ -73,13 +69,8 @@ export class SignupComponent {
 					this.router.navigateByUrl(`${ERoutes.BOOKS}`);
 				}),
 				catchError((error: Error) => {
-					if (error.message === EMAIL_IN_USER_ERROR) {
-						this.error.set('Such email already exists!');
-					} else if (error.message === TOO_MANY_REQUEST_ERROR) {
-						this.error.set('Too many requests, try later!');
-					} else {
-						this.error.set(error.message);
-					}
+					const errorMessage = this.authService.handleError(error);
+					this.error.set(errorMessage);
 					return EMPTY;
 				}),
 				takeUntilDestroyed(this.destroyRef)
