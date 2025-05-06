@@ -1,3 +1,5 @@
+@use "@styles/_variables.scss" as *;
+
 .home-book-section {
 	margin-top: 5rem;
 
@@ -130,15 +132,21 @@
 	}
 }
 
-@media (max-width: 768px) {
+@media (max-width: $width-768px) {
 	.card-title {
 		font-size: 27px !important;
 	}
 }
 
-@media (max-width: 576px) {
+@media (max-width: $width-576px) {
 	.card-title {
 		font-size: 25px !important;
+	}
+}
+
+@media (max-width: 550px) {
+	.card-description-container {
+		margin-left: 0 !important;
 	}
 }
 
@@ -163,11 +171,5 @@
 			max-width: 3rem;
 			max-height: 5rem;
 		}
-	}
-}
-
-@media (max-width: 550px) {
-	.card-description-container {
-		margin-left: 0 !important;
 	}
 }

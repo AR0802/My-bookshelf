@@ -18,10 +18,6 @@ import { catchError, EMPTY, tap } from 'rxjs';
 import { AuthService } from '@shared/services/auth.service';
 import { ERoutes } from '@shared/enums/routes.enum';
 import { AlertComponent } from '@ui-components/alert/alert.component';
-import {
-	INVALID_CREDENTIAL_ERROR,
-	TOO_MANY_REQUEST_ERROR,
-} from '@shared/constants/firebase-errors.constants';
 
 @Component({
 	selector: 'app-login',
@@ -48,11 +44,11 @@ export class LoginComponent {
 		]),
 	});
 
-	toggleFieldTextType(): void {
+	protected toggleFieldTextType(): void {
 		this.fieldTextType.update((fieldTextType) => !fieldTextType);
 	}
 
-	login(): void {
+	protected login(): void {
 		const { email, password } = this.authForm.value;
 		this.authService
 			.login(email!, password!)
@@ -61,13 +57,8 @@ export class LoginComponent {
 					this.router.navigateByUrl(`${ERoutes.BOOKS}`);
 				}),
 				catchError((error: Error) => {
-					if (error.message === INVALID_CREDENTIAL_ERROR) {
-						this.error.set('Invalid login or password!');
-					} else if (error.message === TOO_MANY_REQUEST_ERROR) {
-						this.error.set('Too many requests, try later!');
-					} else {
-						this.error.set(error.message);
-					}
+					const errorMessage = this.authService.handleError(error);
+					this.error.set(errorMessage);
 					return EMPTY;
 				}),
 				takeUntilDestroyed(this.destroyRef)
@@ -75,7 +66,7 @@ export class LoginComponent {
 			.subscribe();
 	}
 
-	loginWithGoogle() {
+	protected loginWithGoogle() {
 		this.authService
 			.loginWithGoogle()
 			.pipe(

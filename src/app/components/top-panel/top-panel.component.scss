@@ -1,3 +1,5 @@
+@use "@styles/_variables.scss" as *;
+
 .dropdown {
 	background-color: var(--background-color-secondary);
 	padding: 0.25rem;
@@ -86,7 +88,7 @@
 	}
 }
 
-@media (max-width: 576px) {
+@media (max-width: $width-576px) {
 	.dropdown-lang {
 		margin-left: 1rem;
 		margin-right: 0;

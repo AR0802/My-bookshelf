@@ -4,7 +4,7 @@
 }
 @for (category of categories; track $index) {
 	<app-books
-		(booksOutput)="booksChanged($event)"
+		(booksOutput)="booksChange($event)"
 		[category]="category"
 	></app-books>
 }

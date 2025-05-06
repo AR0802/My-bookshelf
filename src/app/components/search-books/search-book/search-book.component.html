@@ -12,7 +12,10 @@
 			<div class="card-body">
 				<p i18n class="card-title card-wrap">{{ book()?.volumeInfo?.title }}</p>
 				<p i18n class="card-description card-wrap">
-					{{ book()?.volumeInfo?.authors?.[0] }}{{ separator()
+					{{ book()?.volumeInfo?.authors?.[0]
+					}}{{
+						this.book()?.volumeInfo?.authors &&
+							this.book()?.volumeInfo?.publishedDate | separatorPipe
 					}}{{ book()?.volumeInfo?.publishedDate | slice: 0 : 4 }}
 				</p>
 			</div>
@@ -24,9 +27,7 @@
 		</div>
 		<div class="col-lg-2 card-favorite">
 			<i
-				class="bi cart-heart {{
-					isFavorite() ? 'bi-heart-fill' : 'bi-heart'
-				}}"
+				class="bi cart-heart {{ isFavorite() ? 'bi-heart-fill' : 'bi-heart' }}"
 				(click)="toggleFavorite()"
 			></i>
 		</div>

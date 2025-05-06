@@ -30,6 +30,10 @@ export class BooksComponent implements OnInit {
 	private destroyRef = inject(DestroyRef);
 
 	ngOnInit(): void {
+		this.getBooks();
+	}
+
+	private getBooks(): void {
 		if (!this.booksService.homeBooks.size) {
 			this.booksService
 				.getBooks(this.category())

@@ -31,7 +31,7 @@ export class SideMenuComponent {
 		});
 	}
 
-	changeTheme(): void {
+	protected changeTheme(): void {
 		if (!this.themeService.theme()) {
 			this.themeService.theme.set('dark');
 		} else {
@@ -40,7 +40,7 @@ export class SideMenuComponent {
 		this.themeService.loadTheme(this.themeService.theme());
 	}
 
-	close(): void {
+	protected close(): void {
 		this.burgerMenuService.toggle(false);
 	}
 }

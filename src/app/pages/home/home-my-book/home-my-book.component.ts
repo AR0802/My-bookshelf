@@ -44,16 +44,16 @@ export class HomeMyBookComponent implements OnInit {
 			.subscribe();
 	}
 
-	afterLoadComplete(pdfData: { numPages: number }) {
+	protected afterLoadComplete(pdfData: { numPages: number }) {
 		this.totalPages = pdfData.numPages;
 		this.isLoaded = true;
 	}
 
-	nextPage() {
+	protected nextPage() {
 		this.page++;
 	}
 
-	prevPage() {
+	protected prevPage() {
 		this.page--;
 	}
 }

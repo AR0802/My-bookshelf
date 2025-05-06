@@ -29,6 +29,10 @@ export class AppComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.themeService.loadTheme(JSON.parse(localStorage.getItem('theme')!));
+		this.setUser();
+	}
+
+	private setUser(): void {
 		this.authService.user$
 			.pipe(
 				tap((user) => {

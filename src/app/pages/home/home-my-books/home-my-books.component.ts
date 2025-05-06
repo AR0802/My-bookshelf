@@ -30,6 +30,10 @@ export class HomeMyBooksComponent implements OnInit {
 	private destroyRef = inject(DestroyRef);
 
 	ngOnInit(): void {
+		this.setUserBooks();
+	}
+
+	private setUserBooks(): void {
 		this.booksService
 			.getUserBooks()
 			.pipe(

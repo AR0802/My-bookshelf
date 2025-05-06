@@ -25,13 +25,13 @@ import { IBook, IResponse } from '@shared/interfaces';
 export class HomeComponent implements OnInit {
 	@ViewChild('layout', { static: true }) layoutRef: ElementRef | undefined;
 	foundBooks = signal<IBook[] | undefined>(undefined);
-	booksService = inject(BooksService);
+	private booksService = inject(BooksService);
 
 	ngOnInit(): void {
 		this.booksService.layoutRef.set(this.layoutRef);
 	}
 
-	booksChange(data: IResponse): void {
+	protected booksChange(data: IResponse): void {
 		this.foundBooks.set(data.items);
 	}
 }

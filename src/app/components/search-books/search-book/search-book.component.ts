@@ -11,10 +11,11 @@ import { Router } from '@angular/router';
 
 import { IBook } from '@shared/interfaces';
 import { ERoutes } from '@shared/enums/routes.enum';
+import { SeparatorPipe } from '@shared/pipes/separator.pipe';
 
 @Component({
 	selector: 'app-search-book',
-	imports: [SlicePipe],
+	imports: [SlicePipe, SeparatorPipe],
 	templateUrl: './search-book.component.html',
 	styleUrl: './search-book.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -22,26 +23,19 @@ import { ERoutes } from '@shared/enums/routes.enum';
 export class SearchBookComponent implements OnInit {
 	book = input<IBook>();
 	isFavorite = signal<boolean>(false);
-	separator = signal<string>('');
 	private router = inject(Router);
 
 	ngOnInit(): void {
 		if (localStorage.getItem(this.book()?.id as string)) {
 			this.isFavorite.set(true);
 		}
-		if (
-			this.book()?.volumeInfo?.authors &&
-			this.book()?.volumeInfo?.publishedDate
-		) {
-			this.separator.set(', ');
-		}
 	}
 
-	previewBook(): void {
+	protected previewBook(): void {
 		this.router.navigateByUrl(`${ERoutes.BOOKS}/${this.book()?.id}`);
 	}
 
-	toggleFavorite(): void {
+	protected toggleFavorite(): void {
 		if (!this.isFavorite()) {
 			localStorage.setItem(
 				this.book()?.id as string,

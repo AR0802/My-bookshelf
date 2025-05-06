@@ -1,14 +1,12 @@
 import {
 	ChangeDetectionStrategy,
 	Component,
-	inject,
 	signal,
 } from '@angular/core';
 
 import { BooksComponent } from '@components/books/books.component';
 import { LoaderComponent } from '@ui-components/loader/loader.component';
 import { IBook } from '@shared/interfaces';
-import { BooksService } from '@shared/services/books.service';
 
 @Component({
 	selector: 'app-home-books',
@@ -25,9 +23,8 @@ export class HomeBooksComponent {
 		$localize`Sport`,
 	];
 	books = signal<IBook[]>([]);
-	booksService = inject(BooksService);
 
-	booksChanged(books: IBook[]): void {
+	protected booksChange(books: IBook[]): void {
 		this.books.set(books);
 	}
 }
