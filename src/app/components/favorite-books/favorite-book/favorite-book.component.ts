@@ -22,7 +22,7 @@ export class FavoriteBookComponent {
 	book = input<IBook>();
 	private router = inject(Router);
 
-	protected navigate(): void {
+	navigate(): void {
 		this.router.navigateByUrl(`/${ERoutes.BOOKS}/${this.book()?.id}`);
 	}
 }

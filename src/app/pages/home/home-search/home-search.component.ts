@@ -86,7 +86,7 @@ export class HomeSearchComponent implements OnInit {
 		}
 	}
 
-	protected searchByCategory(category: string): void {
+	searchByCategory(category: string): void {
 		this.booksService
 			.getBooks(category)
 			.pipe(
@@ -109,7 +109,7 @@ export class HomeSearchComponent implements OnInit {
 			.subscribe();
 	}
 
-	protected pageChange(pageNumber: number): void {
+	pageChange(pageNumber: number): void {
 		this.booksForPage.set(
 			this.booksService.books().slice((pageNumber - 1) * 10, pageNumber * 10)
 		);

@@ -1,4 +1,4 @@
-@use "@styles/_variables.scss" as *;
+@use '../../styles/variables.scss' as *;
 
 .book-section {
 	position: relative;
@@ -29,7 +29,7 @@
 	}
 }
 
-@media (max-width: $width-768px) {
+@media (max-width: $width-m) {
 	.book-section-title {
 		font-size: 22px !important;
 	}
@@ -39,7 +39,7 @@
 	}
 }
 
-@media (max-width: $width-696px) {
+@media (max-width: $width-sm) {
 	.books {
 		flex-direction: column;
 		align-items: center;
@@ -47,7 +47,7 @@
 	}
 }
 
-@media (max-width: $width-576px) {
+@media (max-width: $width-s) {
 	.book-section-title {
 		font-size: 20px !important;
 	}

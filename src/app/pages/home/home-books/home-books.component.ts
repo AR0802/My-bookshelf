@@ -1,8 +1,4 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 
 import { BooksComponent } from '@components/books/books.component';
 import { LoaderComponent } from '@ui-components/loader/loader.component';
@@ -24,7 +20,7 @@ export class HomeBooksComponent {
 	];
 	books = signal<IBook[]>([]);
 
-	protected booksChange(books: IBook[]): void {
+	booksChange(books: IBook[]): void {
 		this.books.set(books);
 	}
 }

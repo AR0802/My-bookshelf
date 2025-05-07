@@ -79,7 +79,7 @@ export class ProfileComponent implements OnInit {
 		}
 	}
 
-	protected fileSelect(event: Event): void {
+	fileSelect(event: Event): void {
 		const input = event.target as HTMLInputElement;
 		this.revokeURL();
 		if (input.files && input.files.length > 0) {
@@ -88,13 +88,13 @@ export class ProfileComponent implements OnInit {
 		this.createURL(this.selectedFile()!);
 	}
 
-	protected removeImage(): void {
+	removeImage(): void {
 		this.revokeURL();
 		this.selectedFile.set(null);
 		this.profileForm.controls.image.setValue('');
 	}
 
-	protected saveProfile(): void {
+	saveProfile(): void {
 		const name = this.profileForm.value.name!;
 		this.authService
 			.updateName(name)

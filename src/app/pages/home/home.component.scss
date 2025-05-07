@@ -1,4 +1,4 @@
-@use "@styles/_variables.scss" as *;
+@use '../../styles/variables.scss' as *;
 
 .flex-container {
 	display: flex;
@@ -14,7 +14,7 @@
 	}
 }
 
-@media (max-width: $width-576px) {
+@media (max-width: $width-s) {
 	.layout {
 		border-radius: 13px !important;
 	}

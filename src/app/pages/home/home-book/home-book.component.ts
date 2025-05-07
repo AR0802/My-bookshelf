@@ -103,11 +103,11 @@ export class HomeBookComponent implements OnInit {
 		}
 	}
 
-	protected back(): void {
+	back(): void {
 		this.location.back();
 	}
 
-	protected searchByAuthor(): void {
+	searchByAuthor(): void {
 		this.booksService
 			.getBooksBySearch(
 				'inauthor',

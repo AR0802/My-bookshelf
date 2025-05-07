@@ -16,7 +16,7 @@ export class NavComponent {
 	readonly ERoutes = ERoutes;
 	private themeService = inject(ThemeService);
 
-	protected changeTheme(): void {
+	changeTheme(): void {
 		if (!this.themeService.theme()) {
 			this.themeService.theme.set('dark');
 		} else {

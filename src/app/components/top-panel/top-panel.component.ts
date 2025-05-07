@@ -95,11 +95,11 @@ export class TopPanelComponent {
 			.subscribe();
 	}
 
-	protected changeSearchParam(param: string): void {
+	changeSearchParam(param: string): void {
 		this.searchParam.set(param);
 	}
 
-	protected search(event: Event): void {
+	search(event: Event): void {
 		const target = event.target as HTMLInputElement;
 		if (!target.validity.valid) return;
 		const searchValue = target.value;
@@ -152,7 +152,7 @@ export class TopPanelComponent {
 		}
 	}
 
-	protected changeLanguage(locale: string): void {
+	changeLanguage(locale: string): void {
 		if (this.locale === locale) return;
 		location.href = `/${locale}/${this.router.url}`;
 	}
