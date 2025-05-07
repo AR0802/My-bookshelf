@@ -1,8 +1,22 @@
-name: TEST
+name: CI Pipeline
+
 on: [push]
+
 jobs:
-  our-first-job:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Run console log
-        run: echo "Hello GitHub Actions!"
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '22'
+
+    - name: Install dependencies
+      run: yarn install --frozen-lockfile
+
+    - name: Lint code
+      run: yarn run lint-staged
