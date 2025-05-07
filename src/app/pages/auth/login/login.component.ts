@@ -44,11 +44,11 @@ export class LoginComponent {
 		]),
 	});
 
-	toggleFieldTextType(): void {
+	protected toggleFieldTextType(): void {
 		this.fieldTextType.update((fieldTextType) => !fieldTextType);
 	}
 
-	login(): void {
+	protected login(): void {
 		const { email, password } = this.authForm.value;
 		this.authService
 			.login(email!, password!)
@@ -66,7 +66,7 @@ export class LoginComponent {
 			.subscribe();
 	}
 
-	loginWithGoogle() {
+	protected loginWithGoogle() {
 		this.authService
 			.loginWithGoogle()
 			.pipe(

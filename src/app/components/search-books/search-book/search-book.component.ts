@@ -31,11 +31,11 @@ export class SearchBookComponent implements OnInit {
 		}
 	}
 
-	previewBook(): void {
+	protected previewBook(): void {
 		this.router.navigateByUrl(`${ERoutes.BOOKS}/${this.book()?.id}`);
 	}
 
-	toggleFavorite(): void {
+	protected toggleFavorite(): void {
 		if (!this.isFavorite()) {
 			localStorage.setItem(
 				this.book()?.id as string,

@@ -56,11 +56,11 @@ export class SignupComponent {
 		]),
 	});
 
-	toggleFieldTextType(field: WritableSignal<boolean>): void {
+	protected toggleFieldTextType(field: WritableSignal<boolean>): void {
 		field.update((fieldTextType) => !fieldTextType);
 	}
 
-	signup(): void {
+	protected signup(): void {
 		const { name, email, password } = this.authForm.value;
 		this.authService
 			.signup(name!, email!, password!)

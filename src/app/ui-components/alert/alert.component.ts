@@ -15,7 +15,7 @@ export class AlertComponent {
 	message = input.required<string>();
 	close = output();
 
-	hide() {
+	protected hide() {
 		this.close.emit();
 	}
 }

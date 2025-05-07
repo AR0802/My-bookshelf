@@ -24,7 +24,7 @@ export class BackdropComponent {
 		});
 	}
 
-	close(): void {
+	protected close(): void {
 		this.burgerMenuService.toggle(false);
 	}
 }
