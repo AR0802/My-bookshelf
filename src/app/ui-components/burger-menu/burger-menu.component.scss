@@ -1,4 +1,4 @@
-@use "@styles/_variables.scss" as *;
+@use '../../styles/variables.scss' as *;
 
 .burger-menu {
 	width: 1.5rem;
@@ -18,7 +18,7 @@
 	background-color: rgb(247, 107, 86);
 }
 
-@media (min-width: $width-576px) {
+@media (min-width: $width-s) {
 	.burger-menu {
 		display: none;
 	}

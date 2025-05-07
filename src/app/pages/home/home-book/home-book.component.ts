@@ -103,7 +103,7 @@ export class HomeBookComponent implements OnInit {
 		}
 	}
 
-	protected back(): void {
+	back(): void {
 		this.location.back();
 	}
 

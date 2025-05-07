@@ -1,4 +1,4 @@
-@use "@styles/_variables.scss" as *;
+@use '../../styles/variables.scss' as *;
 
 .side-menu {
 	position: fixed;
@@ -75,7 +75,7 @@
 	}
 }
 
-@media (min-width: $width-576px) {
+@media (min-width: $width-s) {
 	.side-menu {
 		display: none;
 	}

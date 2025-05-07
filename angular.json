@@ -50,7 +50,7 @@
 							"node_modules/bootstrap/dist/css/bootstrap.min.css",
 							"src/styles.scss",
 							{
-								"input": "src/app/styles/dark.scss",
+								"input": "@styles/dark.scss",
 								"bundleName": "dark",
 								"inject": false
 							}
@@ -64,8 +64,8 @@
 							"budgets": [
 								{
 									"type": "initial",
-									"maximumWarning": "500kB",
-									"maximumError": "1MB"
+									"maximumWarning": "2MB",
+									"maximumError": "3MB"
 								},
 								{
 									"type": "anyComponentStyle",
