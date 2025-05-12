@@ -24,7 +24,7 @@ export class PaginationComponent {
 	totalItems = input.required<number>();
 	changePage = output<number>();
 
-	protected pageChange(pageIndex: number) {
+	pageChange(pageIndex: number) {
 		this.changePage.emit(pageIndex);
 	}
 }

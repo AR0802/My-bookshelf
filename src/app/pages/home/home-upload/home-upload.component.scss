@@ -1,5 +1,3 @@
-@use "@styles/_variables.scss" as *;
-
 .container {
 	max-width: 40rem;
 	background-color: var(--card-bg-color);
@@ -63,7 +61,7 @@
 	}
 }
 
-@media (max-width: $width-675px) {
+@media (max-width: 675px) {
 	.container {
 		padding: 2.5rem 3rem 2rem;
 
@@ -73,7 +71,7 @@
 	}
 }
 
-@media (max-width: $width-500px) {
+@media (max-width: 500px) {
 	.container {
 		padding: 2.5rem 1.5rem 2rem;
 	}

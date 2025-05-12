@@ -11,7 +11,7 @@ import { BurgerMenuService } from '@shared/services/burger-menu.service';
 export class BurgerMenuComponent {
 	private burgerMenuService = inject(BurgerMenuService);
 
-	protected open(): void {
+	open(): void {
 		this.burgerMenuService.toggle(true);
 	}
 }

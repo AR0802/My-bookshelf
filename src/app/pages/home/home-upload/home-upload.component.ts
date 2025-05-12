@@ -43,7 +43,7 @@ export class HomeUploadComponent {
 		image: new FormControl<string>('', [Validators.required]),
 	});
 
-	protected upload(): void {
+	upload(): void {
 		const userId = this.authService.currentUserSig()?.id;
 		const userBook = { ...this.uploadBookForm.value, userId };
 		this.booksService

@@ -94,7 +94,7 @@ export class ProfileComponent implements OnInit {
 		this.profileForm.controls.image.setValue('');
 	}
 
-	protected saveProfile(): void {
+	saveProfile(): void {
 		const name = this.profileForm.value.name!;
 		this.authService
 			.updateName(name)

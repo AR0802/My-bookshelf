@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
 		this.booksService.layoutRef.set(this.layoutRef);
 	}
 
-	protected booksChange(data: IResponse): void {
+	booksChange(data: IResponse): void {
 		this.foundBooks.set(data.items);
 	}
 }
