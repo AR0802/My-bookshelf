@@ -1,0 +1,29 @@
+<div
+	class="
+		{{ type() === 'search' ? 'search-container' : 'favorite-container' }}
+	"
+>
+	@switch (type()) {
+		@case ('favorite') {
+			@for (book of books(); track book.id) {
+				@if (isIbook(book)) {
+					<app-favorite-book [book]="book"></app-favorite-book>
+				}
+			}
+		}
+		@case ('search') {
+			@for (book of books(); track book.id) {
+				@if (isIbook(book)) {
+					<app-search-book [book]="book"></app-search-book>
+				}
+			}
+		}
+		@case ('user') {
+			@for (book of books(); track book.id) {
+				@if (!isIbook(book)) {
+					<app-user-book [book]="book"></app-user-book>
+				}
+			}
+		}
+	}
+</div>

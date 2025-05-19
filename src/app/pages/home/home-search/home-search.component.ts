@@ -7,21 +7,21 @@ import {
 	OnInit,
 	signal,
 	untracked,
-	WritableSignal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Router, ROUTER_OUTLET_DATA } from '@angular/router';
+import { Router } from '@angular/router';
 import { catchError, EMPTY, tap } from 'rxjs';
 
-import { SearchBooksComponent } from '@components/search-books/search-books.component';
+import { BooksContainerComponent } from '@components/books-container/books-container.component';
+import { PaginationComponent } from '@components/pagination/pagination.component';
+import { BooksApiService } from '@shared/services/books-api.service';
 import { BooksService } from '@shared/services/books.service';
 import { IBook, IResponse } from '@shared/interfaces';
-import { PaginationComponent } from '@components/pagination/pagination.component';
-import { AlertComponent } from '@ui-components/alert/alert.component';
+import { InteractionService } from '@shared/services/interaction.service';
 
 @Component({
 	selector: 'app-home-search',
-	imports: [SearchBooksComponent, PaginationComponent, AlertComponent],
+	imports: [BooksContainerComponent, PaginationComponent],
 	templateUrl: './home-search.component.html',
 	styleUrl: './home-search.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -38,12 +38,11 @@ export class HomeSearchComponent implements OnInit {
 	books = signal<IBook[]>([]);
 	authorBooks = signal<IBook[] | undefined>(undefined);
 	notFoundMessage = signal<string>('');
-	error = signal<string>('');
 	private router = inject(Router);
-	private readonly foundBooks =
-		inject<WritableSignal<IBook[] | undefined>>(ROUTER_OUTLET_DATA);
+	private booksApiService = inject(BooksApiService);
 	private booksService = inject(BooksService);
 	private destroyRef = inject(DestroyRef);
+	private interactionService = inject(InteractionService);
 
 	constructor() {
 		this.authorBooks.set(
@@ -52,11 +51,14 @@ export class HomeSearchComponent implements OnInit {
 
 		effect(() => {
 			if (this.booksService.searchBooks()) {
-				if (this.foundBooks() && !this.foundBooks()?.length) {
+				if (
+					this.booksService.foundBooks() &&
+					!this.booksService.foundBooks()?.length
+				) {
 					this.notFoundMessage.set($localize`Nothing Found!`);
-				} else if (this.foundBooks()?.length) {
+				} else if (this.booksService.foundBooks()?.length) {
 					this.notFoundMessage.set('');
-					this.booksService.books.set(this.foundBooks()!);
+					this.booksService.books.set(this.booksService.foundBooks()!);
 					untracked(() => {
 						this.books.set(this.booksService.books());
 						this.booksForPage.set(this.booksService.books().slice(0, 10));
@@ -87,7 +89,7 @@ export class HomeSearchComponent implements OnInit {
 	}
 
 	searchByCategory(category: string): void {
-		this.booksService
+		this.booksApiService
 			.getBooks(category)
 			.pipe(
 				tap((books: IResponse) => {
@@ -101,7 +103,7 @@ export class HomeSearchComponent implements OnInit {
 					}
 				}),
 				catchError((error: Error) => {
-					this.error.set(error.message);
+					this.interactionService.setError(error.message);
 					return EMPTY;
 				}),
 				takeUntilDestroyed(this.destroyRef)
@@ -113,7 +115,7 @@ export class HomeSearchComponent implements OnInit {
 		this.booksForPage.set(
 			this.booksService.books().slice((pageNumber - 1) * 10, pageNumber * 10)
 		);
-		this.booksService.layoutRef()?.nativeElement?.scrollTo({
+		this.interactionService.layoutRef()?.nativeElement?.scrollTo({
 			top: 0,
 			behavior: 'smooth',
 		});

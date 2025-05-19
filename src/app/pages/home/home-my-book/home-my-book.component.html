@@ -1,10 +1,7 @@
-<div class="back" (click)="location.back()">
-	<i class="fs-4 bi bi-arrow-left-square back-icon"></i>
-	<a i18n class="back-button">Back</a>
-</div>
-@if (!isLoaded) {
-	<app-loader></app-loader>
-} @else {
+@if (isLoaded()) {
+	<div class="back" (click)="location.back()">
+		<i class="fs-4 bi bi-arrow-left-square back-icon"></i>
+	</div>
 	<div class="pages">
 		<button class="button" (click)="prevPage()" [disabled]="page === 1">
 			<i class="fs-5 bi bi-arrow-left"></i>

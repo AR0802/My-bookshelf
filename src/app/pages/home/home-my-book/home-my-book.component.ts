@@ -2,6 +2,7 @@ import {
 	ChangeDetectionStrategy,
 	Component,
 	DestroyRef,
+	effect,
 	inject,
 	OnInit,
 	signal,
@@ -12,12 +13,12 @@ import { Location } from '@angular/common';
 import { tap } from 'rxjs';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 
-import { LoaderComponent } from '@ui-components/loader/loader.component';
 import { CURRENT_PAGE } from '@shared/constants/pagination.constants';
+import { InteractionService } from '@shared/services/interaction.service';
 
 @Component({
 	selector: 'app-home-my-book',
-	imports: [PdfViewerModule, LoaderComponent],
+	imports: [PdfViewerModule],
 	templateUrl: './home-my-book.component.html',
 	styleUrl: './home-my-book.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -25,12 +26,19 @@ import { CURRENT_PAGE } from '@shared/constants/pagination.constants';
 export class HomeMyBookComponent implements OnInit {
 	page: number = CURRENT_PAGE;
 	totalPages: number = CURRENT_PAGE;
-	isLoaded = false;
 	pdfViewer: Element | null = null;
+	isLoaded = signal(false);
 	file = signal<string>('');
 	location = inject(Location);
 	private activatedRoute = inject(ActivatedRoute);
 	private destroyRef = inject(DestroyRef);
+	private interactionService = inject(InteractionService);
+
+	constructor() {
+		effect(() => {
+			this.interactionService.showLoader.set(!this.isLoaded());
+		});
+	}
 
 	ngOnInit(): void {
 		this.pdfViewer = document.documentElement.querySelector('pdf-viewer');
@@ -46,7 +54,7 @@ export class HomeMyBookComponent implements OnInit {
 
 	afterLoadComplete(pdfData: { numPages: number }) {
 		this.totalPages = pdfData.numPages;
-		this.isLoaded = true;
+		this.isLoaded.set(true);
 	}
 
 	nextPage() {

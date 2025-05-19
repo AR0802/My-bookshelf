@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of, throwError } from 'rxjs';
 
 import { HomeMyBooksComponent } from './home-my-books.component';
-import { BooksService } from '@shared/services/books.service';
+import { BooksApiService } from '@shared/services/books-api.service';
 import { AuthService } from '@shared/services/auth.service';
 import { IUserBook } from '@shared/interfaces';
 import { ActivatedRoute } from '@angular/router';
@@ -11,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 describe('HomeMyBooksComponent', () => {
 	let component: HomeMyBooksComponent;
 	let fixture: ComponentFixture<HomeMyBooksComponent>;
-	let booksServiceMock: jasmine.SpyObj<BooksService>;
+	let booksApiServiceMock: jasmine.SpyObj<BooksApiService>;
 	let authServiceMock: jasmine.SpyObj<AuthService>;
 
 	const mockUser = {
@@ -41,7 +41,9 @@ describe('HomeMyBooksComponent', () => {
 	];
 
 	beforeEach(async () => {
-		booksServiceMock = jasmine.createSpyObj('BooksService', ['getUserBooks']);
+		booksApiServiceMock = jasmine.createSpyObj('BooksApiService', [
+			'getUserBooks',
+		]);
 		authServiceMock = jasmine.createSpyObj('AuthService', [], {
 			currentUserSig: jasmine.createSpy().and.returnValue(mockUser),
 		});
@@ -49,7 +51,7 @@ describe('HomeMyBooksComponent', () => {
 		await TestBed.configureTestingModule({
 			imports: [HomeMyBooksComponent],
 			providers: [
-				{ provide: BooksService, useValue: booksServiceMock },
+				{ provide: BooksApiService, useValue: booksApiServiceMock },
 				{ provide: AuthService, useValue: authServiceMock },
 				{ provide: ActivatedRoute, useValue: {} },
 			],
@@ -67,42 +69,35 @@ describe('HomeMyBooksComponent', () => {
 		it('should initialize with empty books array', () => {
 			expect(component.books()).toEqual([]);
 		});
-
-		it('should initialize with empty error message', () => {
-			expect(component.error()).toBe('');
-		});
 	});
 
 	describe('setUserBooks', () => {
 		it('should filter and set books for current user', () => {
-			booksServiceMock.getUserBooks.and.returnValue(of(mockUserBooks));
+			booksApiServiceMock.getUserBooks.and.returnValue(of(mockUserBooks));
 
 			fixture.detectChanges();
 
 			expect(component.books().length).toBe(1);
 			expect(component.books()[0].userId).toBe(mockUser.id);
-			expect(component.error()).toBe('');
 		});
 
 		it('should handle error when fetching books fails', () => {
 			const errorMessage = 'Failed to fetch books';
-			booksServiceMock.getUserBooks.and.returnValue(
+			booksApiServiceMock.getUserBooks.and.returnValue(
 				throwError(() => new Error(errorMessage))
 			);
 
 			fixture.detectChanges();
 
 			expect(component.books().length).toBe(0);
-			expect(component.error()).toBe(errorMessage);
 		});
 
 		it('should handle empty books array', () => {
-			booksServiceMock.getUserBooks.and.returnValue(of([]));
+			booksApiServiceMock.getUserBooks.and.returnValue(of([]));
 
 			fixture.detectChanges();
 
 			expect(component.books().length).toBe(0);
-			expect(component.error()).toBe('');
 		});
 	});
 });

@@ -1,7 +1,7 @@
 <app-side-menu></app-side-menu>
 <div class="d-none d-sm-block col-auto px-md-2 px-0 sidebar">
 	<div class="d-flex flex-column align-items-center align-items-md-start px-4">
-		<img src="/logo.png" alt="My Book Shelf" i18n-alt class="logo" />
+		<img src="/logo.png" alt="My Book Shelf" i18n-alt class="nav-logo" />
 		<nav
 			class="nav nav-pills flex-column mb-md-auto mb-0 align-items-center align-items-md-start"
 		>
@@ -46,13 +46,7 @@
 				<i class="fs-5 bi bi-file-arrow-up icon"></i>
 				<span i18n class="ms-2 d-none d-md-inline icon-text">Upload</span>
 			</a>
-			<a
-				class="nav-link link-dark px-4 mt-5 align-middle link"
-				(click)="changeTheme()"
-			>
-				<i class="fs-5 bi bi-brightness-high-fill icon"></i>
-				<span i18n class="ms-2 d-none d-md-inline icon-text">Theme</span>
-			</a>
+			<app-theme component="nav"></app-theme>
 		</nav>
 		<div class="info">
 			<a i18n class="info-link">About</a>

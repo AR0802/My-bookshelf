@@ -1,8 +1,5 @@
-@if (error()) {
-	<app-alert [message]="error()" (close)="error.set('')"></app-alert>
-}
 <div class="container">
-	<form [formGroup]="profileForm" (ngSubmit)="saveProfile()">
+	<form [formGroup]="profileForm" (submit)="saveProfile()">
 		<div>
 			<label i18n for="name" class="form-label">Name</label>
 			<input

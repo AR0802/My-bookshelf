@@ -10,7 +10,7 @@ import { CURRENT_PAGE } from '@shared/constants/pagination.constants';
 describe('HomeMyBookComponent', () => {
 	let component: HomeMyBookComponent;
 	let fixture: ComponentFixture<HomeMyBookComponent>;
-	let mockQueryParams: BehaviorSubject<any>;
+	let mockQueryParams: BehaviorSubject<object>;
 
 	beforeEach(async () => {
 		mockQueryParams = new BehaviorSubject({});
@@ -37,7 +37,7 @@ describe('HomeMyBookComponent', () => {
 		it('should initialize with default values', () => {
 			expect(component.page).toBe(CURRENT_PAGE);
 			expect(component.totalPages).toBe(CURRENT_PAGE);
-			expect(component.isLoaded).toBeFalse();
+			expect(component.isLoaded()).toBeFalse();
 			expect(component.file()).toBe('');
 		});
 
@@ -73,7 +73,7 @@ describe('HomeMyBookComponent', () => {
 			component.afterLoadComplete(pdfData);
 
 			expect(component.totalPages).toBe(pdfData.numPages);
-			expect(component.isLoaded).toBeTrue();
+			expect(component.isLoaded()).toBeTrue();
 		});
 	});
 

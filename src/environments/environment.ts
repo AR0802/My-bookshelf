@@ -1,6 +1,7 @@
 export const environment = {
 	googleBooksApi: {
 		apiKey: import.meta.env.NG_APP_GOOGLE_BOOKS_API_KEY,
+		url: 'https://www.googleapis.com/books/v1/volumes',
 	},
 	firebase: {
 		apiKey: import.meta.env.NG_APP_FIREBASE_API_KEY,

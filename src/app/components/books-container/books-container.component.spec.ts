@@ -2,13 +2,13 @@ import '@angular/localize/init';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { SearchBooksComponent } from './search-books.component';
+import { BooksContainerComponent } from './books-container.component';
 import { SearchBookComponent } from './search-book/search-book.component';
 import { IBook } from '@shared/interfaces';
 
 describe('SearchBooksComponent', () => {
-	let component: SearchBooksComponent;
-	let fixture: ComponentFixture<SearchBooksComponent>;
+	let component: BooksContainerComponent;
+	let fixture: ComponentFixture<BooksContainerComponent>;
 	const mockBooks: IBook[] = [
 		{
 			id: '1',
@@ -38,12 +38,13 @@ describe('SearchBooksComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [SearchBooksComponent, SearchBookComponent],
+			imports: [BooksContainerComponent, SearchBookComponent],
 		}).compileComponents();
 
-		fixture = TestBed.createComponent(SearchBooksComponent);
+		fixture = TestBed.createComponent(BooksContainerComponent);
 		component = fixture.componentInstance;
 		fixture.componentRef.setInput('books', mockBooks);
+		fixture.componentRef.setInput('type', 'search');
 		fixture.detectChanges();
 	});
 

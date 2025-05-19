@@ -2,7 +2,7 @@ import '@angular/localize/init';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-import { of, throwError } from 'rxjs';
+import { of } from 'rxjs';
 import { UserCredential } from '@angular/fire/auth';
 
 import { LoginComponent } from './login.component';
@@ -71,7 +71,7 @@ describe('LoginComponent', () => {
 
 	describe('Login Functions', () => {
 		it('should handle successful login', () => {
-            const navigateSpy = spyOn(router, 'navigateByUrl');
+			const navigateSpy = spyOn(router, 'navigateByUrl');
 			const testCredentials = {
 				email: 'test@example.com',
 				password: 'StrongPass1!',
@@ -91,22 +91,10 @@ describe('LoginComponent', () => {
 			);
 			expect(navigateSpy).toHaveBeenCalledWith(ERoutes.BOOKS);
 		});
-
-		it('should handle login error', () => {
-			const errorMessage = 'Login failed';
-			authServiceMock.login.and.returnValue(
-				throwError(() => new Error(errorMessage))
-			);
-			authServiceMock.handleError.and.returnValue(errorMessage);
-
-			component.login();
-
-			expect(component.error()).toBe(errorMessage);
-		});
 	});
 
 	it('should handle successful Google login', () => {
-        const navigateSpy = spyOn(router, 'navigateByUrl');
+		const navigateSpy = spyOn(router, 'navigateByUrl');
 		const mockUserCredential = {
 			user: { email: 'test@example.com' },
 		} as UserCredential;
@@ -116,17 +104,6 @@ describe('LoginComponent', () => {
 
 		expect(authServiceMock.loginWithGoogle).toHaveBeenCalled();
 		expect(navigateSpy).toHaveBeenCalledWith(ERoutes.BOOKS);
-	});
-
-	it('should handle Google login error', () => {
-		const errorMessage = 'Google login failed';
-		authServiceMock.loginWithGoogle.and.returnValue(
-			throwError(() => new Error(errorMessage))
-		);
-
-		component.loginWithGoogle();
-
-		expect(component.error()).toBe(errorMessage);
 	});
 
 	describe('UI Interaction', () => {

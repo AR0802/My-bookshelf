@@ -1,23 +1,16 @@
 .back {
-	position: absolute;
+	position: relative;
 	max-width: max-content;
 	cursor: pointer;
 
 	.back-icon {
+		position: absolute;
 		color: var(--text-color);
-	}
-
-	.back-button {
-		text-decoration: none;
-		color: var(--text-color);
-		font-size: 15px;
-		margin-left: 1rem;
 	}
 
 	&:hover {
-		.back-icon,
-		.back-button {
-			color: var(--black);
+		.back-icon {
+			color: var(--dark-theme-color);
 		}
 	}
 }
@@ -46,7 +39,7 @@
 	color: var(--text-color);
 
 	&:hover {
-		color: var(--black);
+		color: var(--dark-theme-color);
 	}
 }
 

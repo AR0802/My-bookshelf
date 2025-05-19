@@ -5,7 +5,7 @@ import { By } from '@angular/platform-browser';
 import { of, throwError } from 'rxjs';
 
 import { HomeUploadComponent } from './home-upload.component';
-import { BooksService } from '@shared/services/books.service';
+import { BooksApiService } from '@shared/services/books-api.service';
 import { AuthService } from '@shared/services/auth.service';
 import { ERoutes } from '@shared/enums/routes.enum';
 
@@ -13,7 +13,7 @@ describe('HomeUploadComponent', () => {
 	let component: HomeUploadComponent;
 	let fixture: ComponentFixture<HomeUploadComponent>;
 	let routerMock: jasmine.SpyObj<Router>;
-	let booksServiceMock: jasmine.SpyObj<BooksService>;
+	let booksApiServiceMock: jasmine.SpyObj<BooksApiService>;
 	let authServiceMock: jasmine.SpyObj<AuthService>;
 
 	const mockUser = {
@@ -31,7 +31,9 @@ describe('HomeUploadComponent', () => {
 
 	beforeEach(async () => {
 		routerMock = jasmine.createSpyObj('Router', ['navigateByUrl']);
-		booksServiceMock = jasmine.createSpyObj('BooksService', ['addUserBook']);
+		booksApiServiceMock = jasmine.createSpyObj('BooksApiService', [
+			'addUserBook',
+		]);
 		authServiceMock = jasmine.createSpyObj('AuthService', [], {
 			currentUserSig: jasmine.createSpy().and.returnValue(mockUser),
 		});
@@ -40,7 +42,7 @@ describe('HomeUploadComponent', () => {
 			imports: [HomeUploadComponent],
 			providers: [
 				{ provide: Router, useValue: routerMock },
-				{ provide: BooksService, useValue: booksServiceMock },
+				{ provide: BooksApiService, useValue: booksApiServiceMock },
 				{ provide: AuthService, useValue: authServiceMock },
 			],
 		}).compileComponents();
@@ -77,7 +79,7 @@ describe('HomeUploadComponent', () => {
 	describe('upload', () => {
 		it('should successfully upload book and navigate', () => {
 			component.uploadBookForm.patchValue(mockBookData);
-			booksServiceMock.addUserBook.and.returnValue(of('newBookId'));
+			booksApiServiceMock.addUserBook.and.returnValue(of('newBookId'));
 
 			component.upload();
 
@@ -86,22 +88,22 @@ describe('HomeUploadComponent', () => {
 				userId: mockUser.id,
 			};
 
-			expect(booksServiceMock.addUserBook).toHaveBeenCalledWith(expectedBook);
+			expect(booksApiServiceMock.addUserBook).toHaveBeenCalledWith(
+				expectedBook
+			);
 			expect(routerMock.navigateByUrl).toHaveBeenCalledWith(
 				`/${ERoutes.BOOKS}/${ERoutes.MYBOOKS}`
 			);
-			expect(component.error()).toBe('');
 		});
 
 		it('should handle upload error', () => {
 			const errorMessage = 'Upload failed';
-			booksServiceMock.addUserBook.and.returnValue(
+			booksApiServiceMock.addUserBook.and.returnValue(
 				throwError(() => new Error(errorMessage))
 			);
 
 			component.upload();
 
-			expect(component.error()).toBe(errorMessage);
 			expect(routerMock.navigateByUrl).not.toHaveBeenCalled();
 		});
 	});
@@ -163,21 +165,6 @@ describe('HomeUploadComponent', () => {
 		});
 	});
 
-	describe('Alert Component', () => {
-		it('should show alert when error exists', () => {
-			component.error.set('Test Error');
-			fixture.detectChanges();
-
-			const alert = fixture.debugElement.query(By.css('app-alert'));
-			expect(alert).toBeTruthy();
-		});
-
-		it('should not show alert when no error', () => {
-			const alert = fixture.debugElement.query(By.css('app-alert'));
-			expect(alert).toBeFalsy();
-		});
-	});
-
 	describe('Form Submission', () => {
 		it('should call upload method on form submit', () => {
 			spyOn(component, 'upload');
@@ -192,7 +179,7 @@ describe('HomeUploadComponent', () => {
 			});
 			fixture.detectChanges();
 
-			form.triggerEventHandler('ngSubmit');
+			form.triggerEventHandler('submit');
 			expect(component.upload).toHaveBeenCalled();
 		});
 	});

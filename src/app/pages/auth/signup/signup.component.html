@@ -1,11 +1,8 @@
-@if (error()) {
-	<app-alert [message]="error()" (close)="error.set('')"></app-alert>
-}
 <div class="container">
 	<img src="/logo.png" alt="My Book Shelf" i18n-alt class="logo" />
 	<p i18n class="welcome">Registration</p>
 	<p i18n class="description">For Both Staff & Students</p>
-	<form [formGroup]="authForm" (ngSubmit)="signup()">
+	<form [formGroup]="authForm" (submit)="signup()">
 		<div>
 			<label i18n for="name" class="form-label">Name</label>
 			<input

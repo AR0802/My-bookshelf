@@ -1,6 +1,7 @@
 import {
 	ChangeDetectionStrategy,
 	Component,
+	effect,
 	ElementRef,
 	inject,
 	OnInit,
@@ -12,26 +13,34 @@ import { RouterOutlet } from '@angular/router';
 import { NavComponent } from '@components/nav/nav.component';
 import { TopPanelComponent } from '@components/top-panel/top-panel.component';
 import { BurgerMenuComponent } from '@ui-components/burger-menu/burger-menu.component';
-import { BooksService } from '@shared/services/books.service';
-import { IBook, IResponse } from '@shared/interfaces';
+import { LoaderComponent } from '@ui-components/loader/loader.component';
+import { InteractionService } from '@shared/services/interaction.service';
 
 @Component({
 	selector: 'app-home',
-	imports: [RouterOutlet, NavComponent, TopPanelComponent, BurgerMenuComponent],
+	imports: [
+		RouterOutlet,
+		NavComponent,
+		TopPanelComponent,
+		BurgerMenuComponent,
+		LoaderComponent,
+	],
 	templateUrl: './home.component.html',
 	styleUrl: './home.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent implements OnInit {
 	@ViewChild('layout', { static: true }) layoutRef: ElementRef | undefined;
-	foundBooks = signal<IBook[] | undefined>(undefined);
-	private booksService = inject(BooksService);
+	showLoader = signal(false);
+	private interactionService = inject(InteractionService);
 
-	ngOnInit(): void {
-		this.booksService.layoutRef.set(this.layoutRef);
+	constructor() {
+		effect(() => {
+			this.showLoader.set(this.interactionService.showLoader());
+		});
 	}
 
-	booksChange(data: IResponse): void {
-		this.foundBooks.set(data.items);
+	ngOnInit(): void {
+		this.interactionService.layoutRef.set(this.layoutRef);
 	}
 }

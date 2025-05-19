@@ -1,9 +1,6 @@
-@if (error()) {
-	<app-alert [message]="error()" (close)="error.set('')"></app-alert>
-}
 <div class="container">
 	<p i18n class="title">Upload Your Book</p>
-	<form [formGroup]="uploadBookForm" (ngSubmit)="upload()">
+	<form [formGroup]="uploadBookForm" (submit)="upload()">
 		<div>
 			<label i18n for="title" class="form-label">Title</label>
 			<input
@@ -73,10 +70,12 @@
 		<div>
 			<label i18n for="file" class="form-label">File</label>
 			<input
-				type="text"
+				type="file"
+				accept=".pdf"
 				class="form-control shadow-none"
 				id="file"
 				[formControl]="uploadBookForm.controls.file"
+				(change)="fileSelect($event)"
 				placeholder="Upload book file"
 				i18n-placeholder
 			/>
@@ -84,7 +83,7 @@
 				i18n
 				class="error {{
 					uploadBookForm.controls.file.valid ||
-					uploadBookForm.controls.file.untouched
+					uploadBookForm.controls.file.pristine
 						? 'visibility'
 						: ''
 				}}"
@@ -95,10 +94,12 @@
 		<div>
 			<label i18n for="image" class="form-label">Image</label>
 			<input
-				type="text"
+				type="file"
+				accept="image/png, image/jpeg"
 				class="form-control shadow-none"
 				id="image"
 				[formControl]="uploadBookForm.controls.image"
+				(change)="fileSelect($event)"
 				placeholder="Image"
 				i18n-placeholder
 			/>
@@ -106,7 +107,7 @@
 				i18n
 				class="error {{
 					uploadBookForm.controls.image.valid ||
-					uploadBookForm.controls.image.untouched
+					uploadBookForm.controls.image.pristine
 						? 'visibility'
 						: ''
 				}}"

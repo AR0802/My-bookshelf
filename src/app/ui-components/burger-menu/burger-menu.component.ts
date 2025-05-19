@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
-import { BurgerMenuService } from '@shared/services/burger-menu.service';
+import { InteractionService } from '@shared/services/interaction.service';
 
 @Component({
 	selector: 'app-burger-menu',
@@ -9,9 +9,9 @@ import { BurgerMenuService } from '@shared/services/burger-menu.service';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BurgerMenuComponent {
-	private burgerMenuService = inject(BurgerMenuService);
+	private interactionService = inject(InteractionService);
 
 	open(): void {
-		this.burgerMenuService.toggle(true);
+		this.interactionService.toggleMenu(true);
 	}
 }

@@ -1,18 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { of, throwError } from 'rxjs';
+import { of } from 'rxjs';
 
 import { TopPanelComponent } from './top-panel.component';
 import { AuthService } from '@shared/services/auth.service';
-import { BooksService } from '@shared/services/books.service';
+import { BooksApiService } from '@shared/services/books-api.service';
 import { SupabaseStorageService } from '@shared/services/supabase-storage.service';
 import { ERoutes } from '@shared/enums/routes.enum';
+import { BooksService } from '@shared/services/books.service';
 
 describe('TopPanelComponent', () => {
 	let component: TopPanelComponent;
 	let fixture: ComponentFixture<TopPanelComponent>;
 	let authServiceMock: jasmine.SpyObj<AuthService>;
+	let booksApiServiceMock: jasmine.SpyObj<BooksApiService>;
 	let booksServiceMock: jasmine.SpyObj<BooksService>;
 	let storageServiceMock: jasmine.SpyObj<SupabaseStorageService>;
 	let router: Router;
@@ -22,11 +24,14 @@ describe('TopPanelComponent', () => {
 			'logout',
 			'currentUserSig',
 		]);
-		booksServiceMock = jasmine.createSpyObj('BooksService', [
+		booksApiServiceMock = jasmine.createSpyObj('BooksApiService', [
 			'getBooks',
 			'getBooksBySearch',
 			'searchBooks',
 		]);
+		booksServiceMock = jasmine.createSpyObj('BooksService', [], {
+			searchBooks: jasmine.createSpyObj('signal', ['set']),
+		});
 		storageServiceMock = jasmine.createSpyObj('SupabaseStorageService', [
 			'download',
 			'imgUrl',
@@ -41,6 +46,7 @@ describe('TopPanelComponent', () => {
 			imports: [FormsModule, TopPanelComponent],
 			providers: [
 				{ provide: AuthService, useValue: authServiceMock },
+				{ provide: BooksApiService, useValue: booksApiServiceMock },
 				{ provide: BooksService, useValue: booksServiceMock },
 				{ provide: SupabaseStorageService, useValue: storageServiceMock },
 				{ provide: ActivatedRoute, useValue: mockActivatedRoute },
@@ -75,17 +81,6 @@ describe('TopPanelComponent', () => {
 		expect(navigateSpy).toHaveBeenCalledWith(`/${ERoutes.LOGIN}`);
 	});
 
-	it('should handle logout error', () => {
-		const errorMessage = 'Logout failed';
-		authServiceMock.logout.and.returnValue(
-			throwError(() => new Error(errorMessage))
-		);
-
-		component.logout();
-
-		expect(component.error()).toBe(errorMessage);
-	});
-
 	it('should search books with "All" parameter', () => {
 		const searchValue = 'test book';
 		const mockEvent = {
@@ -96,13 +91,13 @@ describe('TopPanelComponent', () => {
 		} as unknown as Event;
 		const mockResponse = { items: [] };
 
-		booksServiceMock.getBooks.and.returnValue(of(mockResponse));
+		booksApiServiceMock.getBooks.and.returnValue(of(mockResponse));
 		booksServiceMock.searchBooks = jasmine.createSpyObj('signal', ['set']);
 
 		component.searchParam.set('All');
 		component.search(mockEvent);
 
-		expect(booksServiceMock.getBooks).toHaveBeenCalledWith(searchValue);
+		expect(booksApiServiceMock.getBooks).toHaveBeenCalledWith(searchValue);
 		expect(booksServiceMock.searchBooks.set).toHaveBeenCalledWith(true);
 	});
 
@@ -116,7 +111,7 @@ describe('TopPanelComponent', () => {
 
 		component.search(mockEvent);
 
-		expect(booksServiceMock.getBooks).not.toHaveBeenCalled();
-		expect(booksServiceMock.getBooksBySearch).not.toHaveBeenCalled();
+		expect(booksApiServiceMock.getBooks).not.toHaveBeenCalled();
+		expect(booksApiServiceMock.getBooksBySearch).not.toHaveBeenCalled();
 	});
 });

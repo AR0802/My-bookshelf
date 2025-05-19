@@ -22,57 +22,8 @@
 	transform: translateX(-100%);
 }
 
-.logo {
-	width: 120px;
-	height: 75px;
-	display: block;
-	margin: 2rem auto 3rem;
-}
-
-.active-link {
-	.icon,
-	.icon-text {
-		color: var(--nav-item-hover-color);
-	}
-}
-
-.icon {
-	color: var(--grey);
-}
-
-.icon-text {
-	color: var(--grey);
-	font-size: 18px;
-}
-
-.link:active {
-	cursor: pointer;
-
-	.icon,
-	.icon-text {
-		color: var(--nav-item-hover-color);
-	}
-}
-
 .info {
-	position: absolute;
-	bottom: 3rem;
-	padding: 0 1.5rem;
-	margin-left: 1rem;
-
-	.info-link {
-		display: block;
-		max-width: max-content;
-		margin-bottom: 0.5rem;
-		color: var(--grey);
-		text-decoration: none;
-		font-size: 15px;
-		cursor: pointer;
-	}
-
-	.info-link:active {
-		color: var(--nav-item-hover-color);
-	}
+	margin-left: 2rem;
 }
 
 @media (min-width: $width-s) {

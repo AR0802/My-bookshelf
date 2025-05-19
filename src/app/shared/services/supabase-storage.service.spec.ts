@@ -15,26 +15,22 @@ describe('SupabaseStorageService', () => {
 		mockSupabaseClient = {
 			storage: {
 				from: jasmine.createSpy('from').and.returnValue({
-					update: jasmine
-						.createSpy('update')
-						.and.returnValue(
-							Promise.resolve({
-								data: {
-									id: '1',
-									path: mockPath,
-									fullPath: `${mockBucket}/${mockPath}`,
-								},
-								error: null,
-							})
-						),
-					download: jasmine
-						.createSpy('download')
-						.and.returnValue(
-							Promise.resolve({
-								data: new Blob(['downloadedData']),
-								error: null,
-							})
-						),
+					update: jasmine.createSpy('update').and.returnValue(
+						Promise.resolve({
+							data: {
+								id: '1',
+								path: mockPath,
+								fullPath: `${mockBucket}/${mockPath}`,
+							},
+							error: null,
+						})
+					),
+					download: jasmine.createSpy('download').and.returnValue(
+						Promise.resolve({
+							data: new Blob(['downloadedData']),
+							error: null,
+						})
+					),
 				}),
 			},
 		} as any;

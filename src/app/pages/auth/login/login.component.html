@@ -1,13 +1,10 @@
-@if (error()) {
-	<app-alert [message]="error()" (close)="error.set('')"></app-alert>
-}
 <div class="container">
 	<img src="/logo.png" alt="My Book Shelf" i18n-alt class="logo" />
 	<p i18n class="welcome">Welcome Back!</p>
 	<p i18n class="description">
 		Sign in to continue working with your Digital Library
 	</p>
-	<form [formGroup]="authForm" (ngSubmit)="login()">
+	<form [formGroup]="authForm" (submit)="login()">
 		<div>
 			<label i18n for="email" class="form-label">Email</label>
 			<input

@@ -43,7 +43,7 @@ describe('NavComponent', () => {
 	});
 
 	it('should render logo', () => {
-		const logo = fixture.nativeElement.querySelector('.logo');
+		const logo = fixture.nativeElement.querySelector('.nav-logo');
 		expect(logo).toBeTruthy();
 		expect(logo.getAttribute('src')).toBe('/logo.png');
 		expect(logo.getAttribute('alt')).toBe('My Book Shelf');

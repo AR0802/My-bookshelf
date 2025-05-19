@@ -17,11 +17,13 @@ import { catchError, EMPTY, tap } from 'rxjs';
 
 import { AuthService } from '@shared/services/auth.service';
 import { ERoutes } from '@shared/enums/routes.enum';
-import { AlertComponent } from '@ui-components/alert/alert.component';
+import { InteractionService } from '@shared/services/interaction.service';
+import { ILoginForm } from '@shared/interfaces';
+import { passwordPattern } from '@shared/constants/patterns.constants';
 
 @Component({
 	selector: 'app-login',
-	imports: [RouterLink, ReactiveFormsModule, AlertComponent],
+	imports: [RouterLink, ReactiveFormsModule],
 	templateUrl: './login.component.html',
 	styleUrl: './login.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -29,18 +31,16 @@ import { AlertComponent } from '@ui-components/alert/alert.component';
 export class LoginComponent {
 	readonly ERoutes = ERoutes;
 	fieldTextType = signal<boolean>(false);
-	error = signal<string>('');
 	private router = inject(Router);
 	private authService = inject(AuthService);
 	private destroyRef = inject(DestroyRef);
+	private interactionService = inject(InteractionService);
 
-	authForm = new FormGroup({
+	authForm = new FormGroup<ILoginForm>({
 		email: new FormControl<string>('', [Validators.required, Validators.email]),
 		password: new FormControl<string>('', [
 			Validators.required,
-			Validators.pattern(
-				'(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}'
-			),
+			Validators.pattern(passwordPattern),
 		]),
 	});
 
@@ -58,7 +58,7 @@ export class LoginComponent {
 				}),
 				catchError((error: Error) => {
 					const errorMessage = this.authService.handleError(error);
-					this.error.set(errorMessage);
+					this.interactionService.setError(errorMessage);
 					return EMPTY;
 				}),
 				takeUntilDestroyed(this.destroyRef)
@@ -74,7 +74,7 @@ export class LoginComponent {
 					this.router.navigateByUrl(`${ERoutes.BOOKS}`);
 				}),
 				catchError((error: Error) => {
-					this.error.set(error.message);
+					this.interactionService.setError(error.message);
 					return EMPTY;
 				}),
 				takeUntilDestroyed(this.destroyRef)

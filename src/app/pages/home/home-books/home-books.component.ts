@@ -1,12 +1,17 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	effect,
+	inject,
+	signal,
+} from '@angular/core';
 
 import { BooksComponent } from '@components/books/books.component';
-import { LoaderComponent } from '@ui-components/loader/loader.component';
-import { IBook } from '@shared/interfaces';
+import { InteractionService } from '@shared/services/interaction.service';
 
 @Component({
 	selector: 'app-home-books',
-	imports: [BooksComponent, LoaderComponent],
+	imports: [BooksComponent],
 	templateUrl: './home-books.component.html',
 	styleUrl: './home-books.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -18,9 +23,12 @@ export class HomeBooksComponent {
 		$localize`Self-development`,
 		$localize`Sport`,
 	];
-	books = signal<IBook[]>([]);
+	showLoader = signal(false);
+	private interactionService = inject(InteractionService);
 
-	booksChange(books: IBook[]): void {
-		this.books.set(books);
+	constructor() {
+		effect(() => {
+			this.showLoader.set(this.interactionService.showLoader());
+		});
 	}
 }
