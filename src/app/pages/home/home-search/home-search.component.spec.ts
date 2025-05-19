@@ -1,19 +1,22 @@
 import '@angular/localize/init';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Router, ROUTER_OUTLET_DATA } from '@angular/router';
+import { Router, UrlTree } from '@angular/router';
 import { signal } from '@angular/core';
-import { of, throwError } from 'rxjs';
+import { of } from 'rxjs';
 
 import { HomeSearchComponent } from './home-search.component';
+import { BooksApiService } from '@shared/services/books-api.service';
 import { BooksService } from '@shared/services/books.service';
 import { IBook, IResponse } from '@shared/interfaces';
+import { InteractionService } from '@shared/services/interaction.service';
 
 describe('HomeSearchComponent', () => {
 	let component: HomeSearchComponent;
 	let fixture: ComponentFixture<HomeSearchComponent>;
 	let routerMock: jasmine.SpyObj<Router>;
 	let booksServiceMock: jasmine.SpyObj<BooksService>;
-	let foundBooksSig = signal<IBook[] | undefined>(undefined);
+	let booksApiServiceMock: jasmine.SpyObj<BooksApiService>;
+	let interactionServiceMock: jasmine.SpyObj<InteractionService>;
 
 	const mockBooks: IBook[] = [
 		{
@@ -40,10 +43,13 @@ describe('HomeSearchComponent', () => {
 
 	beforeEach(async () => {
 		routerMock = jasmine.createSpyObj('Router', ['getCurrentNavigation']);
-		booksServiceMock = jasmine.createSpyObj('BooksService', ['getBooks'], {
+		booksApiServiceMock = jasmine.createSpyObj('BooksApiService', ['getBooks']);
+		booksServiceMock = jasmine.createSpyObj('BooksService', [], {
 			searchBooks: signal(false),
 			searchAuthorBooks: signal(false),
 			books: signal<IBook[]>([]),
+		});
+		interactionServiceMock = jasmine.createSpyObj('BooksApiService', [], {
 			layoutRef: signal(undefined),
 		});
 
@@ -51,8 +57,9 @@ describe('HomeSearchComponent', () => {
 			imports: [HomeSearchComponent],
 			providers: [
 				{ provide: Router, useValue: routerMock },
+				{ provide: BooksApiService, useValue: booksApiServiceMock },
 				{ provide: BooksService, useValue: booksServiceMock },
-				{ provide: ROUTER_OUTLET_DATA, useValue: foundBooksSig },
+				{ provide: InteractionService, useValue: interactionServiceMock },
 			],
 		}).compileComponents();
 
@@ -74,7 +81,12 @@ describe('HomeSearchComponent', () => {
 		it('should set author books from router state', () => {
 			routerMock.getCurrentNavigation.and.returnValue({
 				extras: { state: { items: mockBooks } },
-			} as any);
+				id: 0,
+				initialUrl: new UrlTree(),
+				extractedUrl: new UrlTree(),
+				trigger: 'imperative',
+				previousNavigation: null,
+			});
 
 			fixture = TestBed.createComponent(HomeSearchComponent);
 			component = fixture.componentInstance;
@@ -87,7 +99,7 @@ describe('HomeSearchComponent', () => {
 	describe('Search by Category', () => {
 		it('should handle successful search', () => {
 			const response: IResponse = { items: mockBooks };
-			booksServiceMock.getBooks.and.returnValue(of(response));
+			booksApiServiceMock.getBooks.and.returnValue(of(response));
 
 			component.searchByCategory('Programming');
 
@@ -98,22 +110,11 @@ describe('HomeSearchComponent', () => {
 
 		it('should handle empty search results', () => {
 			const response: IResponse = { items: [] };
-			booksServiceMock.getBooks.and.returnValue(of(response));
+			booksApiServiceMock.getBooks.and.returnValue(of(response));
 
 			component.searchByCategory('NonexistentCategory');
 
 			expect(component.notFoundMessage()).toBe('Nothing Found!');
-		});
-
-		it('should handle search error', () => {
-			const errorMessage = 'Search failed';
-			booksServiceMock.getBooks.and.returnValue(
-				throwError(() => new Error(errorMessage))
-			);
-
-			component.searchByCategory('Programming');
-
-			expect(component.error()).toBe(errorMessage);
 		});
 	});
 
@@ -132,7 +133,7 @@ describe('HomeSearchComponent', () => {
 					scrollTo: jasmine.createSpy('scrollTo'),
 				},
 			};
-			booksServiceMock.layoutRef.set(mockElement);
+			interactionServiceMock.layoutRef.set(mockElement);
 
 			component.pageChange(2);
 

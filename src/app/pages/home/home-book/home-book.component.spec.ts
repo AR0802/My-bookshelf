@@ -2,16 +2,18 @@ import '@angular/localize/init';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { of, throwError } from 'rxjs';
+import { of } from 'rxjs';
 
 import { HomeBookComponent } from './home-book.component';
-import { BooksService } from '@shared/services/books.service';
+import { BooksApiService } from '@shared/services/books-api.service';
 import { IBook, IResponse } from '@shared/interfaces';
 import { ERoutes } from '@shared/enums/routes.enum';
+import { BooksService } from '@shared/services/books.service';
 
 describe('HomeBookComponent', () => {
 	let component: HomeBookComponent;
 	let fixture: ComponentFixture<HomeBookComponent>;
+	let booksApiServiceMock: jasmine.SpyObj<BooksApiService>;
 	let booksServiceMock: jasmine.SpyObj<BooksService>;
 	let router: Router;
 	let location: Location;
@@ -48,15 +50,19 @@ describe('HomeBookComponent', () => {
 	};
 
 	beforeEach(async () => {
-		booksServiceMock = jasmine.createSpyObj(
-			'BooksService',
+		booksApiServiceMock = jasmine.createSpyObj(
+			'BooksApiService',
 			['getBook', 'getBooksBySearch'],
 			{ searchAuthorBooks: jasmine.createSpyObj('signal', ['set']) }
 		);
+		booksServiceMock = jasmine.createSpyObj('BooksService', [], {
+			searchAuthorBooks: jasmine.createSpyObj('signal', ['set']),
+		});
 
 		await TestBed.configureTestingModule({
 			imports: [HomeBookComponent],
 			providers: [
+				{ provide: BooksApiService, useValue: booksApiServiceMock },
 				{ provide: BooksService, useValue: booksServiceMock },
 				{
 					provide: ActivatedRoute,
@@ -79,32 +85,20 @@ describe('HomeBookComponent', () => {
 
 	describe('Initialization', () => {
 		it('should get book details on init', () => {
-			booksServiceMock.getBook.and.returnValue(of(mockBook));
-			booksServiceMock.getBooksBySearch.and.returnValue(of(mockResponse));
+			booksApiServiceMock.getBook.and.returnValue(of(mockBook));
+			booksApiServiceMock.getBooksBySearch.and.returnValue(of(mockResponse));
 
 			component.ngOnInit();
 
-			expect(component.id()).toBe('123');
 			expect(component.book()).toEqual(mockBook);
 			expect(component.haveAuthorBooks()).toBeTrue();
-		});
-
-		it('should handle error when getting book details', () => {
-			const errorMessage = 'Failed to fetch book';
-			booksServiceMock.getBook.and.returnValue(
-				throwError(() => new Error(errorMessage))
-			);
-
-			component.ngOnInit();
-
-			expect(component.error()).toBe(errorMessage);
 		});
 	});
 
 	describe('Author books', () => {
 		it('should set author books excluding current book', () => {
-			booksServiceMock.getBook.and.returnValue(of(mockBook));
-			booksServiceMock.getBooksBySearch.and.returnValue(of(mockResponse));
+			booksApiServiceMock.getBook.and.returnValue(of(mockBook));
+			booksApiServiceMock.getBooksBySearch.and.returnValue(of(mockResponse));
 
 			component.ngOnInit();
 
@@ -113,8 +107,8 @@ describe('HomeBookComponent', () => {
 		});
 
 		it('should set haveAuthorBooks to false when no other books found', () => {
-			booksServiceMock.getBook.and.returnValue(of(mockBook));
-			booksServiceMock.getBooksBySearch.and.returnValue(
+			booksApiServiceMock.getBook.and.returnValue(of(mockBook));
+			booksApiServiceMock.getBooksBySearch.and.returnValue(
 				of({ items: [mockBook] })
 			);
 
@@ -135,8 +129,8 @@ describe('HomeBookComponent', () => {
 
 		it('should navigate to search results when searchByAuthor() is called', () => {
 			const navigateSpy = spyOn(router, 'navigateByUrl');
-			booksServiceMock.getBook.and.returnValue(of(mockBook));
-			booksServiceMock.getBooksBySearch.and.returnValue(of(mockResponse));
+			booksApiServiceMock.getBook.and.returnValue(of(mockBook));
+			booksApiServiceMock.getBooksBySearch.and.returnValue(of(mockResponse));
 
 			component.ngOnInit();
 			component.searchByAuthor();
@@ -146,19 +140,6 @@ describe('HomeBookComponent', () => {
 				{ state: mockResponse }
 			);
 			expect(booksServiceMock.searchAuthorBooks.set).toHaveBeenCalledWith(true);
-		});
-
-		it('should handle error in searchByAuthor()', () => {
-			const errorMessage = 'Search failed';
-			booksServiceMock.getBook.and.returnValue(of(mockBook));
-			booksServiceMock.getBooksBySearch.and.returnValue(
-				throwError(() => new Error(errorMessage))
-			);
-
-			component.ngOnInit();
-			component.searchByAuthor();
-
-			expect(component.error()).toBe(errorMessage);
 		});
 	});
 });

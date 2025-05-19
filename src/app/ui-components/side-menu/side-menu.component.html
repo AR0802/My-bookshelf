@@ -1,7 +1,7 @@
 <app-backdrop />
 <div class="side-menu {{ show() ? 'open' : 'closed' }}" (click)="close()">
 	<div class="d-flex flex-column align-items-center px-4">
-		<img src="/logo.png" alt="My Book Shelf" i18n-alt class="logo" />
+		<img src="/logo.png" alt="My Book Shelf" i18n-alt class="nav-logo" />
 		<nav class="nav nav-pills flex-column">
 			<a
 				[routerLink]="['/', ERoutes.BOOKS]"
@@ -44,13 +44,7 @@
 				<i class="fs-5 bi bi-file-arrow-up icon"></i>
 				<span i18n class="ms-2 icon-text">Upload</span>
 			</a>
-			<a
-				class="nav-link link-dark px-3 mt-5 align-middle link"
-				(click)="changeTheme()"
-			>
-				<i class="fs-5 bi bi-brightness-high-fill icon"></i>
-				<span i18n class="ms-2 icon-text">Theme</span>
-			</a>
+			<app-theme component="side-menu"></app-theme>
 		</nav>
 		<div class="info">
 			<a i18n class="info-link">About</a>

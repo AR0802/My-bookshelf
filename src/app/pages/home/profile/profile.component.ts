@@ -16,14 +16,16 @@ import {
 import { Location } from '@angular/common';
 import { catchError, EMPTY, tap } from 'rxjs';
 
-import { AlertComponent } from '@ui-components/alert/alert.component';
 import { AuthService } from '@shared/services/auth.service';
 import { SupabaseStorageService } from '@shared/services/supabase-storage.service';
 import { BUCKET_NAME } from '@shared/constants/supabase.constant';
+import { InteractionService } from '@shared/services/interaction.service';
+import { IProfileForm } from '@shared/interfaces';
+import { namePattern } from '@shared/constants/patterns.constants';
 
 @Component({
 	selector: 'app-profile',
-	imports: [ReactiveFormsModule, AlertComponent],
+	imports: [ReactiveFormsModule],
 	templateUrl: './profile.component.html',
 	styleUrl: './profile.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -32,16 +34,16 @@ export class ProfileComponent implements OnInit {
 	selectedFile = signal<File | null>(null);
 	imgUrl = signal('');
 	initialName = signal('');
-	error = signal('');
 	private authService = inject(AuthService);
 	private supabaseStorageService = inject(SupabaseStorageService);
 	private location = inject(Location);
 	private destroyRef = inject(DestroyRef);
+	private interactionService = inject(InteractionService);
 
-	profileForm = new FormGroup({
+	profileForm = new FormGroup<IProfileForm>({
 		name: new FormControl<string>('', [
 			Validators.required,
-			Validators.pattern('^[a-zA-Zа-яА-ЯёЁ][a-zA-Zа-яА-ЯёЁ0-9_-]{2,15}$'),
+			Validators.pattern(namePattern),
 		]),
 		image: new FormControl<string>(''),
 	});
@@ -108,7 +110,7 @@ export class ProfileComponent implements OnInit {
 					this.location.back();
 				}),
 				catchError((error: Error) => {
-					this.error.set(error.message);
+					this.interactionService.setError(error.message);
 					return EMPTY;
 				}),
 				takeUntilDestroyed(this.destroyRef)

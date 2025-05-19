@@ -27,18 +27,8 @@
 		margin-bottom: 1.5rem;
 	}
 
-	.form-label {
-		font-weight: 600;
-		color: var(--text-color);
-	}
-
-	.form-control {
-		color: var(--text-color-secondary);
-		background-color: var(--form-control-bg-color);
-	}
-
 	input.ng-touched.ng-invalid {
-		border: 1px solid var(--red);
+		border: 1px solid var(--error-color);
 	}
 
 	::-ms-reveal {
@@ -56,7 +46,7 @@
 	}
 
 	.error {
-		color: var(--red);
+		color: var(--error-color);
 		font-size: 14px;
 		margin-bottom: 8px;
 	}
@@ -66,14 +56,14 @@
 	}
 
 	.btn-orange {
-		background-color: var(--orange-auth-color);
+		background-color: var(--auth-button-color);
 		color: var(--card-bg-color);
-		border: 1px solid var(--orange-auth-color);
+		border: 1px solid var(--auth-button-color);
 		margin-top: 1.5rem;
 
 		&:hover {
-			background-color: var(--orange-hover);
-			border-color: var(--orange-hover);
+			background-color: var(--button-hover-color);
+			border-color: var(--button-hover-color);
 		}
 	}
 

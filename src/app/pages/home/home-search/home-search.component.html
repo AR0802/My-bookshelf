@@ -1,6 +1,3 @@
-@if (error()) {
-	<app-alert [message]="error()" (close)="error.set('')"></app-alert>
-}
 <div class="dropdown border">
 	<a
 		class="d-flex align-items-center text-decoration-none dropdown-toggle ps-2 pe-3 color"
@@ -20,7 +17,11 @@
 		}
 	</ul>
 </div>
-<app-search-books [books]="booksForPage()"></app-search-books>
+<app-books-container
+	class="w-100"
+	[books]="booksForPage()"
+	type="search"
+></app-books-container>
 @if (notFoundMessage()) {
 	<h1 class="title">{{ notFoundMessage() }}</h1>
 }

@@ -1,3 +1,6 @@
+@use './app/styles/nav.scss';
+@use './app/styles/form.scss';
+
 @import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 @import '../node_modules/bootstrap-icons/font/bootstrap-icons.css';
 
@@ -7,32 +10,32 @@
 }
 
 :root {
-	--white: white;
-	--red: red;
-	--black: black;
-	--slightly-orange: rgba(247, 107, 86, 1);
-	--grey: rgba(138, 138, 138, 1);
+	--light-theme-color: rgb(255, 255, 255);
+	--error-color: rgb(255, 0, 0);
+	--dark-theme-color: rgb(0, 0, 0);
+	--button-primary-color: rgba(247, 107, 86, 1);
+	--dark-theme-secondary-color: rgba(138, 138, 138, 1);
 	--box-shadow-color: rgba(34, 60, 80, 0.2);
-	--orange-auth-color: rgba(250, 124, 84, 1);
-	--orange-hover: rgba(235, 82, 49, 1);
+	--auth-button-color: rgba(250, 124, 84, 1);
+	--button-hover-color: rgba(235, 82, 49, 1);
 	--text-color-most-used: rgba(77, 77, 77, 1);
 	--background-color: rgba(243, 243, 247, 1);
 	--background-color-secondary: rgb(255, 255, 255);
-	--background-color-auth: var(--white);
+	--background-color-auth: var(--light-theme-color);
 	--background-color-dropdown-search: rgba(247, 247, 250, 1);
 	--background-color-dropdown-item-hover: rgba(247, 247, 250, 1);
 	--text-color: var(--text-color-most-used);
 	--text-color-secondary: var(--text-color-most-used);
 	--text-color-disabled: rgb(107, 106, 106);
-	--form-control-bg-color: var(--white);
+	--form-control-bg-color: var(--light-theme-color);
 	--form-control-placeholder-color: rgba(199, 199, 199, 1);
-	--card-bg-color: var(--white);
+	--card-bg-color: var(--light-theme-color);
 	--nav-item-hover-color: var(--text-color-most-used);
 }
 
 body {
 	height: 100%;
-	scrollbar-color: grey var(--card-bg-color);
+	scrollbar-color: var(--dark-theme-secondary-color) var(--card-bg-color);
 	background: {
 		image: url('/background.png');
 		size: cover;

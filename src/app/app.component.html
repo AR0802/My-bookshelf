@@ -1,5 +1,5 @@
 @if (error()) {
-	<app-alert [message]="error()" (close)="error.set('')"></app-alert>
+	<app-alert [message]="error()" (close)="close()"></app-alert>
 }
 <main>
 	<router-outlet></router-outlet>

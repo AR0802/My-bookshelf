@@ -30,11 +30,11 @@
 			border-radius: 5px;
 			text-decoration: none;
 			color: var(--card-bg-color);
-			background-color: var(--slightly-orange);
+			background-color: var(--button-primary-color);
 			cursor: pointer;
 
 			&:hover {
-				background-color: var(--orange-hover);
+				background-color: var(--button-hover-color);
 			}
 		}
 	}

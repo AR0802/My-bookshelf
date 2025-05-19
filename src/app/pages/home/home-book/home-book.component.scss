@@ -22,7 +22,7 @@
 	.back:hover {
 		.back-icon,
 		.back-button {
-			color: var(--black);
+			color: var(--dark-theme-color);
 		}
 	}
 
@@ -69,7 +69,7 @@
 				}
 
 				.text-decoration:hover {
-					color: var(--black);
+					color: var(--dark-theme-color);
 				}
 			}
 		}
@@ -86,7 +86,7 @@
 				font-weight: 600;
 
 				.card-author-title-about {
-					color: var(--slightly-orange);
+					color: var(--button-primary-color);
 					margin-right: 0.2rem;
 				}
 			}

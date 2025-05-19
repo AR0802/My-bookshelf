@@ -2,7 +2,7 @@ import '@angular/localize/init';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { of, throwError } from 'rxjs';
+import { of } from 'rxjs';
 
 import { SignupComponent } from './signup.component';
 import { AuthService } from '@shared/services/auth.service';
@@ -133,26 +133,6 @@ describe('SignupComponent', () => {
 				testCredentials.password
 			);
 			expect(navigateSpy).toHaveBeenCalledWith(ERoutes.BOOKS);
-		});
-
-		it('should handle signup error', () => {
-			const errorMessage = 'Signup failed';
-			authServiceMock.signup.and.returnValue(
-				throwError(() => new Error(errorMessage))
-			);
-			authServiceMock.handleError.and.returnValue(errorMessage);
-
-			const testCredentials = {
-				name: 'John123',
-				email: 'test@example.com',
-				password: 'StrongPass1!',
-				confirmPassword: 'StrongPass1!',
-			};
-
-			component.authForm.setValue(testCredentials);
-			component.signup();
-
-			expect(component.error()).toBe(errorMessage);
 		});
 	});
 });

@@ -6,7 +6,7 @@ import {
 	signal,
 } from '@angular/core';
 
-import { BurgerMenuService } from '@shared/services/burger-menu.service';
+import { InteractionService } from '@shared/services/interaction.service';
 
 @Component({
 	selector: 'app-backdrop',
@@ -16,15 +16,15 @@ import { BurgerMenuService } from '@shared/services/burger-menu.service';
 })
 export class BackdropComponent {
 	show = signal<boolean>(false);
-	private burgerMenuService = inject(BurgerMenuService);
+	private interactionService = inject(InteractionService);
 
 	constructor() {
 		effect(() => {
-			this.show.set(this.burgerMenuService.show());
+			this.show.set(this.interactionService.showMenu());
 		});
 	}
 
 	close(): void {
-		this.burgerMenuService.toggle(false);
+		this.interactionService.toggleMenu(false);
 	}
 }

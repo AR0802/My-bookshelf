@@ -1,9 +1,4 @@
-@if (error()) {
-	<app-alert [message]="error()" (close)="error.set('')"></app-alert>
-}
-@if (!book() || (haveAuthorBooks() && !authorBooks().length)) {
-	<app-loader></app-loader>
-} @else {
+@if (!(!book() || (haveAuthorBooks() && !authorBooks().length))) {
 	<section class="home-book-section">
 		<div class="back" (click)="back()">
 			<i class="bi bi-arrow-left back-icon"></i>

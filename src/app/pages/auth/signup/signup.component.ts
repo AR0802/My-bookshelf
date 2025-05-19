@@ -18,11 +18,16 @@ import { catchError, EMPTY, tap } from 'rxjs';
 
 import { AuthService } from '@shared/services/auth.service';
 import { ERoutes } from '@shared/enums/routes.enum';
-import { AlertComponent } from '@ui-components/alert/alert.component';
+import { InteractionService } from '@shared/services/interaction.service';
+import { ISignupForm } from '@shared/interfaces';
+import {
+	namePattern,
+	passwordPattern,
+} from '@shared/constants/patterns.constants';
 
 @Component({
 	selector: 'app-signup',
-	imports: [RouterLink, ReactiveFormsModule, AlertComponent],
+	imports: [RouterLink, ReactiveFormsModule],
 	templateUrl: './signup.component.html',
 	styleUrl: './signup.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -31,28 +36,24 @@ export class SignupComponent {
 	readonly ERoutes = ERoutes;
 	fieldPasswordTextType = signal<boolean>(false);
 	fieldConfirmPasswordTextType = signal<boolean>(false);
-	error = signal<string>('');
 	private router = inject(Router);
 	private authService = inject(AuthService);
 	private destroyRef = inject(DestroyRef);
+	private interactionService = inject(InteractionService);
 
-	authForm = new FormGroup({
+	authForm = new FormGroup<ISignupForm>({
 		name: new FormControl<string>('', [
 			Validators.required,
-			Validators.pattern('[a-zA-Zа-яА-ЯёЁ][a-zA-Zа-яА-ЯёЁ0-9_-]{2,15}'),
+			Validators.pattern(namePattern),
 		]),
 		email: new FormControl<string>('', [Validators.required, Validators.email]),
 		password: new FormControl<string>('', [
 			Validators.required,
-			Validators.pattern(
-				'(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}'
-			),
+			Validators.pattern(passwordPattern),
 		]),
 		confirmPassword: new FormControl<string>('', [
 			Validators.required,
-			Validators.pattern(
-				'(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}'
-			),
+			Validators.pattern(passwordPattern),
 		]),
 	});
 
@@ -70,7 +71,7 @@ export class SignupComponent {
 				}),
 				catchError((error: Error) => {
 					const errorMessage = this.authService.handleError(error);
-					this.error.set(errorMessage);
+					this.interactionService.setError(errorMessage);
 					return EMPTY;
 				}),
 				takeUntilDestroyed(this.destroyRef)

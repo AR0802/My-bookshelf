@@ -3,14 +3,16 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of, throwError } from 'rxjs';
 
-import { BooksService } from '@shared/services/books.service';
+import { BooksApiService } from '@shared/services/books-api.service';
 import { IBook, IResponse } from '@shared/interfaces';
 import { BooksComponent } from './books.component';
+import { BooksService } from '@shared/services/books.service';
 
 describe('BooksComponent', () => {
 	let component: BooksComponent;
 	let fixture: ComponentFixture<BooksComponent>;
 	let booksService: jasmine.SpyObj<BooksService>;
+	let booksApiService: jasmine.SpyObj<BooksApiService>;
 
 	const mockBooks: IBook[] = [
 		{
@@ -80,7 +82,9 @@ describe('BooksComponent', () => {
 	};
 
 	beforeEach(async () => {
-		const spy = jasmine.createSpyObj('BooksService', ['getBooks'], {
+		booksApiService = jasmine.createSpyObj('BooksApiService', ['getBooks']);
+
+		booksService = jasmine.createSpyObj('BooksService', [], {
 			homeBooks: new Map(),
 		});
 
@@ -95,7 +99,8 @@ describe('BooksComponent', () => {
 		await TestBed.configureTestingModule({
 			imports: [BooksComponent],
 			providers: [
-				{ provide: BooksService, useValue: spy },
+				{ provide: BooksApiService, useValue: booksApiService },
+				{ provide: BooksService, useValue: booksService },
 				{ provide: ActivatedRoute, useValue: mockActivatedRoute },
 			],
 		}).compileComponents();
@@ -114,38 +119,26 @@ describe('BooksComponent', () => {
 	});
 
 	it('should fetch books from API when homeBooks is empty', () => {
-		booksService.getBooks.and.returnValue(of(mockResponse));
-
-		let emittedBooks: IBook[] | undefined;
-		component.booksOutput.subscribe((books) => {
-			emittedBooks = books;
-		});
+		booksApiService.getBooks.and.returnValue(of(mockResponse));
 
 		fixture.detectChanges();
 
-		expect(booksService.getBooks).toHaveBeenCalledWith('programming');
+		expect(booksApiService.getBooks).toHaveBeenCalledWith('programming');
 		expect(component.books()).toEqual(mockBooks.slice(0, 5));
-		expect(emittedBooks).toEqual(mockBooks.slice(0, 5));
 		expect(booksService.homeBooks.get('programming')).toEqual(mockBooks);
 	});
 
 	it('should use cached books when available in homeBooks', () => {
 		booksService.homeBooks.set('programming', mockBooks);
 
-		let emittedBooks: IBook[] | undefined;
-		component.booksOutput.subscribe((books) => {
-			emittedBooks = books;
-		});
-
 		fixture.detectChanges();
 
-		expect(booksService.getBooks).not.toHaveBeenCalled();
+		expect(booksApiService.getBooks).not.toHaveBeenCalled();
 		expect(component.books()).toEqual(mockBooks.slice(0, 5));
-		expect(emittedBooks).toEqual(mockBooks.slice(0, 5));
 	});
 
 	it('should handle API errors gracefully', () => {
-		booksService.getBooks.and.returnValue(
+		booksApiService.getBooks.and.returnValue(
 			throwError(() => new Error('API Error'))
 		);
 
@@ -168,19 +161,5 @@ describe('BooksComponent', () => {
 		fixture.detectChanges();
 
 		expect(component.books().length).toBe(5);
-	});
-
-	it('should emit books through booksOutput', () => {
-		booksService.homeBooks.set('programming', mockBooks);
-
-		let emittedBooks: IBook[] | undefined;
-		component.booksOutput.subscribe((books) => {
-			emittedBooks = books;
-		});
-
-		fixture.detectChanges();
-
-		expect(emittedBooks).toBeTruthy();
-		expect(emittedBooks?.length).toBe(5);
 	});
 });

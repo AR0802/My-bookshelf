@@ -1,0 +1,15 @@
+<a
+	class="nav-link link-dark {{
+		component() === 'nav' ? 'px-4' : 'px-3'
+	}} mt-5 align-middle link"
+	(click)="changeTheme()"
+>
+	<i class="fs-5 bi bi-brightness-high-fill icon"></i>
+	<span
+		i18n
+		class="ms-2 {{
+			component() === 'nav' ? 'd-none d-md-inline' : ''
+		}} icon-text"
+		>Theme</span
+	>
+</a>

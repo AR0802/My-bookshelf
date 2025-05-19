@@ -5,26 +5,12 @@
 	padding: 2.5rem 5rem 2rem;
 	margin-top: 2rem;
 
-	.form-label {
-		font-weight: 600;
-		color: var(--text-color);
-	}
-
-	.form-control {
-		color: var(--text-color-secondary);
-		background-color: var(--form-control-bg-color);
-	}
-
-	.form-control::placeholder {
-		color: var(--form-control-placeholder-color);
-	}
-
 	input.ng-dirty.ng-invalid {
-		border: 1px solid var(--red);
+		border: 1px solid var(--error-color);
 	}
 
 	.error {
-		color: var(--red);
+		color: var(--error-color);
 		font-size: 14px;
 		margin-bottom: 8px;
 	}
@@ -51,9 +37,9 @@
 	}
 
 	.btn-orange {
-		background-color: var(--orange-auth-color);
+		background-color: var(--auth-button-color);
 		color: var(--card-bg-color);
-		border: 1px solid var(--orange-auth-color);
+		border: 1px solid var(--auth-button-color);
 		width: max-content;
 		padding: 0.5rem 5rem;
 		margin: 0 auto;
@@ -61,7 +47,7 @@
 		margin-top: 2rem;
 
 		&:hover {
-			background-color: var(--orange-hover);
+			background-color: var(--button-hover-color);
 		}
 	}
 }

@@ -5,12 +5,12 @@ import {
 	signal,
 } from '@angular/core';
 
-import { FavoriteBooksComponent } from '@components/favorite-books/favorite-books.component';
+import { BooksContainerComponent } from '@components/books-container/books-container.component';
 import { IBook } from '@shared/interfaces';
 
 @Component({
 	selector: 'app-home-favorite',
-	imports: [FavoriteBooksComponent],
+	imports: [BooksContainerComponent],
 	templateUrl: './home-favorites.component.html',
 	styleUrl: './home-favorites.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,

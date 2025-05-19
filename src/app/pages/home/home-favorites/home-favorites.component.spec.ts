@@ -2,8 +2,8 @@ import '@angular/localize/init';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HomeFavoriteComponent } from './home-favorites.component';
-import { FavoriteBooksComponent } from '@components/favorite-books/favorite-books.component';
 import { IBook } from '@shared/interfaces';
+import { BooksContainerComponent } from '@components/books-container/books-container.component';
 
 describe('HomeFavoriteComponent', () => {
 	let component: HomeFavoriteComponent;
@@ -40,7 +40,7 @@ describe('HomeFavoriteComponent', () => {
 		localStorage.clear();
 
 		await TestBed.configureTestingModule({
-			imports: [HomeFavoriteComponent, FavoriteBooksComponent],
+			imports: [HomeFavoriteComponent, BooksContainerComponent],
 		}).compileComponents();
 
 		fixture = TestBed.createComponent(HomeFavoriteComponent);

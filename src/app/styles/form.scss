@@ -1,0 +1,13 @@
+.form-label {
+	font-weight: 600;
+	color: var(--text-color);
+}
+
+.form-control {
+	color: var(--text-color-secondary);
+	background-color: var(--form-control-bg-color);
+}
+
+.form-control::placeholder {
+	color: var(--form-control-placeholder-color);
+}

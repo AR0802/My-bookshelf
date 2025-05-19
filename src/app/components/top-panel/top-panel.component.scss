@@ -27,7 +27,7 @@
 	margin-right: 1.5rem;
 
 	.lang-icon {
-		color: var(--slightly-orange);
+		color: var(--button-primary-color);
 	}
 }
 
@@ -42,7 +42,7 @@
 		}
 
 		.search-icon {
-			color: var(--slightly-orange);
+			color: var(--button-primary-color);
 			position: absolute;
 			right: 1rem;
 			top: 0.7rem;
@@ -52,14 +52,8 @@
 		.form-control {
 			box-shadow: 3px 2px 8px 0px var(--box-shadow-color);
 			border-radius: 2rem;
-			color: var(--text-color-secondary);
 			padding-right: 3rem;
-			background-color: var(--form-control-bg-color);
 			z-index: 0;
-		}
-
-		.form-control::placeholder {
-			color: var(--form-control-placeholder-color);
 		}
 	}
 }

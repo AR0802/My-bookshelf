@@ -1,10 +1,6 @@
-<h1 i18n class="title">Good Morning</h1>
-@if (!books().length) {
-	<app-loader></app-loader>
+@if (!showLoader()) {
+	<h1 i18n class="title">Good Morning</h1>
 }
 @for (category of categories; track $index) {
-	<app-books
-		(booksOutput)="booksChange($event)"
-		[category]="category"
-	></app-books>
+	<app-books [category]="category"></app-books>
 }

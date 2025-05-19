@@ -75,8 +75,8 @@ describe('PaginationComponent', () => {
 		});
 
 		it('should pass correct inputs to ngb-pagination', () => {
-            fixture.detectChanges();
-            
+			fixture.detectChanges();
+
 			const paginationElement =
 				fixture.nativeElement.querySelector('ngb-pagination');
 

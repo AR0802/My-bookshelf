@@ -2,6 +2,7 @@ import {
 	ChangeDetectionStrategy,
 	Component,
 	DestroyRef,
+	effect,
 	inject,
 	OnInit,
 	signal,
@@ -13,6 +14,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AuthService } from '@shared/services/auth.service';
 import { AlertComponent } from '@ui-components/alert/alert.component';
 import { ThemeService } from '@shared/services/theme.service';
+import { InteractionService } from '@shared/services/interaction.service';
 
 @Component({
 	selector: 'app-root',
@@ -26,6 +28,13 @@ export class AppComponent implements OnInit {
 	private authService = inject(AuthService);
 	private themeService = inject(ThemeService);
 	private destroyRef = inject(DestroyRef);
+	private interactionService = inject(InteractionService);
+
+	constructor() {
+		effect(() => {
+			this.error.set(this.interactionService.error());
+		});
+	}
 
 	ngOnInit(): void {
 		this.themeService.loadTheme(JSON.parse(localStorage.getItem('theme')!));
@@ -45,11 +54,15 @@ export class AppComponent implements OnInit {
 						: this.authService.currentUserSig.set(null);
 				}),
 				catchError((error: Error) => {
-					this.error.set(error.message);
+					this.interactionService.setError(error.message);
 					return EMPTY;
 				}),
 				takeUntilDestroyed(this.destroyRef)
 			)
 			.subscribe();
+	}
+
+	close(): void {
+		this.interactionService.setError('');
 	}
 }

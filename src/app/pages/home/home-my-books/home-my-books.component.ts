@@ -9,32 +9,32 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { catchError, EMPTY, tap } from 'rxjs';
 
-import { UserBooksComponent } from '@components/user-books/user-books.component';
-import { BooksService } from '@shared/services/books.service';
+import { BooksContainerComponent } from '@components/books-container/books-container.component';
+import { BooksApiService } from '@shared/services/books-api.service';
 import { AuthService } from '@shared/services/auth.service';
 import { IUserBook } from '@shared/interfaces';
-import { AlertComponent } from '@ui-components/alert/alert.component';
+import { InteractionService } from '@shared/services/interaction.service';
 
 @Component({
 	selector: 'app-home-my-books',
-	imports: [UserBooksComponent, AlertComponent],
+	imports: [BooksContainerComponent],
 	templateUrl: './home-my-books.component.html',
 	styleUrl: './home-my-books.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeMyBooksComponent implements OnInit {
 	books = signal<IUserBook[]>([]);
-	error = signal<string>('');
-	private booksService = inject(BooksService);
+	private booksApiService = inject(BooksApiService);
 	private authService = inject(AuthService);
 	private destroyRef = inject(DestroyRef);
+	private interactionService = inject(InteractionService);
 
 	ngOnInit(): void {
 		this.setUserBooks();
 	}
 
 	private setUserBooks(): void {
-		this.booksService
+		this.booksApiService
 			.getUserBooks()
 			.pipe(
 				tap((userBooks: IUserBook[]) => {
@@ -45,7 +45,7 @@ export class HomeMyBooksComponent implements OnInit {
 					this.books.set(booksOfUser);
 				}),
 				catchError((error: Error) => {
-					this.error.set(error.message);
+					this.interactionService.setError(error.message);
 					return EMPTY;
 				}),
 				takeUntilDestroyed(this.destroyRef)

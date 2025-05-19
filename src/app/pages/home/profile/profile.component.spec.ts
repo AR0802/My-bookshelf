@@ -134,7 +134,6 @@ describe('ProfileComponent', () => {
 
 			component.saveProfile();
 
-			expect(component.error()).toBe(errorMessage);
 			expect(locationMock.back).not.toHaveBeenCalled();
 		});
 
