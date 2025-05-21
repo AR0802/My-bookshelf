@@ -1,6 +1,10 @@
 <div class="card" (click)="navigate()">
 	<img
-		[src]="book()?.volumeInfo?.imageLinks?.thumbnail"
+		[src]="
+			book()?.volumeInfo?.imageLinks?.thumbnail
+				? book()?.volumeInfo?.imageLinks?.thumbnail
+				: '/no-image.jpg'
+		"
 		[title]="book()?.volumeInfo?.title"
 		[alt]="book()?.volumeInfo?.title"
 		i18n-alt

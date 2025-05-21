@@ -36,6 +36,7 @@ export class HomeSearchComponent implements OnInit {
 	];
 	booksForPage = signal<IBook[]>([]);
 	books = signal<IBook[]>([]);
+	homeBooks = signal<IBook[]>([]);
 	authorBooks = signal<IBook[] | undefined>(undefined);
 	notFoundMessage = signal<string>('');
 	private router = inject(Router);
@@ -47,6 +48,9 @@ export class HomeSearchComponent implements OnInit {
 	constructor() {
 		this.authorBooks.set(
 			this.router.getCurrentNavigation()?.extras.state?.['items']
+		);
+		this.homeBooks.set(
+			this.router.getCurrentNavigation()?.extras.state?.['homeBooks']
 		);
 
 		effect(() => {
@@ -70,6 +74,10 @@ export class HomeSearchComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		this.setupBooks();
+	}
+
+	private setupBooks(): void {
 		if (this.booksService.searchAuthorBooks()) {
 			if (this.authorBooks() && !this.authorBooks()?.length) {
 				this.notFoundMessage.set($localize`Nothing Found!`);
@@ -80,6 +88,13 @@ export class HomeSearchComponent implements OnInit {
 				this.booksForPage.set(this.booksService.books().slice(0, 10));
 			}
 			this.booksService.searchAuthorBooks.set(false);
+		}
+
+		if (this.booksService.showHomeBooks()) {
+			this.booksService.books.set(this.homeBooks());
+			this.books.set(this.booksService.books());
+			this.booksForPage.set(this.booksService.books().slice(0, 10));
+			this.booksService.showHomeBooks.set(false);
 		}
 
 		if (!this.booksForPage().length) {

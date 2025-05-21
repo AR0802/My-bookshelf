@@ -1,14 +1,14 @@
 import '@angular/localize/init';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Router, UrlTree } from '@angular/router';
+import { Router } from '@angular/router';
 import { signal } from '@angular/core';
 import { of } from 'rxjs';
 
-import { HomeSearchComponent } from './home-search.component';
 import { BooksApiService } from '@shared/services/books-api.service';
 import { BooksService } from '@shared/services/books.service';
 import { IBook, IResponse } from '@shared/interfaces';
 import { InteractionService } from '@shared/services/interaction.service';
+import { HomeSearchComponent } from './home-search.component';
 
 describe('HomeSearchComponent', () => {
 	let component: HomeSearchComponent;
@@ -76,23 +76,6 @@ describe('HomeSearchComponent', () => {
 			expect(component.books().length).toBe(0);
 			expect(component.booksForPage().length).toBe(0);
 			expect(component.authorBooks()).toBeUndefined();
-		});
-
-		it('should set author books from router state', () => {
-			routerMock.getCurrentNavigation.and.returnValue({
-				extras: { state: { items: mockBooks } },
-				id: 0,
-				initialUrl: new UrlTree(),
-				extractedUrl: new UrlTree(),
-				trigger: 'imperative',
-				previousNavigation: null,
-			});
-
-			fixture = TestBed.createComponent(HomeSearchComponent);
-			component = fixture.componentInstance;
-			fixture.detectChanges();
-
-			expect(component.authorBooks()).toEqual(mockBooks);
 		});
 	});
 

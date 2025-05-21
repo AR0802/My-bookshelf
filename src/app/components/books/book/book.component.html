@@ -1,6 +1,10 @@
 <div class="card" [routerLink]="book()?.id">
 	<img
-		[src]="book()?.volumeInfo?.imageLinks?.thumbnail"
+		[src]="
+			book()?.volumeInfo?.imageLinks?.thumbnail
+				? book()?.volumeInfo?.imageLinks?.thumbnail
+				: '/no-image.jpg'
+		"
 		[title]="book()?.volumeInfo?.title"
 		[alt]="book()?.volumeInfo?.title"
 		class="card-img-top"

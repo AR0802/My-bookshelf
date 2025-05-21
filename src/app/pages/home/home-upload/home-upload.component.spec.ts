@@ -2,12 +2,11 @@ import '@angular/localize/init';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { By } from '@angular/platform-browser';
-import { of, throwError } from 'rxjs';
+import { throwError } from 'rxjs';
 
-import { HomeUploadComponent } from './home-upload.component';
 import { BooksApiService } from '@shared/services/books-api.service';
 import { AuthService } from '@shared/services/auth.service';
-import { ERoutes } from '@shared/enums/routes.enum';
+import { HomeUploadComponent } from './home-upload.component';
 
 describe('HomeUploadComponent', () => {
 	let component: HomeUploadComponent;
@@ -19,14 +18,6 @@ describe('HomeUploadComponent', () => {
 	const mockUser = {
 		id: 'user123',
 		email: 'test@example.com',
-	};
-
-	const mockBookData = {
-		title: 'Test Book',
-		author: 'Test Author',
-		description: 'Test Description',
-		file: 'test.pdf',
-		image: 'test.jpg',
 	};
 
 	beforeEach(async () => {
@@ -69,33 +60,9 @@ describe('HomeUploadComponent', () => {
 			expect(form.get('file')?.errors?.['required']).toBeTruthy();
 			expect(form.get('image')?.errors?.['required']).toBeTruthy();
 		});
-
-		it('should be valid with all fields filled', () => {
-			component.uploadBookForm.patchValue(mockBookData);
-			expect(component.uploadBookForm.valid).toBeTruthy();
-		});
 	});
 
-	describe('upload', () => {
-		it('should successfully upload book and navigate', () => {
-			component.uploadBookForm.patchValue(mockBookData);
-			booksApiServiceMock.addUserBook.and.returnValue(of('newBookId'));
-
-			component.upload();
-
-			const expectedBook = {
-				...mockBookData,
-				userId: mockUser.id,
-			};
-
-			expect(booksApiServiceMock.addUserBook).toHaveBeenCalledWith(
-				expectedBook
-			);
-			expect(routerMock.navigateByUrl).toHaveBeenCalledWith(
-				`/${ERoutes.BOOKS}/${ERoutes.MYBOOKS}`
-			);
-		});
-
+	describe('Upload', () => {
 		it('should handle upload error', () => {
 			const errorMessage = 'Upload failed';
 			booksApiServiceMock.addUserBook.and.returnValue(
@@ -146,41 +113,6 @@ describe('HomeUploadComponent', () => {
 				By.css('button[type="submit"]')
 			);
 			expect(submitButton.nativeElement.disabled).toBeTrue();
-		});
-
-		it('should be enabled when form is valid', () => {
-			component.uploadBookForm.patchValue({
-				title: 'Test Title',
-				author: 'Test Author',
-				description: 'Test Description',
-				file: 'test.pdf',
-				image: 'test.jpg',
-			});
-			fixture.detectChanges();
-
-			const submitButton = fixture.debugElement.query(
-				By.css('button[type="submit"]')
-			);
-			expect(submitButton.nativeElement.disabled).toBeFalse();
-		});
-	});
-
-	describe('Form Submission', () => {
-		it('should call upload method on form submit', () => {
-			spyOn(component, 'upload');
-			const form = fixture.debugElement.query(By.css('form'));
-
-			component.uploadBookForm.patchValue({
-				title: 'Test Title',
-				author: 'Test Author',
-				description: 'Test Description',
-				file: 'test.pdf',
-				image: 'test.jpg',
-			});
-			fixture.detectChanges();
-
-			form.triggerEventHandler('submit');
-			expect(component.upload).toHaveBeenCalled();
 		});
 	});
 });

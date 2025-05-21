@@ -2,7 +2,11 @@
 	<div class="row">
 		<div class="col-lg-1 card-img-container">
 			<img
-				[src]="book()?.volumeInfo?.imageLinks?.thumbnail"
+				[src]="
+					book()?.volumeInfo?.imageLinks?.thumbnail
+						? book()?.volumeInfo?.imageLinks?.thumbnail
+						: '/no-image.jpg'
+				"
 				[title]="book()?.volumeInfo?.title"
 				i18n-title
 				class="card-img"
