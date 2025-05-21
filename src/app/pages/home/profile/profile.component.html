@@ -18,7 +18,8 @@
 						: ''
 				}}"
 			>
-				Enter valid name!
+				Invalid name. Name must contain letters, numbers, symbols "_" and "-"
+				and have length from 2 to 15.
 			</p>
 		</div>
 		<div>
@@ -51,8 +52,7 @@
 				type="submit"
 				[disabled]="
 					profileForm.invalid ||
-					(profileForm.value.name === initialName() &&
-						profileForm.value.image === '')
+					(profileForm.value.name === initialName() && !imgChange())
 				"
 			>
 				Save Profile

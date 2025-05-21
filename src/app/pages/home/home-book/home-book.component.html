@@ -7,7 +7,11 @@
 		<div class="card-container">
 			<div class="card-book border-0">
 				<img
-					[src]="book()?.volumeInfo?.imageLinks?.thumbnail"
+					[src]="
+						book()?.volumeInfo?.imageLinks?.thumbnail
+							? book()?.volumeInfo?.imageLinks?.thumbnail
+							: '/no-image.jpg'
+					"
 					[title]="book()?.volumeInfo?.title"
 					[alt]="book()?.volumeInfo?.title"
 					i18n-alt
@@ -46,6 +50,7 @@
 								i18n-alt
 								i18n-title
 								class="card-author-image border"
+								[routerLink]="['/', ERoutes.BOOKS, authorBook.id]"
 							/>
 						}
 						@if (!authorBooks().length) {

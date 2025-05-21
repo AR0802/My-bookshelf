@@ -34,6 +34,7 @@ export class ProfileComponent implements OnInit {
 	selectedFile = signal<File | null>(null);
 	imgUrl = signal('');
 	initialName = signal('');
+	imgChange = signal(false);
 	private authService = inject(AuthService);
 	private supabaseStorageService = inject(SupabaseStorageService);
 	private location = inject(Location);
@@ -87,13 +88,15 @@ export class ProfileComponent implements OnInit {
 		if (input.files && input.files.length > 0) {
 			this.selectedFile.set(input.files[0]);
 		} else return;
+		this.imgChange.set(true);
 		this.createURL(this.selectedFile()!);
 	}
 
 	removeImage(): void {
-		this.revokeURL();
+		this.imgUrl.set('');
 		this.selectedFile.set(null);
 		this.profileForm.controls.image.setValue('');
+		this.imgChange.set(false);
 	}
 
 	saveProfile(): void {

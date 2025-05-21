@@ -9,4 +9,5 @@ export class BooksService {
 	foundBooks = signal<IBook[] | null>(null);
 	searchBooks = signal<boolean>(false);
 	searchAuthorBooks = signal<boolean>(false);
+	showHomeBooks = signal(false);
 }

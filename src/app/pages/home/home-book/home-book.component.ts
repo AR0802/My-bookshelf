@@ -8,7 +8,7 @@ import {
 	signal,
 } from '@angular/core';
 import { Location, SlicePipe } from '@angular/common';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute, Params, RouterLink } from '@angular/router';
 import { catchError, EMPTY, switchMap, tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
@@ -21,12 +21,13 @@ import { InteractionService } from '@shared/services/interaction.service';
 
 @Component({
 	selector: 'app-home-book',
-	imports: [SlicePipe, SeparatorPipe],
+	imports: [RouterLink, SlicePipe, SeparatorPipe],
 	templateUrl: './home-book.component.html',
 	styleUrl: './home-book.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeBookComponent implements OnInit {
+	readonly ERoutes = ERoutes;
 	book = signal<IBook | undefined>(undefined);
 	authorBooks = signal<IBook[]>([]);
 	haveAuthorBooks = signal<boolean>(false);
